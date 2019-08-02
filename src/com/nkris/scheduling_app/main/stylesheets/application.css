@@ -1,0 +1,17 @@
+#clock {
+    -fx-font-size: 660px;
+    -fx-font-family: "Lucida Console";
+    -fx-fill: white;
+    -fx-stroke: black;
+    -fx-stroke-width: 1;
+    -LABEL-PADDING-TOP: 200px;
+}
+
+#calendarDay {
+	-fx-background-color: #8BDBF9
+}
+
+
+.jfx-hamburger StackPane{
+	 -fx-background-color: #FFFFFF;
+}
