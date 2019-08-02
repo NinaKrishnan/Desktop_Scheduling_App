@@ -1,2 +1,4 @@
 # Desktop_Scheduling_App
-GUI-based scheduling and database desktop application built for a mock consulting company to manage user schedules and customer infromation using a SQL database. Written using Java for application logic, JAVAFX and CSS for the GUI, and SQL for database manipulation. Includes separate unit test classes for each controller class and mapping data structure to store usernames and corresponding encrypted passwords.
+GUI-based scheduling and database desktop application built for a mock consulting company to manage user schedules and customer infromation using a SQL database. 
+
+Technologies used: Java, JavaFX, SQL, CSS
