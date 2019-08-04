@@ -1,5 +1,5 @@
 #clock {
-    -fx-font-size: 660px;
+    -fx-font-size: 60px;
     -fx-font-family: "Lucida Console";
     -fx-fill: white;
     -fx-stroke: black;
@@ -14,4 +14,11 @@
 
 .jfx-hamburger StackPane{
 	 -fx-background-color: #FFFFFF;
+}
+
+#dateLabel {
+	-fx-font-size: 16;
+	-fx-text-fill:  #6CB7B0;
+	-fx-font-family: "Arial Black";
+	
 }

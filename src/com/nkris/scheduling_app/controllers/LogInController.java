@@ -210,7 +210,6 @@ public class LogInController implements Initializable
 		Scene homeScreen = new Scene(parent);
 		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		stage.setScene(homeScreen);
-		stage.setMaximized(true);
 		stage.show();
 	}
 

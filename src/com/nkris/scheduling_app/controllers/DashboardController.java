@@ -2,8 +2,13 @@ package com.nkris.scheduling_app.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -61,6 +66,9 @@ public class DashboardController implements Initializable
 	private Label timeClock; //Live animated clock; localized to timezone
 	
 	@FXML
+	private Label dateLabel; //Label to display date on side panel schedule
+	
+	@FXML
 	private ToggleGroup calendarView; //Toggle button group for calendar view options
 									//(month, week, or day)
 	
@@ -111,8 +119,10 @@ public class DashboardController implements Initializable
 	@Override
 	public void initialize(URL url, ResourceBundle rb)
 	{
-		//setClock();
+		setClock();
 		setHamburgerTransition();	
+		displayCurrentDate();
+		
 	}
 	
 	
@@ -120,7 +130,7 @@ public class DashboardController implements Initializable
 	 * Creates a 12-hour clock in the left hand corner of dashboard schedule. Clock is localized to
 	 * time zone and includes a second counter.
 	 */
-	/*
+	
 	private void setClock() 
 	{
 		Timeline clock = new Timeline(new KeyFrame(Duration.ZERO, e -> {
@@ -130,8 +140,8 @@ public class DashboardController implements Initializable
 	        //If it is past noon, subtract twelve from the time and add a "p.m." string 
 	        if(LocalDateTime.now().getHour()>12) 
 	        {
-	        	timeClock.setText("\n"+(LocalDateTime.now().getHour()-12) +
-	        			":"+LocalDateTime.now().format(pmFormatter));
+	        	timeClock.setText("\n"+(LocalDateTime.now().getHour()-12 ) +
+	        			":"+LocalDateTime.now().format(pmFormatter)+" p.m.");
 	        }
 	       
 	        //If it is noon or earlier, add an "a.m." string 
@@ -140,7 +150,15 @@ public class DashboardController implements Initializable
 	    clock.setCycleCount(Animation.INDEFINITE);
 	    clock.play();
 	}
-	*/
+	
+	
+
+	private void displayCurrentDate()
+	{
+		DateFormat df = new SimpleDateFormat("MMM dd, yyyy");
+		dateLabel.setText("Your agenda: "+df.format(new Date()));
+	}
+	
 	private void setHamburgerTransition()
 	{
 		try 
