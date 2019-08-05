@@ -152,7 +152,7 @@ public class DashboardController implements Initializable
 	    clock.setCycleCount(Animation.INDEFINITE);
 	    clock.play();
 	}
-	
+	 
 	
 
 	private void displayCurrentDate()
