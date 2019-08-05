@@ -161,6 +161,9 @@ public class DashboardController implements Initializable
 		dateLabel.setText("Your agenda: "+df.format(new Date()));
 	}
 	
+	/*
+	 *  
+	 */
 	private void setHamburgerTransition()
 	{
 		try 

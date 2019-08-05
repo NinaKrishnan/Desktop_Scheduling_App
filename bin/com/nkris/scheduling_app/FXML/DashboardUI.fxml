@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
- 
+
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXToolbar?>
@@ -20,7 +20,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="739.0" prefWidth="1068.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nkris.scheduling_app.controllers.DashboardController">
    <children>
-      <GridPane fx:id="calendarGrid" layoutX="418.0" layoutY="174.0" prefHeight="525.0" prefWidth="628.0" style="-fx-background-color: #24AEFE;" styleClass="calendarDay" stylesheets="@../../../../../../Desktop%20Scheduling%20Application/src/com/nkris/scheduling_app/controllers/application.css">
+      <GridPane fx:id="calendarGrid" layoutX="418.0" layoutY="174.0" prefHeight="525.0" prefWidth="628.0" style="-fx-background-color: #24AEFE; -fx-border-color: #000000;" styleClass="calendarDay" stylesheets="@../../../../../../Desktop%20Scheduling%20Application/src/com/nkris/scheduling_app/controllers/application.css">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -135,7 +135,7 @@
             <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="5" GridPane.rowIndex="5" />
          </children>
       </GridPane>
-      <AnchorPane layoutX="358.0" layoutY="57.0" prefHeight="99.0" prefWidth="628.0" style="-fx-background-color: #FFFFFF;">
+      <AnchorPane layoutX="418.0" layoutY="69.0" prefHeight="99.0" prefWidth="628.0" style="-fx-background-color: #FFFFFF;">
          <children>
             <Label layoutX="247.0" layoutY="15.0" text="August 2019">
                <font>
@@ -149,54 +149,54 @@
             </ToggleButton>
             <ToggleButton layoutX="275.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" style="-fx-border-color: #24AEFE;" text="Week" toggleGroup="$calendarView" />
             <ToggleButton layoutX="365.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" style="-fx-border-color: #24AEFE;" text="Day" toggleGroup="$calendarView" />
-            <Button layoutX="14.0" layoutY="37.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="&lt;">
+            <Button layoutX="523.0" layoutY="37.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="&gt;">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Button>
-            <Button layoutX="562.0" layoutY="38.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="&gt;">
+            <Button layoutX="85.0" layoutY="37.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="&lt;">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Button>
          </children>
       </AnchorPane>
-      <VBox alignment="TOP_CENTER" layoutX="45.0" layoutY="57.0" prefHeight="643.0" prefWidth="372.0">
+      <VBox alignment="TOP_CENTER" layoutX="38.0" layoutY="105.0" prefHeight="595.0" prefWidth="379.0">
          <children>
-            <Label id="dateLabel" fx:id="dateLabel" prefHeight="36.0" prefWidth="302.0" stylesheets="@../main/stylesheets/application.css" textFill="#1512ad">
+            <Label id="dateLabel" fx:id="dateLabel" prefHeight="20.0" prefWidth="268.0" stylesheets="@../main/stylesheets/application.css" textFill="#1512ad">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <ScrollPane prefHeight="610.0" prefWidth="308.0">
+            <ScrollPane prefHeight="575.0" prefWidth="385.0">
               <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1160.0" prefWidth="453.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1308.0" prefWidth="444.0">
                      <children>
-                        <JFXDrawer fx:id="jfxDrawer" defaultDrawerSize="190.0" layoutX="-18.0" layoutY="22.0" prefHeight="579.0" prefWidth="191.0" />
+                        <JFXDrawer fx:id="jfxDrawer" defaultDrawerSize="200.0" layoutX="-10.0" layoutY="26.0" prefHeight="516.0" prefWidth="49.0" />
                      </children>
                   </AnchorPane>
               </content>
             </ScrollPane>
          </children>
       </VBox>
-      <VBox layoutY="92.0" prefHeight="608.0" prefWidth="45.0" style="-fx-background-color: #1512AD;">
-         <children>
-            <JFXHamburger fx:id="jfxHamburger" prefHeight="21.0" prefWidth="45.0" stylesheets="@../main/stylesheets/application.css">
-               <padding>
-                  <Insets top="5.0" />
-               </padding>
-            </JFXHamburger>
-         </children>
-      </VBox>
-      <JFXToolbar layoutY="-2.0" prefHeight="53.0" prefWidth="1068.0">
+      <JFXToolbar layoutY="-2.0" prefHeight="47.0" prefWidth="1068.0" style="-fx-background-color: #000000;">
          <right>
-            <Label fx:id="timeClock" prefHeight="53.0" prefWidth="115.0" textFill="#1909e5" BorderPane.alignment="CENTER">
+            <Label id="clock" fx:id="timeClock" prefHeight="38.0" prefWidth="115.0" stylesheets="@../main/stylesheets/application.css" textFill="#1909e5" BorderPane.alignment="CENTER">
                <font>
                   <Font size="19.0" />
                </font>
             </Label>
          </right>
       </JFXToolbar>
+      <VBox layoutX="4.0" layoutY="125.0" prefHeight="575.0" prefWidth="36.0" style="-fx-background-color: #1512AD;">
+         <children>
+            <JFXHamburger fx:id="jfxHamburger" stylesheets="@../main/stylesheets/application.css">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </JFXHamburger>
+         </children>
+      </VBox>
    </children>
    <effect>
       <InnerShadow height="255.0" offsetX="-2.0" offsetY="10.0" radius="68.5" />
