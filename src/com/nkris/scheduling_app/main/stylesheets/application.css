@@ -21,3 +21,15 @@
 	-fx-font-weight: bold;
 	
 } 
+
+#hBox {
+	-fx-box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+}
+
+#weekdayLabel {
+	-fx-background-color: #24AEFE;
+	-fx-font-size: 17;
+	-fx-text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+	
+	
+}

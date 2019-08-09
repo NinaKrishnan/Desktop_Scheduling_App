@@ -13,6 +13,7 @@ import java.util.ResourceBundle;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +25,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -32,6 +35,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -110,7 +114,11 @@ public class DashboardController implements Initializable
 	private JFXHamburger jfxHamburger;
 	
 	@FXML
-	private JFXDrawer jfxDrawer;
+	private JFXDrawer mainDrawer;
+	
+	
+	
+
 	
 	
 	/*
@@ -168,7 +176,7 @@ public class DashboardController implements Initializable
 	{
 		try 
 		{
-			setDrawerContent();
+			setMainDrawerContent();
 		
 		HamburgerSlideCloseTransition transition = new HamburgerSlideCloseTransition(jfxHamburger);
 		transition.setRate(-1);
@@ -176,11 +184,11 @@ public class DashboardController implements Initializable
 			transition.setRate(transition.getRate()*-1);
 			transition.play();
 			
-			if(jfxDrawer.isOpened())
+			if(mainDrawer.isOpened())
 			{
-				jfxDrawer.close();
+				mainDrawer.close();
 			}
-			else jfxDrawer.open();
+			else mainDrawer.open();
 		});
 		}
 		catch(IOException e)
@@ -189,16 +197,39 @@ public class DashboardController implements Initializable
 		}
 	}
 	
-	private void setDrawerContent() throws IOException
+	private void setMainDrawerContent() throws IOException
 	{
 		AnchorPane drawerContent = FXMLLoader.load(getClass().getResource
 				("/com/nkris/scheduling_app/FXML/helpers/DrawerContent.fxml"));
-		jfxDrawer.setSidePane(drawerContent);
+		mainDrawer.setSidePane(drawerContent);
 	}
 	
+
+
 	
 	
 
+	
+	
+	private boolean getSignOutConfirmation()
+	{
+		Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you want to sign out>", 
+				ButtonType.YES, ButtonType.CANCEL);
+		alert.showAndWait();
+		if(alert.getResult() == ButtonType.YES) return true;
+		return false;
+	}
+	
+	
+	private void returnToLoginScreen(ActionEvent event) throws IOException
+	{
+		Parent parent = FXMLLoader.load(getClass().getResource(
+				"/com/nkris/scheduling_app/FXML/LogInScreen.fxml"));
+		Scene loginScreen = new Scene(parent);
+		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		stage.setScene(loginScreen);
+		stage.show();
+	}
 	
 	/*
 	 * Function to retrieve any individual cell in the calendar grid using the cell's coordinates

@@ -1,62 +1,187 @@
 package com.nkris.scheduling_app.controllers.helpers;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXColorPicker;
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXPopup;
+import com.nkris.scheduling_app.controllers.DashboardController;
+
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
+import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.stage.Modality;
+import javafx.stage.Popup;
+import javafx.stage.PopupWindow.AnchorLocation;
 import javafx.stage.Stage;
 
-public class DrawerContentController 
+public class DrawerContentController implements Initializable
 {
 	
 	@FXML
-	private Button signOutButton;
+	private AnchorPane navDrawer;
 	
 	
 	@FXML
-	private void signOut(ActionEvent event) throws IOException
+	private JFXButton accountButton;
+	
+	@FXML
+	private JFXButton settingsButton;
+	
+	
+	@FXML
+	private VBox vBox;
+	
+	@FXML
+	private HBox accountHBox;
+	
+	@FXML
+	private HBox settingsHBox;
+	
+
+	
+	@Override
+	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
-		if(getSignOutConfirmation()==true) 
-		{
-			returnToLoginScreen(event);
-		}
 		
 	}
+
 	
-	private boolean getSignOutConfirmation()
+	
+	@FXML
+	private void showAccountPopup(MouseEvent event) 
 	{
-		Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you want to sign out?"
-				, ButtonType.YES, ButtonType.CANCEL);
-		alert.showAndWait();
-		
-		if(alert.getResult()==ButtonType.YES) 
+		try
+		{
+			AnchorPane popupContent = FXMLLoader.load(getClass().getResource
+					("/com/nkris/scheduling_app/FXML/helpers/AccountPopUp.fxml"));
+			if(accountPopupIsShowing())
 			{
-			return true;
+				hideAccountPopup();
 			}
-		return false;
+			else {
+				accountHBox.setPrefHeight(120);
+				accountHBox.setPrefWidth(135);
+				accountHBox.setAlignment(Pos.CENTER);
+				accountHBox.getChildren().addAll(popupContent);
+				accountHBox.setMargin(popupContent, new Insets(0, 0, 10, 0));
+				accountButton.setText("Account ⮝");
+			}
+		}
+		
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@FXML
+	private void showSettingsPopup(ActionEvent event)
+	{
+			
+		if(accountPopupIsShowing())
+		{
+			hideAccountPopup();
+		}
+		if(settingsPopupIsShowing())
+		{
+			hideSettingsPopup();
+		}
+		else
+		{
+			renderSettingsPopup();
+			
+		}
+	
 	}
 	
 
-	/*
-	 * Sign user out of account and return to login screen
-	 */
-	private void returnToLoginScreen(ActionEvent event) throws IOException
+	
+	private void renderSettingsPopup()
 	{
-		Parent parent = FXMLLoader.load(getClass().getResource
-				("/com/nkris/scheduling_app/FXML/LogInScreen.fxml"));
-		
-		Scene loginScreen = new Scene(parent);
-		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		stage.setScene(loginScreen);
-		stage.show();
+		settingsHBox.setPrefHeight(120);
+		settingsHBox.setPrefWidth(120);
+		settingsHBox.setAlignment(Pos.CENTER);
+		JFXButton chooseColorButton = new JFXButton("Choose Color: ");
+		settingsHBox.getChildren().addAll(chooseColorButton);
+		chooseColorButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
+			chooseColor(new JFXColorPicker(), settingsHBox);
+			
+		});
+		settingsButton.setText("Settings ⮝");
 	}
+	 
+	
+	
+	private void chooseColor(JFXColorPicker colorpicker, HBox hbox)
+	{
+		colorpicker.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
+			 navDrawer.setBackground(new Background(new BackgroundFill
+						(Paint.valueOf(colorpicker.getValue().toString()), CornerRadii.EMPTY, Insets.EMPTY)));
+		});
+		hbox.getChildren().addAll(colorpicker);
+	}
+	
+	
+	private boolean accountPopupIsShowing()
+	{
+		if(accountHBox.getHeight() > 0)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	
+	
+	private void hideAccountPopup()
+	{
+	
+		accountHBox.getChildren().clear();
+		accountHBox.setPrefHeight(0);
+		accountButton.setText("Account ⮟");
+	}
+	
+	
+
+	private boolean settingsPopupIsShowing()
+	{
+		if(settingsHBox.getHeight() > 0)
+		{
+			return true;
+		}
+		return false;
+	}
+	
+	
+	private void hideSettingsPopup()
+	{
+		settingsHBox.getChildren().clear();
+		settingsHBox.setPrefHeight(0);
+		settingsButton.setText("Settings ⮟");
+	}
+	
+	
+	
+	
 	
 
 }

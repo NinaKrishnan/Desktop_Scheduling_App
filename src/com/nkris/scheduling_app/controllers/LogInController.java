@@ -3,6 +3,7 @@ package com.nkris.scheduling_app.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -95,6 +96,9 @@ public class LogInController implements Initializable
     @FXML
     private Button loginButton; //Login button; validates username and password and logs user into 
     							//system if valid, and displays error message otherwise.
+    
+    static HashMap<String, String> credentials = new HashMap<String, String>();
+    
     //TODO							
     private final int loginAttempLimit = 3; //Maximum number of incorrect login attempts from any one user
     
@@ -107,8 +111,7 @@ public class LogInController implements Initializable
 	public void initialize(URL url, ResourceBundle rb) 
 	{
 		usernameTextField.setFocusTraversable(false);
-		passwordTextField.setFocusTraversable(false);
-		
+		passwordTextField.setFocusTraversable(false);	
 	}
     
 	

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="99.0" prefWidth="103.0" style="-fx-background-color: #0356fc;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nkris.scheduling_app.controllers.helpers.AccountPopupController">
+   <children>
+      <JFXButton fx:id="accountButton" buttonType="RAISED" prefHeight="43.0" prefWidth="103.0" ripplerFill="#0ed6ed" style="-fx-border-color: #000000; -fx-border-radius: 3; -fx-border-width: 1.4; -fx-background-color: #0e0ecc;" text="Profile" textFill="WHITE">
+         <effect>
+            <InnerShadow choke="0.6" height="202.8" radius="71.3275" width="84.51" />
+         </effect>
+         <font>
+            <Font size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="signOutButton" layoutY="50.0" onAction="#signOut" prefHeight="50.0" prefWidth="103.0" ripplerFill="#0ed6ed" style="-fx-border-color: #000000; -fx-border-radius: 3; -fx-background-color: #9ba4a8; -fx-border-width: 1.4;" text="Sign Out" textFill="WHITE">
+         <effect>
+            <InnerShadow choke="0.79" height="63.81" radius="44.7325" width="117.12">
+               <input>
+                  <InnerShadow />
+               </input>
+            </InnerShadow>
+         </effect>
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </JFXButton>
+   </children>
+   <effect>
+      <InnerShadow height="18.41" offsetY="-4.0" radius="16.025" width="47.69" />
+   </effect>
+</AnchorPane>
