@@ -2,6 +2,7 @@ package com.nkris.scheduling_app.controllers.helpers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -17,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -31,6 +33,7 @@ import javafx.stage.Modality;
 import javafx.stage.Popup;
 import javafx.stage.PopupWindow.AnchorLocation;
 import javafx.stage.Stage;
+
 
 public class DrawerContentController implements Initializable
 {
@@ -55,12 +58,16 @@ public class DrawerContentController implements Initializable
 	@FXML
 	private HBox settingsHBox;
 	
+	@FXML
+	private JFXButton dashboardButton;
+	
 
+	private ArrayList<JFXButton> buttons = new ArrayList<JFXButton>();
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
-		
+		createButtonGroup();
 	}
 
 	
@@ -135,7 +142,9 @@ public class DrawerContentController implements Initializable
 	{
 		colorpicker.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
 			 navDrawer.setBackground(new Background(new BackgroundFill
-						(Paint.valueOf(colorpicker.getValue().toString()), CornerRadii.EMPTY, Insets.EMPTY)));
+						(Paint.valueOf(colorpicker.getValue().toString()), 
+								CornerRadii.EMPTY, Insets.EMPTY)));
+			 changeButtonColor(colorpicker.getValue().toString());
 		});
 		hbox.getChildren().addAll(colorpicker);
 	}
@@ -177,6 +186,27 @@ public class DrawerContentController implements Initializable
 		settingsHBox.getChildren().clear();
 		settingsHBox.setPrefHeight(0);
 		settingsButton.setText("Settings ⮟");
+	}
+	
+	
+	private void changeButtonColor(String color)
+	{
+		for(JFXButton btn : buttons)
+		{
+			btn.setStyle("-fx-background-color: "+color);
+		}
+	}
+	
+	
+	private void createButtonGroup()
+	{
+		for(Node node : navDrawer.getChildren())
+		{
+			if(node instanceof JFXButton)
+			{
+				buttons.add((JFXButton) node);
+			}
+		}
 	}
 	
 	
