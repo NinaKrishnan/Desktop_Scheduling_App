@@ -19,7 +19,7 @@ public class AccountPopupController
 {
 	@FXML
 	private JFXButton signOutButton;
-	
+	 
 	
 	
 	@FXML
