@@ -228,7 +228,7 @@ public class DrawerContentController implements Initializable
 		accountButton.setText("Account ⮟");
 	}
 	
-	 
+	  
 	/*
 	 * Checks to see if Settings button popup is showing; returns true if so, false otherwise
 	 */
