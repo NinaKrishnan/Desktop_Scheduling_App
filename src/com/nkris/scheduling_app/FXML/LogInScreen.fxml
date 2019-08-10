@@ -18,7 +18,7 @@
     <children>
         <AnchorPane layoutX="-12.0" layoutY="-2.0" prefHeight="800.0" prefWidth="968.0" style="-fx-background-color: #FFFFFF;">
             <children>
-                <TextField fx:id="usernameTextField" layoutX="568.0" layoutY="346.0" prefHeight="45.0" prefWidth="297.0" promptText="Username" style="-fx-background-color: #F4FEFD; -fx-border-color: #EFEEEE;">
+                <TextField fx:id="usernameTextField" layoutX="568.0" layoutY="346.0" onKeyPressed="#setPasswordFocus" prefHeight="45.0" prefWidth="297.0" promptText="Username" style="-fx-background-color: #F4FEFD; -fx-border-color: #EFEEEE;">
                     <font>
                         <Font size="14.0" />
                     </font>
@@ -34,7 +34,7 @@
                         <DropShadow color="#94a19c" height="3.47" offsetY="2.0" radius="1.48" width="4.45" />
                     </effect>
                 </PasswordField>
-                <Button fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" layoutX="568.0" layoutY="513.0" mnemonicParsing="false" onAction="#loginButtonClicked" prefHeight="45.0" prefWidth="297.0" style="-fx-background-color: #24AEFE;" text="Log In" textFill="WHITE">
+                <Button id="cursor" fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" layoutX="568.0" layoutY="513.0" mnemonicParsing="false" onAction="#loginButtonClicked" onMouseEntered="#changeCursorToHand" prefHeight="45.0" prefWidth="297.0" style="-fx-background-color: #24AEFE;" stylesheets="@../main/stylesheets/application.css" text="Log In" textFill="WHITE">
                     <font>
                         <Font name="SansSerif Regular" size="16.0" />
                     </font>
@@ -42,7 +42,7 @@
                         <DropShadow blurType="ONE_PASS_BOX" offsetY="2.0" spread="0.18" />
                     </effect>
                 </Button>
-                <MenuButton fx:id="languageMenuButton" layoutX="685.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="English">
+                <MenuButton id="cursor" fx:id="languageMenuButton" layoutX="685.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" stylesheets="@../main/stylesheets/application.css" text="English">
                     <items>
                         <MenuItem fx:id="englishMenuItem" mnemonicParsing="false" onAction="#englishSelected" text="English " />
                         <MenuItem fx:id="spanishMenuItem" mnemonicParsing="false" onAction="#spanishSelected" text="Spanish" />
@@ -83,9 +83,8 @@
                         <Font name="Tahoma" size="18.0" />
                     </font>
                 </Label>
-                <Button fx:id="forgotPasswordButton" layoutX="755.0" layoutY="468.0" mnemonicParsing="false" onAction="#forgotPasswordButtonClicked" style="-fx-background-color: #FFFFFF;" text="Forgot Password?" textFill="#2252ba" />
+                <Button id="cursor" fx:id="forgotPasswordButton" layoutX="755.0" layoutY="468.0" mnemonicParsing="false" onAction="#forgotPasswordButtonClicked" style="-fx-background-color: #FFFFFF;" stylesheets="@../main/stylesheets/application.css" text="Forgot Password?" textFill="#2252ba" />
             </children>
         </AnchorPane>
     </children>
 </AnchorPane>
-

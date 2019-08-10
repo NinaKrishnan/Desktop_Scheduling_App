@@ -4,22 +4,15 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXColorPicker;
-import com.jfoenix.controls.JFXDrawer;
-import com.jfoenix.controls.JFXPopup;
-import com.nkris.scheduling_app.controllers.DashboardController;
-
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
@@ -27,51 +20,53 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
-import javafx.stage.Modality;
-import javafx.stage.Popup;
-import javafx.stage.PopupWindow.AnchorLocation;
-import javafx.stage.Stage;
 
 
 public class DrawerContentController implements Initializable
 {
 	
 	@FXML
-	private AnchorPane navDrawer;
+	private AnchorPane navDrawer; //Main navigation drawer
 	
 	
 	@FXML
-	private JFXButton accountButton;
-	
-	@FXML
-	private JFXButton settingsButton;
+	private JFXButton accountButton; //Account button in main nav drawer
 	
 	
 	@FXML
-	private VBox vBox;
+	private JFXButton settingsButton; //Settings button in main nav drawer
+	
 	
 	@FXML
-	private HBox accountHBox;
+	private HBox accountHBox; //Container for account button drop-down
+	
 	
 	@FXML
-	private HBox settingsHBox;
+	private HBox settingsHBox; //Container for settings button drop-down
+	
 	
 	@FXML
-	private JFXButton dashboardButton;
+	private JFXButton dashboardButton; //Dashboard button in main nav drawer
 	
-
-	private ArrayList<JFXButton> buttons = new ArrayList<JFXButton>();
 	
+	
+	//TODO
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) 
 	{
-		createButtonGroup();
+		
 	}
 
 	
-	
+	/*
+	 * When account button is pushed, a container pops up below it containing two buttons:
+	 *    -One button ("Profile") to access user profile 
+	 *    -Second button ("Sign Out") to sign out of application; brings back login screen
+	 * Container is fetched from a separate FXML file in "helpers" package
+	 * **If popup is already open, clicking account button closes it
+	 * **If settings popup is open, opening account popup closes it
+	 */
 	@FXML
 	private void showAccountPopup(MouseEvent event) 
 	{
@@ -83,13 +78,15 @@ public class DrawerContentController implements Initializable
 			{
 				hideAccountPopup();
 			}
-			else {
-				accountHBox.setPrefHeight(120);
-				accountHBox.setPrefWidth(135);
-				accountHBox.setAlignment(Pos.CENTER);
-				accountHBox.getChildren().addAll(popupContent);
-				accountHBox.setMargin(popupContent, new Insets(0, 0, 10, 0));
-				accountButton.setText("Account ⮝");
+			
+			else
+			{
+				if(settingsPopupIsShowing())
+				{
+					hideSettingsPopup();
+				}
+				setAccountPopupSize();
+				setAccountPopupPane(popupContent);
 			}
 		}
 		
@@ -100,6 +97,37 @@ public class DrawerContentController implements Initializable
 	}
 	
 	
+	
+	/*
+	 * Add the appropriate anchor pane to account popup container
+	 * Change the text on account button to an upward-facing arrow
+	 */
+	private void setAccountPopupPane(AnchorPane anchorPane)
+	{
+		accountHBox.getChildren().addAll(anchorPane);
+		accountHBox.setMargin(anchorPane, new Insets(0, 0, 10, 0));
+		accountButton.setText("Account ⮝");
+	}
+	
+	
+	/*
+	 * Set account button popup to appropriate size and position 
+	 */
+	private void setAccountPopupSize()
+	{
+		accountHBox.setPrefHeight(120);
+		accountHBox.setPrefWidth(135);
+		accountHBox.setAlignment(Pos.CENTER);
+	}
+	
+	
+	//TODO
+	/*
+	 * When Settings button is clicked, a container pops up below it containing one button
+	 * 		-Button ("Choose Color") allows user to select a different color for the dashboard theme
+	 * ***If settings popup is already open, clicking button closes it
+	 * ***If account popup is open, clicking settings button closes it
+	 */
 	@FXML
 	private void showSettingsPopup(ActionEvent event)
 	{
@@ -121,35 +149,63 @@ public class DrawerContentController implements Initializable
 	}
 	
 
-	
+	/*
+	 * Calls methods to set settings popup to appropriate size and create the color picker button
+	 * Changes to a downward-facing arrow on Settings button
+	 */
 	private void renderSettingsPopup()
 	{
-		settingsHBox.setPrefHeight(120);
-		settingsHBox.setPrefWidth(120);
-		settingsHBox.setAlignment(Pos.CENTER);
+		setSettingsPopupSize();
+		createChooseColorButton();
+		settingsButton.setText("Settings ⮝");
+	}
+	
+	
+	/*
+	 * Create a choose color button and add it to settings popup container
+	 * Add an event handler to bring up the color picker when button is clicked
+	 */
+	private void createChooseColorButton()
+	{
 		JFXButton chooseColorButton = new JFXButton("Choose Color: ");
+		chooseColorButton.getStyleClass().add("chooseColorBtn");
 		settingsHBox.getChildren().addAll(chooseColorButton);
 		chooseColorButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
 			chooseColor(new JFXColorPicker(), settingsHBox);
 			
 		});
-		settingsButton.setText("Settings ⮝");
 	}
 	 
 	
+	/*
+	 * Set appropriate size and alignment for settings popup container
+	 */
+	private void setSettingsPopupSize()
+	{
+		settingsHBox.setPrefHeight(120);
+		settingsHBox.setPrefWidth(120);
+		settingsHBox.setAlignment(Pos.CENTER);
+	}
 	
+	
+	
+	/*
+	 * Change the color of main nav drawer when color picker is used
+	 */
 	private void chooseColor(JFXColorPicker colorpicker, HBox hbox)
 	{
 		colorpicker.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
 			 navDrawer.setBackground(new Background(new BackgroundFill
 						(Paint.valueOf(colorpicker.getValue().toString()), 
 								CornerRadii.EMPTY, Insets.EMPTY)));
-			 changeButtonColor(colorpicker.getValue().toString());
 		});
 		hbox.getChildren().addAll(colorpicker);
 	}
 	
 	
+	/*
+	 * Checks to see if accoutn popup container is showing; returns true if so, false otherwise
+	 */
 	private boolean accountPopupIsShowing()
 	{
 		if(accountHBox.getHeight() > 0)
@@ -160,7 +216,10 @@ public class DrawerContentController implements Initializable
 	}
 	
 	
-	
+	/*
+	 * Clears and hides the Account button popup
+	 * Sets Account button arrow to downward-facing
+	 */
 	private void hideAccountPopup()
 	{
 	
@@ -170,7 +229,9 @@ public class DrawerContentController implements Initializable
 	}
 	
 	
-
+	/*
+	 * Checks to see if Settings button popup is showing; returns true if so, false otherwise
+	 */
 	private boolean settingsPopupIsShowing()
 	{
 		if(settingsHBox.getHeight() > 0)
@@ -181,37 +242,16 @@ public class DrawerContentController implements Initializable
 	}
 	
 	
+	/*
+	 * Clears and hides Settings button popup
+	 * Changes Settings button arrow to downward-facing
+	 */
 	private void hideSettingsPopup()
 	{
 		settingsHBox.getChildren().clear();
 		settingsHBox.setPrefHeight(0);
 		settingsButton.setText("Settings ⮟");
 	}
-	
-	
-	private void changeButtonColor(String color)
-	{
-		for(JFXButton btn : buttons)
-		{
-			btn.setStyle("-fx-background-color: "+color);
-		}
-	}
-	
-	
-	private void createButtonGroup()
-	{
-		for(Node node : navDrawer.getChildren())
-		{
-			if(node instanceof JFXButton)
-			{
-				buttons.add((JFXButton) node);
-			}
-		}
-	}
-	
-	
-	
-	
-	
 
+	
 }

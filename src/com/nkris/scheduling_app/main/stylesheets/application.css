@@ -33,3 +33,16 @@
 	
 	
 }
+
+#cursor {
+	-fx-cursor: hand;
+}
+
+#chooseColorBtn {
+	-jfx-button-type: RAISED;
+	-fx-background-color: #0356fc;
+	-fx-text-fill: #FFFFFF;
+}
+
+
+

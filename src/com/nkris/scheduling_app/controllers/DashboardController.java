@@ -43,6 +43,7 @@ import javafx.util.Duration;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
+import com.nkris.scheduling_app.controllers.helpers.DrawerContentController;
 
 
 //TODO: Make calendar days interactive; light up upon mouse hover and allow for selection
@@ -95,7 +96,7 @@ public class DashboardController implements Initializable
 	private Button nextMonthButton; //Right arrow head to switch to next month's calendar
 
 	@FXML
-	private ToggleGroup calendarDay;
+	private ToggleGroup calendarDay; //Toggle button group for calendar days on monthly view calendar
 	
 	
 	@FXML
@@ -114,15 +115,16 @@ public class DashboardController implements Initializable
 	private JFXHamburger jfxHamburger;
 	
 	@FXML
-	private JFXDrawer mainDrawer;
+	private JFXDrawer mainDrawer; //Main navigation drawer
 	
 	
 	
-
 	
 	
 	/*
-	 * Call the setClock() method to display local time
+	 * Set the clock
+	 * Set the main navigation drawer
+	 * Set the date
 	 */
 	@Override
 	public void initialize(URL url, ResourceBundle rb)
@@ -162,7 +164,9 @@ public class DashboardController implements Initializable
 	}
 	 
 	
-
+	/*
+	 * Set date on top of schedule feed 
+	 */
 	private void displayCurrentDate()
 	{
 		DateFormat df = new SimpleDateFormat("MMM dd, yyyy");
@@ -170,14 +174,15 @@ public class DashboardController implements Initializable
 	}
 	
 	/*
+	 *  Controls the main navigation drawer. If drawer is open, hamburger icon is an "x"
+	 *  and clicking it closes the drawer.
+	 *  
+	 *  If the drawer is closed, the drawer is set to contain the contents of a separate, helper FXML file
+	 *  and the hamburger appears as three lines
 	 *  
 	 */
-	private void setHamburgerTransition()
+	private void setHamburgerTransition() throws NullPointerException
 	{
-		try 
-		{
-			setMainDrawerContent();
-		
 		HamburgerSlideCloseTransition transition = new HamburgerSlideCloseTransition(jfxHamburger);
 		transition.setRate(-1);
 		jfxHamburger.addEventHandler(MouseEvent.MOUSE_CLICKED, (e)->{
@@ -188,62 +193,33 @@ public class DashboardController implements Initializable
 			{
 				mainDrawer.close();
 			}
-			else mainDrawer.open();
+			else
+			{
+				try
+				{
+					setMainDrawerContent();
+					mainDrawer.open();
+				}
+				
+				catch(IOException error)
+				{
+					error.printStackTrace();
+				}
+			}
+			
 		});
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
+		
 	}
 	
+	
+	/*
+	 * Sets the contents of the navigation drawer to the helper FXML file, "DrawerContent.fxml"
+	 */
 	private void setMainDrawerContent() throws IOException
 	{
 		AnchorPane drawerContent = FXMLLoader.load(getClass().getResource
 				("/com/nkris/scheduling_app/FXML/helpers/DrawerContent.fxml"));
 		mainDrawer.setSidePane(drawerContent);
-	}
-	
-
-
-	
-	
-
-	
-	
-	private boolean getSignOutConfirmation()
-	{
-		Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you want to sign out>", 
-				ButtonType.YES, ButtonType.CANCEL);
-		alert.showAndWait();
-		if(alert.getResult() == ButtonType.YES) return true;
-		return false;
-	}
-	
-	
-	private void returnToLoginScreen(ActionEvent event) throws IOException
-	{
-		Parent parent = FXMLLoader.load(getClass().getResource(
-				"/com/nkris/scheduling_app/FXML/LogInScreen.fxml"));
-		Scene loginScreen = new Scene(parent);
-		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		stage.setScene(loginScreen);
-		stage.show();
-	}
-	
-	/*
-	 * Function to retrieve any individual cell in the calendar grid using the cell's coordinates
-	 */
-	private Node getCalendarDay(int row, int col)
-	{
-		for(Node node : calendarGrid.getChildren())
-		{
-			if(calendarGrid.getRowIndex(node) == row && calendarGrid.getColumnIndex(node) == col)
-			{
-				return node;
-			}
-		}
-		return null;
 	}
 	
 

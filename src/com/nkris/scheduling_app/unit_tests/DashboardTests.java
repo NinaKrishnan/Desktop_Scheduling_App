@@ -4,6 +4,9 @@ package com.nkris.scheduling_app.unit_tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
+
+import com.nkris.scheduling_app.main.Main;
+
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.stage.Stage;

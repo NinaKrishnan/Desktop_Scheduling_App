@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -18,6 +19,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 //TODO: ADD PASSWORD NUMBER OF ATTEMPTS CONSTRAINT. 
@@ -247,6 +250,18 @@ public class LogInController implements Initializable
 		return 0;
 	}
 	
+	
+	@FXML
+	private void setPasswordFocus(KeyEvent event)
+	{
+		passwordTextField.setFocusTraversable(true);
+	}
+	
+	@FXML
+	private void changeCursorToHand(MouseEvent event) throws IOException
+	{
+		
+	}
 	
 
 	

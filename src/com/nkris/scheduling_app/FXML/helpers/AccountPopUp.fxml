@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="99.0" prefWidth="103.0" style="-fx-background-color: #0356fc;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nkris.scheduling_app.controllers.helpers.AccountPopupController">
    <children>
-      <JFXButton fx:id="accountButton" buttonType="RAISED" prefHeight="43.0" prefWidth="103.0" ripplerFill="#0ed6ed" style="-fx-border-color: #000000; -fx-border-radius: 3; -fx-border-width: 1.4; -fx-background-color: #0e0ecc;" text="Profile" textFill="WHITE">
+      <JFXButton id="cursor" fx:id="accountButton" buttonType="RAISED" prefHeight="43.0" prefWidth="103.0" ripplerFill="#0ed6ed" style="-fx-border-color: #000000; -fx-border-radius: 3; -fx-border-width: 1.4; -fx-background-color: #0e0ecc;" stylesheets="@../../main/stylesheets/application.css" text="Profile" textFill="WHITE">
          <effect>
             <InnerShadow choke="0.6" height="202.8" radius="71.3275" width="84.51" />
          </effect>
@@ -16,7 +16,7 @@
             <Font size="18.0" />
          </font>
       </JFXButton>
-      <JFXButton fx:id="signOutButton" layoutY="50.0" onAction="#signOut" prefHeight="50.0" prefWidth="103.0" ripplerFill="#0ed6ed" style="-fx-border-color: #000000; -fx-border-radius: 3; -fx-background-color: #9ba4a8; -fx-border-width: 1.4;" text="Sign Out" textFill="WHITE">
+      <JFXButton id="cursor" fx:id="signOutButton" layoutY="50.0" onAction="#signOut" prefHeight="50.0" prefWidth="103.0" ripplerFill="#0ed6ed" style="-fx-border-color: #000000; -fx-border-radius: 3; -fx-background-color: #9ba4a8; -fx-border-width: 1.4;" stylesheets="@../../main/stylesheets/application.css" text="Sign Out" textFill="WHITE">
          <effect>
             <InnerShadow choke="0.79" height="63.81" radius="44.7325" width="117.12">
                <input>
