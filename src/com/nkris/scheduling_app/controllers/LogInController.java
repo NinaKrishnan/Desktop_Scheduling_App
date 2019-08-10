@@ -248,7 +248,7 @@ public class LogInController implements Initializable
 	int getNumberOfLoginAttempts()
 	{
 		return 0;
-	} 
+	}  
 	
 	
 	@FXML
