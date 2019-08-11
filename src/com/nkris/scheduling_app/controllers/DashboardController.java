@@ -148,6 +148,11 @@ public class DashboardController implements Initializable
 	        	timeClock.setText("\n"+(LocalDateTime.now().getHour()-12 ) +
 	        			":"+LocalDateTime.now().format(pmFormatter)+" p.m.");
 	        }
+	        if(LocalDateTime.now().getHour() == 0)
+	        {
+	        	timeClock.setText("\n"+(LocalDateTime.now().getHour()+12) + 
+	        			":"+LocalDateTime.now().format(pmFormatter)+" a.m.");
+	        }
 	       
 	        //If it is noon or earlier, add an "a.m." string 
 	        else timeClock.setText("\n"+LocalDateTime.now().format(formatter)+" a.m.");
@@ -256,11 +261,12 @@ public class DashboardController implements Initializable
 					}
 					if(j < firstDay && i ==1)
 					{
-						Label lbl = new Label();
-						lbl.setPrefWidth(140);
-						lbl.setPrefHeight(126);
-						lbl.setStyle("-fx-background-color: #b8b8ba;" + "-fx-border-color: #acacb0;");
-						calendarGrid.add(lbl, j, i);
+						ToggleButton btn = new ToggleButton();
+						btn.setPrefWidth(140);
+						btn.setPrefHeight(126);
+						btn.setDisable(true);
+						btn.setVisible(false);
+						calendarGrid.add(btn, j, i);
 					}
 					if(day > numberOfDays)
 					{
