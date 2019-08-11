@@ -23,6 +23,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -129,7 +130,7 @@ public class DashboardController implements Initializable
 		setClock();
 		setHamburgerTransition();	
 		displayCurrentDate();
-		setDays(getMonth(), getYear());
+		setDays(getMonth(), getYear(), false);
 	}
 	
 	private void setMonth()
@@ -260,7 +261,9 @@ public class DashboardController implements Initializable
 		{
 			for(int j = 0; j < 7; j++)
 			{
-				Label day = new Label(Calendar.getDayName(j));
+				Label day = new Label("     "+Calendar.getDayName(j));
+				day.setStyle("-fx-font-size: 18;" + "-fx-text-fill: white;");
+				day.setAlignment(Pos.CENTER);
 				calendarGrid.add(day, j, i);
 			}
 		}
@@ -272,12 +275,15 @@ public class DashboardController implements Initializable
 	 * current month
 	 * TODO: Add labels to outlying months
 	 */
-	private void setDays(int month, int year)
+	private void setDays(int month, int year, boolean disable)
 	{
+		calendar.setMonth(month);
+		calendar.setYear(year);
 		setDayOfWeekLabels();
 		int firstDay = getFirstDay(month, year);
 		int numberOfDays = Calendar.getNumberOfDaysInMonth(month);
 		int day = 1;
+		int nextMonthDay = 1;
 			
 		for(int i = 1; i < 7; i++)
 		{
@@ -285,15 +291,26 @@ public class DashboardController implements Initializable
 			{
 				findTodayOnCalendar(day, j, i);
 					
+				disablePrevMonthDays(firstDay, j, i);
+				
 				if(j >= firstDay || i > 1)
 				{	
-					setDayLabels(day, j, i);
+					setDayButtons(day, j, i, false);
 					day++;
 				}
-					
-				disablePrevMonthDays(firstDay, j, i);
-					
-				disableNextMonthDays(day, numberOfDays, j, i);
+				
+				if(day > numberOfDays+1)
+				{
+					disableNextMonthDays(day, numberOfDays, nextMonthDay, j, i);
+					nextMonthDay++;
+				}
+				if(i == 1 && j < firstDay)
+				{
+					disablePrevMonthDays(firstDay, j, i);
+				}
+				
+				
+				
 			}		
 		}
 	}
@@ -302,7 +319,12 @@ public class DashboardController implements Initializable
 	@FXML
 	private void goToNextMonth(ActionEvent event)
 	{
-		
+		int month = calendar.getNextMonth();
+		int year = calendar.getYear();
+		String strMonth = Calendar.getMonthName(month);
+		monthAndYearLabel.setText(strMonth+" " + Integer.toString(year));
+		calendarGrid.getChildren().clear();
+		setDays(month, year, true);
 	}
 	
 	@FXML
@@ -313,7 +335,7 @@ public class DashboardController implements Initializable
 		String strMonth = Calendar.getMonthName(month);
 		monthAndYearLabel.setText(strMonth +" " + Integer.toString(year));
 		calendarGrid.getChildren().clear();
-		setDays(month, year);
+		setDays(month, year, true);
 	}
 	
 	
@@ -332,16 +354,30 @@ public class DashboardController implements Initializable
 	/*
 	 * Disable buttons on days falling after month by covering with label
 	 */
-	private void disableNextMonthDays(int day, int numberOfDays, int j, int i)
+	private void disableNextMonthDays(int day, int numberOfDays, int nextMonthDay, int j, int i)
 	{
-		if(day > numberOfDays)
+		if(day > numberOfDays+1)
 		{
 			Label lbl = new Label();
 			lbl.setPrefWidth(140);
 			lbl.setPrefHeight(126);
 			lbl.setStyle("-fx-background-color: #b8b8ba;" + "-fx-border-color: #acacb0;");
 			calendarGrid.add(lbl, j, i);
+			setNextMonthLabels(numberOfDays, nextMonthDay, j, i);
 		}
+	}
+	
+	private void setNextMonthLabels(int numberOfDays, int day, int j, int i)
+	{
+		
+		
+		
+		Label lbl = new Label(Integer.toString(day));
+		lbl.setStyle("-fx-font-size: 18;" + "-fx-text-fill: #888a89;");
+		GridPane.setHalignment(lbl, HPos.LEFT);
+		GridPane.setValignment(lbl, VPos.TOP);
+		calendarGrid.add(lbl, j, i);
+	
 	}
 	
 	
@@ -350,13 +386,12 @@ public class DashboardController implements Initializable
 	 */
 	private void disablePrevMonthDays(int firstDay, int j, int i)
 	{
-		if(j < firstDay && i ==1)
+		if(i==1 && j < firstDay)
 		{
-			Button btn = new Button();
+			ToggleButton btn = new ToggleButton();
 			btn.setPrefWidth(140);
 			btn.setPrefHeight(126);
-			btn.setDisable(true);
-			btn.setVisible(false);
+			btn.setStyle("-fx-background-color: #b8b8ba;"+"-fx-border-color: #a3a3a3;");
 			calendarGrid.add(btn, j, i);
 		}
 	}
@@ -364,7 +399,7 @@ public class DashboardController implements Initializable
 	/*
 	 * Create labels for days and assign coordinates
 	 */
-	private void setDayLabels(int day, int j, int i)
+	private void setDayButtons(int day, int j, int i, boolean disable)
 	{
 		ToggleButton toggleDay = new ToggleButton();
 		setToggleSize(toggleDay);
@@ -373,6 +408,11 @@ public class DashboardController implements Initializable
 		lbl.setStyle("-fx-font-size: 18");
 		GridPane.setHalignment(lbl, HPos.LEFT);
 		GridPane.setValignment(lbl, VPos.TOP);
+		if(disable == true)
+		{
+			toggleDay.setDisable(true);
+			toggleDay.setVisible(false);
+		}
 		calendarGrid.add(toggleDay, j, i);
 		calendarGrid.add(lbl, j, i);
 	}

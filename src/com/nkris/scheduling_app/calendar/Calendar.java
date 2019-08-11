@@ -34,6 +34,16 @@ public class Calendar
 		day_codes.put("Saturday", 6);
 	}
 	
+	public void setMonth(int month)
+	{
+		this.month = month;
+	}
+	
+	public void setYear(int year)
+	{
+		this.year = year;
+	}
+	
 	
 	public static String getDayName(int day)
 	{
@@ -107,14 +117,31 @@ public class Calendar
 		return dayDate;
 	}
 
+	public int getNextMonth()
+	{
+		int nextMonth = 0;
+		int currentMonth = this.month;
+		if(currentMonth == 12)
+		{
+			nextMonth = 1;
+			this.year++;
+		}
+		else
+		{
+			nextMonth = currentMonth +1;
+		}
+		return nextMonth;
+	}
+	
+	
 	public int getPreviousMonth()
 	{
 		int previousMonth = 0;
-		int currentMonth = LocalDate.now().getMonthValue();
+		int currentMonth = this.month;
 		if(currentMonth == 1)
 		{
 			previousMonth = 12;
-			this.year -= 1;
+			this.year--;
 		}
 		else
 		{
