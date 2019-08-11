@@ -235,55 +235,73 @@ public class DashboardController implements Initializable
 		int numberOfDays = Calendar.getNumberOfDaysInMonth(LocalDate.now().getMonthValue());
 		int day = 1;
 			
-			for(int i = 1; i < 7; i++)
+		for(int i = 1; i < 7; i++)
+		{
+			for(int j = 0; j < 7; j++)
 			{
-				for(int j = 0; j < 7; j++)
-				{
-					if(day == Calendar.getDateNumber())
-					{
-						ToggleButton today = new ToggleButton();
-						today.setToggleGroup(calendarDay);
-						today.setStyle("-fx-background-color: #beebed");
-						today.setStyle("-fx-border-color: #0d0dd6;" +"-fx-background-color: #beebed");
-						today.setSelected(true);
-						today.setPrefWidth(140);
-						today.setPrefHeight(126);
-						calendarGrid.add(today, j, i);
-					}
-					if(j >= firstDay || i > 1)
-					{	
-						Label lbl = new Label(Integer.toString(day));
-						lbl.setStyle("-fx-font-size: 18");
-						GridPane.setHalignment(lbl, HPos.LEFT);
-						GridPane.setValignment(lbl, VPos.TOP);
-						calendarGrid.add(lbl, j, i);
-						day++;
-					}
-					if(j < firstDay && i ==1)
-					{
-						ToggleButton btn = new ToggleButton();
-						btn.setPrefWidth(140);
-						btn.setPrefHeight(126);
-						btn.setDisable(true);
-						btn.setVisible(false);
-						calendarGrid.add(btn, j, i);
-					}
-					if(day > numberOfDays)
-					{
-						Label lbl = new Label();
-						lbl.setPrefWidth(140);
-						lbl.setPrefHeight(126);
-						lbl.setStyle("-fx-background-color: #b8b8ba;" + "-fx-border-color: #acacb0;");
-						calendarGrid.add(lbl, j, i);
-					}
+				findTodayOnCalendar(day, j, i);
 					
-				
+				if(j >= firstDay || i > 1)
+				{	
+					setDayLabels(day, j, i);
+					day++;
 				}
-			
-			}
+					
+				disablePrevMonthDays(firstDay, j, i);
+					
+				disableNextMonthDays(day, numberOfDays, j, i);
+			}		
+		}
 	}
 	
+	private void disableNextMonthDays(int day, int numberOfDays, int j, int i)
+	{
+		if(day > numberOfDays)
+		{
+			Label lbl = new Label();
+			lbl.setPrefWidth(140);
+			lbl.setPrefHeight(126);
+			lbl.setStyle("-fx-background-color: #b8b8ba;" + "-fx-border-color: #acacb0;");
+			calendarGrid.add(lbl, j, i);
+		}
+	}
 	
+	private void disablePrevMonthDays(int firstDay, int j, int i)
+	{
+		if(j < firstDay && i ==1)
+		{
+			Button btn = new Button();
+			btn.setPrefWidth(140);
+			btn.setPrefHeight(126);
+			btn.setDisable(true);
+			btn.setVisible(false);
+			calendarGrid.add(btn, j, i);
+		}
+	}
+	
+	private void setDayLabels(int day, int j, int i)
+	{
+		Label lbl = new Label(Integer.toString(day));
+		lbl.setStyle("-fx-font-size: 18");
+		GridPane.setHalignment(lbl, HPos.LEFT);
+		GridPane.setValignment(lbl, VPos.TOP);
+		calendarGrid.add(lbl, j, i);
+	}
+	
+	private void findTodayOnCalendar(int day, int j, int i)
+	{
+		if(day == Calendar.getDateNumber())
+		{
+			ToggleButton today = new ToggleButton();
+			today.setToggleGroup(calendarDay);
+			today.setStyle("-fx-background-color: #beebed");
+			today.setStyle("-fx-border-color: #0d0dd6;" +"-fx-background-color: #beebed");
+			today.setSelected(true);
+			today.setPrefWidth(140);
+			today.setPrefHeight(126);
+			calendarGrid.add(today, j, i);
+		}	
+	}
 	
 	
 	@FXML
