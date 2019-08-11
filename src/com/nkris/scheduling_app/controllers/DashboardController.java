@@ -18,15 +18,14 @@ import com.nkris.scheduling_app.calendar.Calendar;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
@@ -55,6 +54,9 @@ public class DashboardController implements Initializable
 	private GridPane calendarGrid; //The monthly calendar view on dashboard screen
 	
 	@FXML
+	private Label monthAndYearLabel; //Month calendar header: "Month XXXX"
+	
+	@FXML
 	private HBox weekdayLabels; //Days of the week headers over grid columns
 	
 	@FXML
@@ -80,7 +82,7 @@ public class DashboardController implements Initializable
 	private Label monthHeader; //The header of the monthly calendar; displays the month
 	
 	@FXML
-	private Button previousMonthButton; //Left arrow head to switch to previous month's calendar
+	private Button prevMonthButton; //Left arrow head to switch to previous month's calendar
 	
 	@FXML
 	private Button nextMonthButton; //Right arrow head to switch to next month's calendar
@@ -110,7 +112,7 @@ public class DashboardController implements Initializable
 	@FXML
 	private AnchorPane dashboardAnchorPane;
 	
-	private Calendar calendar;
+	private Calendar calendar = new Calendar();
 	
 	
 	
@@ -122,13 +124,33 @@ public class DashboardController implements Initializable
 	@Override
 	public void initialize(URL url, ResourceBundle rb)
 	{
+		setMonth();
+		setYear();
 		setClock();
 		setHamburgerTransition();	
 		displayCurrentDate();
-		setDays();
+		setDays(getMonth(), getYear());
 	}
 	
+	private void setMonth()
+	{
+		calendar.month = LocalDate.now().getMonthValue();
+	}
 	
+	private void setYear()
+	{
+		calendar.year = LocalDate.now().getYear();
+	}
+	
+	private int getMonth()
+	{
+		return LocalDate.now().getMonthValue();
+	}
+	
+	private int getYear()
+	{
+		return LocalDate.now().getYear();
+	}
  
 	
 	/*
@@ -232,27 +254,29 @@ public class DashboardController implements Initializable
 		}
 	}
 	
-	/*
-	 * Create new Calendar instance, get first day through static method and assign
-	 * firstDay field to value/return it
-	 */
-	private int getFirstDay()
+	private void setDayOfWeekLabels()
 	{
-		calendar = new Calendar();
-		calendar.firstDay = Calendar.getFirstDayOfMonth();
-		return calendar.firstDay;
+		for(int i = 0; i < 1; i++)
+		{
+			for(int j = 0; j < 7; j++)
+			{
+				Label day = new Label(Calendar.getDayName(j));
+				calendarGrid.add(day, j, i);
+			}
+		}
+			
 	}
-	
 
 	/*
 	 * Populate the calendar with date labels & disable outlying days before/after
 	 * current month
 	 * TODO: Add labels to outlying months
 	 */
-	private void setDays()
+	private void setDays(int month, int year)
 	{
-		int firstDay = getFirstDay();
-		int numberOfDays = Calendar.getNumberOfDaysInMonth(LocalDate.now().getMonthValue());
+		setDayOfWeekLabels();
+		int firstDay = getFirstDay(month, year);
+		int numberOfDays = Calendar.getNumberOfDaysInMonth(month);
 		int day = 1;
 			
 		for(int i = 1; i < 7; i++)
@@ -273,6 +297,36 @@ public class DashboardController implements Initializable
 			}		
 		}
 	}
+	
+	
+	@FXML
+	private void goToNextMonth(ActionEvent event)
+	{
+		
+	}
+	
+	@FXML
+	private void goToPrevMonth(ActionEvent event)
+	{
+		int month = calendar.getPreviousMonth();
+		int year = calendar.getYear();
+		String strMonth = Calendar.getMonthName(month);
+		monthAndYearLabel.setText(strMonth +" " + Integer.toString(year));
+		calendarGrid.getChildren().clear();
+		setDays(month, year);
+	}
+	
+	
+	/*
+	 * Create new Calendar instance, get first day through static method and assign
+	 * firstDay field to value/return it
+	 */
+	private int getFirstDay(int month, int year)
+	{
+		calendar.firstDay = calendar.getFirstDayOfMonth(month, year);
+		return calendar.firstDay;
+	}
+	
 	
 	
 	/*
@@ -312,11 +366,22 @@ public class DashboardController implements Initializable
 	 */
 	private void setDayLabels(int day, int j, int i)
 	{
+		ToggleButton toggleDay = new ToggleButton();
+		setToggleSize(toggleDay);
+		toggleDay.setToggleGroup(calendarDay);
 		Label lbl = new Label(Integer.toString(day));
 		lbl.setStyle("-fx-font-size: 18");
 		GridPane.setHalignment(lbl, HPos.LEFT);
 		GridPane.setValignment(lbl, VPos.TOP);
+		calendarGrid.add(toggleDay, j, i);
 		calendarGrid.add(lbl, j, i);
+	}
+	
+	
+	private void setToggleSize(ToggleButton tb)
+	{
+		tb.setPrefWidth(140);
+		tb.setPrefHeight(126);
 	}
 	
 	/*

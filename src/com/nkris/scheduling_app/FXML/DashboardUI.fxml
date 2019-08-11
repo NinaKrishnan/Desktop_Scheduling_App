@@ -137,7 +137,7 @@
       </GridPane>
       <AnchorPane layoutX="418.0" layoutY="69.0" prefHeight="99.0" prefWidth="628.0" style="-fx-background-color: #FFFFFF;">
          <children>
-            <Label layoutX="247.0" layoutY="15.0" text="August 2019">
+            <Label fx:id="monthAndYearLabel" layoutX="247.0" layoutY="15.0" text="August 2019">
                <font>
                   <Font size="24.0" />
                </font>
@@ -149,12 +149,12 @@
             </ToggleButton>
             <ToggleButton layoutX="275.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" style="-fx-border-color: #24AEFE;" text="Week" toggleGroup="$calendarView" />
             <ToggleButton layoutX="365.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" style="-fx-border-color: #24AEFE;" text="Day" toggleGroup="$calendarView" />
-            <Button layoutX="523.0" layoutY="37.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="&gt;">
+            <Button fx:id="nextMonthButton" layoutX="523.0" layoutY="37.0" mnemonicParsing="false" onAction="#goToNextMonth" style="-fx-background-color: #FFFFFF;" text="&gt;">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Button>
-            <Button layoutX="85.0" layoutY="37.0" mnemonicParsing="false" style="-fx-background-color: #FFFFFF;" text="&lt;">
+            <Button fx:id="prevMonthButton" layoutX="85.0" layoutY="37.0" mnemonicParsing="false" onAction="#goToPrevMonth" style="-fx-background-color: #FFFFFF;" text="&lt;">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
