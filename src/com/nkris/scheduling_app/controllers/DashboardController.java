@@ -220,7 +220,22 @@ public class DashboardController implements Initializable
 		mainDrawer.setSidePane(drawerContent);
 	}
 	
+	/*
+	 * Close drawer if it is opened
+	 */
+	@FXML
+	private void closeDrawer(MouseEvent event)
+	{
+		if(mainDrawer.isOpened())
+		{
+			mainDrawer.close();
+		}
+	}
 	
+	/*
+	 * Create new Calendar instance, get first day through static method and assign
+	 * firstDay field to value/return it
+	 */
 	private int getFirstDay()
 	{
 		calendar = new Calendar();
@@ -229,6 +244,11 @@ public class DashboardController implements Initializable
 	}
 	
 
+	/*
+	 * Populate the calendar with date labels & disable outlying days before/after
+	 * current month
+	 * TODO: Add labels to outlying months
+	 */
 	private void setDays()
 	{
 		int firstDay = getFirstDay();
@@ -254,6 +274,10 @@ public class DashboardController implements Initializable
 		}
 	}
 	
+	
+	/*
+	 * Disable buttons on days falling after month by covering with label
+	 */
 	private void disableNextMonthDays(int day, int numberOfDays, int j, int i)
 	{
 		if(day > numberOfDays)
@@ -266,6 +290,10 @@ public class DashboardController implements Initializable
 		}
 	}
 	
+	
+	/*
+	 * Disable buttons on previous months days
+	 */
 	private void disablePrevMonthDays(int firstDay, int j, int i)
 	{
 		if(j < firstDay && i ==1)
@@ -279,6 +307,9 @@ public class DashboardController implements Initializable
 		}
 	}
 	
+	/*
+	 * Create labels for days and assign coordinates
+	 */
 	private void setDayLabels(int day, int j, int i)
 	{
 		Label lbl = new Label(Integer.toString(day));
@@ -288,6 +319,9 @@ public class DashboardController implements Initializable
 		calendarGrid.add(lbl, j, i);
 	}
 	
+	/*
+	 * Find today's coordinates on the calendar; highlight and auto-select it
+	 */
 	private void findTodayOnCalendar(int day, int j, int i)
 	{
 		if(day == Calendar.getDateNumber())
@@ -304,13 +338,6 @@ public class DashboardController implements Initializable
 	}
 	
 	
-	@FXML
-	private void closeDrawer(MouseEvent event)
-	{
-		if(mainDrawer.isOpened())
-		{
-			mainDrawer.close();
-		}
-	}
+	
 	
 }
