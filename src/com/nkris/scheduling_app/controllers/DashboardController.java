@@ -239,7 +239,8 @@ public class DashboardController implements Initializable
 						ToggleButton today = new ToggleButton();
 						today.setToggleGroup(calendarDay);
 						today.setStyle("-fx-background-color: #beebed");
-						//today.setStyle("box-shadow: 5px 10px #0a14cc");
+						today.setStyle("-fx-border-color: #0d0dd6;" +"-fx-background-color: #beebed");
+						today.setSelected(true);
 						today.setPrefWidth(140);
 						today.setPrefHeight(126);
 						calendarGrid.add(today, j, i);
@@ -253,13 +254,26 @@ public class DashboardController implements Initializable
 						calendarGrid.add(lbl, j, i);
 						day++;
 					}
+					if(j < firstDay && i ==1)
+					{
+						Label lbl = new Label();
+						lbl.setPrefWidth(140);
+						lbl.setPrefHeight(126);
+						lbl.setStyle("-fx-background-color: #b8b8ba;" + "-fx-border-color: #acacb0;");
+						calendarGrid.add(lbl, j, i);
+					}
+					if(day > numberOfDays)
+					{
+						Label lbl = new Label();
+						lbl.setPrefWidth(140);
+						lbl.setPrefHeight(126);
+						lbl.setStyle("-fx-background-color: #b8b8ba;" + "-fx-border-color: #acacb0;");
+						calendarGrid.add(lbl, j, i);
+					}
 					
 				
 				}
-				if(day > numberOfDays)
-				{
-					break;
-				}
+			
 			}
 	}
 	
