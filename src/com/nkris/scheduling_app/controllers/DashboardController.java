@@ -4,46 +4,36 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.ResourceBundle;
+
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
+import com.nkris.scheduling_app.calendar.Calendar;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import com.jfoenix.controls.JFXDrawer;
-import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
-import com.nkris.scheduling_app.controllers.helpers.DrawerContentController;
 
 
 //TODO: Make calendar days interactive; light up upon mouse hover and allow for selection
@@ -117,7 +107,10 @@ public class DashboardController implements Initializable
 	@FXML
 	private JFXDrawer mainDrawer; //Main navigation drawer
 	
+	@FXML
+	private AnchorPane dashboardAnchorPane;
 	
+	private Calendar calendar;
 	
 	
 	
@@ -132,7 +125,7 @@ public class DashboardController implements Initializable
 		setClock();
 		setHamburgerTransition();	
 		displayCurrentDate();
-		
+		setDays();
 	}
 	
 	
@@ -222,7 +215,64 @@ public class DashboardController implements Initializable
 		mainDrawer.setSidePane(drawerContent);
 	}
 	
+	
+	private int getFirstDay()
+	{
+		calendar = new Calendar();
+		calendar.firstDay = Calendar.getFirstDayOfMonth();
+		return calendar.firstDay;
+	}
+	
 
-
-
+	private void setDays()
+	{
+		int firstDay = getFirstDay();
+		int numberOfDays = Calendar.getNumberOfDaysInMonth(LocalDate.now().getMonthValue());
+		int day = 1;
+			
+			for(int i = 1; i < 7; i++)
+			{
+				for(int j = 0; j < 7; j++)
+				{
+					if(day == Calendar.getDateNumber())
+					{
+						ToggleButton today = new ToggleButton();
+						today.setToggleGroup(calendarDay);
+						today.setStyle("-fx-background-color: #beebed");
+						//today.setStyle("box-shadow: 5px 10px #0a14cc");
+						today.setPrefWidth(140);
+						today.setPrefHeight(126);
+						calendarGrid.add(today, j, i);
+					}
+					if(j >= firstDay || i > 1)
+					{	
+						Label lbl = new Label(Integer.toString(day));
+						lbl.setStyle("-fx-font-size: 18");
+						GridPane.setHalignment(lbl, HPos.LEFT);
+						GridPane.setValignment(lbl, VPos.TOP);
+						calendarGrid.add(lbl, j, i);
+						day++;
+					}
+					
+				
+				}
+				if(day > numberOfDays)
+				{
+					break;
+				}
+			}
+	}
+	
+	
+	
+	
+	@FXML
+	private void closeDrawer(MouseEvent event)
+	{
+		if(mainDrawer.isOpened())
+		{
+			mainDrawer.close();
+		}
+	}
+	
 }
