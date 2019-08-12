@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTimePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="325.0" prefWidth="431.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nkris.scheduling_app.controllers.helpers.EventPopUpController">
+   <children>
+      <Label layoutX="22.0" layoutY="27.0" text="Event Title:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField layoutX="106.0" layoutY="23.0" prefHeight="34.0" prefWidth="243.0" promptText="Title" style="-fx-background-color: #F4FEFD; -fx-border-color: #EFEEEE;">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow color="#94a19c" height="3.47" offsetY="2.0" radius="1.48" width="4.45" />
+         </effect>
+      </TextField>
+      <JFXDatePicker layoutX="106.0" layoutY="79.0" prefHeight="28.0" prefWidth="110.0" />
+      <Label layoutX="22.0" layoutY="80.0" text="Start Date:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="216.0" layoutY="80.0" text="End Date:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <JFXDatePicker layoutX="294.0" layoutY="79.0" prefHeight="28.0" prefWidth="110.0" />
+      <JFXTimePicker layoutX="106.0" layoutY="137.0" prefHeight="28.0" prefWidth="94.0" />
+      <JFXTimePicker layoutX="294.0" layoutY="137.0" prefHeight="28.0" prefWidth="94.0" />
+      <Label layoutX="23.0" layoutY="139.0" text="Start Time:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="213.0" layoutY="139.0" text="End Time:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="23.0" layoutY="187.0" text="Description:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextArea layoutX="110.0" layoutY="187.0" prefHeight="124.0" prefWidth="310.0" />
+   </children>
+</AnchorPane>
