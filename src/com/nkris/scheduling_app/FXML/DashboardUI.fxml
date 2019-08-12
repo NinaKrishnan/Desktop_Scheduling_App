@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXDrawer?>
 <?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXToolbar?>
@@ -149,16 +150,17 @@
             </ToggleButton>
             <ToggleButton layoutX="275.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" style="-fx-border-color: #24AEFE;" text="Week" toggleGroup="$calendarView" />
             <ToggleButton layoutX="365.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" style="-fx-border-color: #24AEFE;" text="Day" toggleGroup="$calendarView" />
-            <Button fx:id="nextMonthButton" layoutX="523.0" layoutY="37.0" mnemonicParsing="false" onAction="#goToNextMonth" style="-fx-background-color: #FFFFFF;" text="&gt;">
+            <Button id="cursor" fx:id="nextMonthButton" layoutX="523.0" layoutY="37.0" mnemonicParsing="false" onAction="#goToNextMonth" style="-fx-background-color: #FFFFFF;" stylesheets="@../main/stylesheets/application.css" text="&gt;">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Button>
-            <Button fx:id="prevMonthButton" layoutX="85.0" layoutY="37.0" mnemonicParsing="false" onAction="#goToPrevMonth" style="-fx-background-color: #FFFFFF;" text="&lt;">
+            <Button id="cursor" fx:id="prevMonthButton" layoutX="85.0" layoutY="37.0" mnemonicParsing="false" onAction="#goToPrevMonth" style="-fx-background-color: #FFFFFF;" stylesheets="@../main/stylesheets/application.css" text="&lt;">
                <font>
                   <Font name="Arial Black" size="14.0" />
                </font>
             </Button>
+            <JFXButton fx:id="todayButton" buttonType="RAISED" layoutX="7.0" layoutY="3.0" onAction="#goToToday" ripplerFill="#1a72ee" text="TODAY" />
          </children>
       </AnchorPane>
       <VBox alignment="TOP_CENTER" layoutX="38.0" layoutY="105.0" prefHeight="595.0" prefWidth="379.0">

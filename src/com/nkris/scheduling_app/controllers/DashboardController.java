@@ -10,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
@@ -53,6 +54,9 @@ public class DashboardController implements Initializable
 	
 	@FXML
 	private GridPane calendarGrid; //The monthly calendar view on dashboard screen
+	
+	@FXML
+	private JFXButton todayButton; //Brings back current calendar
 	
 	@FXML
 	private Label monthAndYearLabel; //Month calendar header: "Month XXXX"
@@ -255,6 +259,19 @@ public class DashboardController implements Initializable
 		}
 	}
 	
+	
+	@FXML
+	private void goToToday(ActionEvent event)
+	{
+		int month = LocalDate.now().getMonthValue();
+		int year = LocalDate.now().getYear();
+		
+		setDays(month, year, false);
+		monthAndYearLabel.setText(Calendar.getMonthName(month)+" "+year);
+		
+	}
+	
+	
 	private void setDayOfWeekLabels()
 	{
 		for(int i = 0; i < 1; i++)
@@ -289,7 +306,6 @@ public class DashboardController implements Initializable
 		{
 			for(int j = 0; j < 7; j++)
 			{
-				findTodayOnCalendar(day, j, i);
 					
 				disablePrevMonthDays(firstDay, j, i);
 				
@@ -413,10 +429,26 @@ public class DashboardController implements Initializable
 			toggleDay.setDisable(true);
 			toggleDay.setVisible(false);
 		}
-		calendarGrid.add(toggleDay, j, i);
-		calendarGrid.add(lbl, j, i);
+		else
+		{
+			if(isCurrentMonthAndDay())
+			{
+				findTodayOnCalendar(day, j, i, toggleDay);
+			}
+			calendarGrid.add(toggleDay, j, i);
+			calendarGrid.add(lbl, j, i);
+		}
 	}
 	
+	private boolean isCurrentMonthAndDay()
+	{
+		int monthVal = LocalDate.now().getMonthValue();
+		int calendarMonthVal = calendar.getMonth();
+		
+		int yearVal = LocalDate.now().getYear();
+		int calendarYearVal = calendar.getYear();
+		return(monthVal==calendarMonthVal && yearVal == calendarYearVal);
+	}
 	
 	private void setToggleSize(ToggleButton tb)
 	{
@@ -427,18 +459,11 @@ public class DashboardController implements Initializable
 	/*
 	 * Find today's coordinates on the calendar; highlight and auto-select it
 	 */
-	private void findTodayOnCalendar(int day, int j, int i)
+	private void findTodayOnCalendar(int day, int j, int i, ToggleButton tb)
 	{
 		if(day == Calendar.getDateNumber())
 		{
-			ToggleButton today = new ToggleButton();
-			today.setToggleGroup(calendarDay);
-			today.setStyle("-fx-background-color: #beebed");
-			today.setStyle("-fx-border-color: #0d0dd6;" +"-fx-background-color: #beebed");
-			today.setSelected(true);
-			today.setPrefWidth(140);
-			today.setPrefHeight(126);
-			calendarGrid.add(today, j, i);
+			tb.setStyle("-fx-background-color: #fcba03;");
 		}	
 	}
 	

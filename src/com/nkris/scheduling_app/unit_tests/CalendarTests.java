@@ -13,7 +13,7 @@ class CalendarTests {
 	void testCalendarDayGetter() 
 	{
 		
-		assertEquals(6, Calendar.getDayOfWeekToday());
+		assertEquals(0, Calendar.getDayOfWeekToday());
 	}
 
 	@Test
@@ -25,6 +25,6 @@ class CalendarTests {
 	@Test
 	void testDayDateGetter()
 	{
-		assertEquals(10, Calendar.getDateNumber());
+		assertEquals(12, Calendar.getDateNumber());
 	}
 }

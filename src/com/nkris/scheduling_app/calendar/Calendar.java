@@ -44,6 +44,17 @@ public class Calendar
 		this.year = year;
 	}
 	
+	public int getMonth()
+	{
+		return this.month;
+	}
+	
+	public int getYear()
+	{
+		return this.year;
+	}
+	
+	
 	
 	public static String getDayName(int day)
 	{
@@ -67,11 +78,6 @@ public class Calendar
 		return "";
 	}
 	
-	
-	public int getYear()
-	{
-		return this.year;
-	}
 	
 	//Get today's day of the week (by index)
 	public static int getDayOfWeekToday()
