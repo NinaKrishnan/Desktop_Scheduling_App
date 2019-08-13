@@ -15,6 +15,7 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import com.nkris.scheduling_app.calendar.Calendar;
+import com.nkris.scheduling_app.calendar.event.Event;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -28,10 +29,7 @@ import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -126,6 +124,8 @@ public class DashboardController implements Initializable
 	
 
 	private Calendar calendar = new Calendar();
+	
+	private Event event;
 	
 	
 	
@@ -509,14 +509,16 @@ public class DashboardController implements Initializable
 			eventStage.initModality(Modality.WINDOW_MODAL);
 			eventStage.setScene(scene);
 			eventStage.showAndWait();
-			
-		
-			
 		} 
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	private void saveEvent()
+	{
+		
 	}
 
 
