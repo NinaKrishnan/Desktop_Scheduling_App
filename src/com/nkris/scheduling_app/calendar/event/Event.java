@@ -71,7 +71,7 @@ public class Event
 	
 	public String getDescription()
 	{
-		return description;
+		return description; 
 	}
 	
 	
