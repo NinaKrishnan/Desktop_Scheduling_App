@@ -522,11 +522,14 @@ public class DashboardController implements Initializable
 	private void addEventToCalendar(int j, int i) 
 	{
 		Event event = EventPopUpController.getEvent();
-		String name = event.getTitle();
-		Label label = new Label(name);
-		label.setTextOverrun(OverrunStyle.ELLIPSIS);
-		label.setStyle("-fx-text-fill: white;" + "-fx-background-color: #eb4034;");
-		calendarGrid.add(label, j, i);
+		if(event != null)
+		{
+			String name = event.getTitle();
+			Label label = new Label(name);
+			label.setTextOverrun(OverrunStyle.ELLIPSIS);
+			label.setStyle("-fx-text-fill: white;" + "-fx-background-color: #eb4034;");
+			calendarGrid.add(label, j, i);
+		}
 	}
 	
 
