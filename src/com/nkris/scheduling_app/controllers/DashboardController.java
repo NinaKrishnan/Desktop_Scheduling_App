@@ -129,7 +129,7 @@ public class DashboardController implements Initializable
 	
 	private Event event;
 	
-	
+	 
 	
 	/*
 	 * Set the clock
