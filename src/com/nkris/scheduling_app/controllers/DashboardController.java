@@ -518,7 +518,7 @@ public class DashboardController implements Initializable
 			e.printStackTrace();
 		}
 	}
-	
+	 
 	private void addEventToCalendar(int j, int i) 
 	{
 		Event event = EventPopUpController.getEvent();
