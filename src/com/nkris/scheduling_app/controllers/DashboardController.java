@@ -1,5 +1,7 @@
 package com.nkris.scheduling_app.controllers;
 
+//imports
+
 import java.io.IOException;
 import java.net.URL;
 import java.text.DateFormat;
@@ -9,7 +11,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ResourceBundle;
-
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
@@ -17,7 +18,6 @@ import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import com.nkris.scheduling_app.calendar.Calendar;
 import com.nkris.scheduling_app.calendar.event.Event;
 import com.nkris.scheduling_app.controllers.helpers.EventPopUpController;
-
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -44,9 +44,6 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
-//TODO: Make calendar days interactive; light up upon mouse hover and allow for selection
-//TODO:Add event and scheduling functionality
-//TODO: Auto fill monthy calendar upon selection of month via arrows
 //TODO: Display day's news feed/schedule on left hand dash
 //TODO: Add calendar views for week and day and figure out how to switch between them without s
 		//switching scenes
