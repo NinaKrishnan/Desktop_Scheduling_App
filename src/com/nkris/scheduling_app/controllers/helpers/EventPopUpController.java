@@ -44,7 +44,7 @@ public class EventPopUpController implements Initializable
 	@FXML
 	private TextArea descriptionTextArea;
 	
-	private Event newEvent;
+	public static Event newEvent;
 	
 	
 	
@@ -67,7 +67,10 @@ public class EventPopUpController implements Initializable
 	    newEvent.setDescription(descriptionTextArea.getText());   
 	}
 	
-	
+	public static Event getEvent()
+	{
+		return newEvent;
+	}
 	
 	@FXML
 	private void cancelNewEvent(ActionEvent event)

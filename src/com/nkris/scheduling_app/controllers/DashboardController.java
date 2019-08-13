@@ -16,6 +16,7 @@ import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import com.nkris.scheduling_app.calendar.Calendar;
 import com.nkris.scheduling_app.calendar.event.Event;
+import com.nkris.scheduling_app.controllers.helpers.EventPopUpController;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -31,6 +32,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.OverrunStyle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
@@ -454,6 +456,7 @@ public class DashboardController implements Initializable
 			toggleDay.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
 				handleEventPopup();
 				toggleDay.setSelected(false);
+				addEventToCalendar(j, i);
 			});
 		}
 	}
@@ -516,11 +519,16 @@ public class DashboardController implements Initializable
 		}
 	}
 	
-	private void saveEvent() 
+	private void addEventToCalendar(int j, int i) 
 	{
-		
+		Event event = EventPopUpController.getEvent();
+		String name = event.getTitle();
+		Label label = new Label(name);
+		label.setTextOverrun(OverrunStyle.ELLIPSIS);
+		label.setStyle("-fx-text-fill: white;" + "-fx-background-color: #eb4034;");
+		calendarGrid.add(label, j, i);
 	}
-
+	
 
 
 	
