@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXTimePicker?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="325.0" prefWidth="431.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nkris.scheduling_app.controllers.helpers.EventPopUpController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="392.0" prefWidth="431.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nkris.scheduling_app.controllers.helpers.EventPopUpController">
    <children>
       <Label layoutX="22.0" layoutY="27.0" text="Event Title:">
          <font>
@@ -55,5 +56,18 @@
          </font>
       </Label>
       <TextArea layoutX="110.0" layoutY="187.0" prefHeight="124.0" prefWidth="310.0" />
+      <Button fx:id="cancelEventButton" layoutX="272.0" layoutY="328.0" mnemonicParsing="false" onAction="#cancelNewEvent" prefHeight="50.0" prefWidth="142.0" text="Cancel">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+      <Button fx:id="saveEventButton" layoutX="112.0" layoutY="328.0" mnemonicParsing="false" onAction="#saveEvent" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #24AEFE;" text="Save" textFill="WHITE">
+         <font>
+            <Font name="SansSerif Regular" size="16.0" />
+         </font>
+         <effect>
+            <DropShadow offsetX="1.4" offsetY="3.0" />
+         </effect>
+      </Button>
    </children>
 </AnchorPane>

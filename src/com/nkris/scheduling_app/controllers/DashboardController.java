@@ -28,7 +28,10 @@ import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -121,6 +124,7 @@ public class DashboardController implements Initializable
 	@FXML
 	private AnchorPane dashboardAnchorPane;
 	
+
 	private Calendar calendar = new Calendar();
 	
 	
@@ -449,6 +453,7 @@ public class DashboardController implements Initializable
 			calendarGrid.add(lbl, j, i);
 			toggleDay.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
 				handleEventPopup();
+				toggleDay.setSelected(false);
 			});
 		}
 	}
@@ -477,6 +482,7 @@ public class DashboardController implements Initializable
 		if(day == Calendar.getDateNumber())
 		{
 			tb.setStyle("-fx-background-color: #fcba03;");
+			tb.setSelected(true);
 		}	
 	}
 	
@@ -486,7 +492,7 @@ public class DashboardController implements Initializable
 	private void handleEventPopup()
 	{
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/com/nkris/scheduling_app/FXML.Event.fxml"));
+		loader.setLocation(getClass().getResource("/com/nkris/scheduling_app/FXML/Event.fxml"));
 		
 		EventController eventController = new EventController();
 		loader.setController(eventController);
@@ -503,13 +509,18 @@ public class DashboardController implements Initializable
 			eventStage.initModality(Modality.WINDOW_MODAL);
 			eventStage.setScene(scene);
 			eventStage.showAndWait();
-		} catch (Exception e)
+			
+		
+			
+		} 
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
 
-	
+
+
 	
 	
 	
