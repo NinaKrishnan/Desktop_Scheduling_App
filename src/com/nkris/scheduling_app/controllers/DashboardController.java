@@ -514,7 +514,7 @@ public class DashboardController implements Initializable
 			eventStage.showAndWait();
 		} 
 		catch (Exception e)
-		{
+		{ 
 			e.printStackTrace();
 		}
 	}
