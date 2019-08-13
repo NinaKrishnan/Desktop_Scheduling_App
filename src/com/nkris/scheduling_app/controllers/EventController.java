@@ -32,13 +32,6 @@ public class EventController
 		
 	}
 	
-	
-	public boolean saveEvent()
-	{
-		return eventPopup.getResult();
-	}
-	
-	
 	@FXML
 	private void createEventPopup(ActionEvent event) throws IOException
 	{

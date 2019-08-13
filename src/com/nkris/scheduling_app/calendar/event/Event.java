@@ -1,16 +1,17 @@
 package com.nkris.scheduling_app.calendar.event;
 
-import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Event 
 {
 
 	private String title;
-	private Date startDate;
-	private Date endDate;
-	private Time startTime;
-	private Time endTime;
+	private LocalDate startDate;
+	private LocalDate endDate;
+	private LocalTime startTime;
+	private LocalTime endTime;
 	private String description;
 	
 	
@@ -24,42 +25,42 @@ public class Event
 		return title;
 	}
 	
-	public void setStartDate(Date date)
+	public void setStartDate(LocalDate date)
 	{
 		startDate = date;
 	}
 	
-	public Date getStartDate()
+	public LocalDate getStartDate()
 	{
 		return startDate;
 	}
 	
-	public void setEndDate(Date date)
+	public void setEndDate(LocalDate date)
 	{
 		endDate = date;
 	}
 	
-	public Date getEndDate()
+	public LocalDate getEndDate()
 	{
 		return endDate;
 	}
 	
-	public void setStartTime(Time time)
+	public void setStartTime(LocalTime time)
 	{
 		startTime = time;
 	}
 	
-	public Time getStartTime()
+	public LocalTime getStartTime()
 	{
 		return startTime;
 	}
 	
-	public void setEndTime(Time time)
+	public void setEndTime(LocalTime time)
 	{
 		endTime = time;
 	}
 	
-	public Time getEndTime()
+	public LocalTime getEndTime()
 	{
 		return endTime;
 	}
