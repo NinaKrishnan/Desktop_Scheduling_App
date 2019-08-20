@@ -11,16 +11,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ResourceBundle;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import com.nkris.scheduling_app.calendar.Calendar;
-import com.nkris.scheduling_app.calendar.event.Event;
+import com.nkris.scheduling_app.calendar.event.Appointment;
 import com.nkris.scheduling_app.controllers.helpers.EventPopUpController;
+
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -124,8 +127,7 @@ public class DashboardController implements Initializable
 
 	private Calendar calendar = new Calendar();
 	
-	private Event event;
-	
+	private ObservableList<Appointment> eventHolder;
 	 
 	
 	/*
@@ -518,11 +520,14 @@ public class DashboardController implements Initializable
 	 
 	private void addEventToCalendar(int j, int i) 
 	{
-		Event event = EventPopUpController.getEvent();
+		Appointment event = EventPopUpController.getEvent();
 		if(event != null)
 		{
 			String name = event.getTitle();
 			Label label = new Label(name);
+			label.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
+				handleEventPopup();
+			});
 			label.setTextOverrun(OverrunStyle.ELLIPSIS);
 			label.setStyle("-fx-text-fill: white;" + "-fx-background-color: #eb4034;");
 			calendarGrid.add(label, j, i);
@@ -530,6 +535,12 @@ public class DashboardController implements Initializable
 	}
 	
 
+	
+
+	private void getDatabseConnection(String db)
+	{
+		
+	}
 
 	
 	

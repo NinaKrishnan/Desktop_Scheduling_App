@@ -1,5 +1,6 @@
 package com.nkris.scheduling_app.main;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import com.nkris.scheduling_app.database.*;
 
 
 //*****************************************************************************************************//
@@ -50,8 +52,10 @@ public class Main extends Application implements Initializable{
 	/* 
 	 * Main method; launches the application
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		DatabaseHandler.connect();
 		launch(args);
+		DatabaseHandler.disconnect();
 	}
 
 

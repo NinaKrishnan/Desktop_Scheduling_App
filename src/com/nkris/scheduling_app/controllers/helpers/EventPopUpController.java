@@ -5,9 +5,11 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
-import com.nkris.scheduling_app.calendar.event.Event;
+import com.nkris.scheduling_app.calendar.event.Appointment;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -27,24 +29,26 @@ public class EventPopUpController implements Initializable
 	private Button cancelEventButton;
 	
 	@FXML
-	private TextField eventTitleTextField;
+	private  TextField eventTitleTextField;
 	
 	@FXML
-	private JFXDatePicker startDatePicker;
+	private  JFXDatePicker startDatePicker;
 	
 	@FXML
-	private JFXDatePicker endDatePicker;
+	private  JFXDatePicker endDatePicker;
 	
 	@FXML
-	private JFXTimePicker startTimePicker;
+	private  JFXTimePicker startTimePicker;
 	
 	@FXML
-	private JFXTimePicker endTimePicker;
+	private  JFXTimePicker endTimePicker;
 	
 	@FXML
-	private TextArea descriptionTextArea;
+	private  TextArea descriptionTextArea;
 	
-	public static Event newEvent;
+	public static Appointment newEvent;
+	
+	public static ObservableList<Appointment> eventContainer;
 	
 	
 	
@@ -58,8 +62,7 @@ public class EventPopUpController implements Initializable
 	public void saveEvent(ActionEvent event)
 	{
 	    ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
-	    
-	    newEvent = new Event();
+	    newEvent = new Appointment();
 	    newEvent.setTitle(eventTitleTextField.getText());
 	    newEvent.setStartDate(startDatePicker.getValue());
 	    newEvent.setEndDate(endDatePicker.getValue());
@@ -67,7 +70,10 @@ public class EventPopUpController implements Initializable
 	    newEvent.setDescription(descriptionTextArea.getText());   
 	}
 	
-	public static Event getEvent()
+	
+
+	
+	public static Appointment getEvent()
 	{
 		return newEvent;
 	}

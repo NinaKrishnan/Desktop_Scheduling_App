@@ -9,22 +9,4 @@ import com.nkris.scheduling_app.calendar.Calendar;
 class CalendarTests {
 
 	
-	@Test
-	void testCalendarDayGetter() 
-	{
-		
-		assertEquals(0, Calendar.getDayOfWeekToday());
-	}
-
-	@Test
-	void testFirstDayOfMonthGetter()
-	{
-		assertEquals(4, Calendar.getFirstDayOfMonth());
-	}
-	
-	@Test
-	void testDayDateGetter()
-	{
-		assertEquals(12, Calendar.getDateNumber());
-	}
 }
