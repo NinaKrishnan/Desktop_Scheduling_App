@@ -50,13 +50,13 @@ public class Main extends Application implements Initializable{
 	
 	
 	/* 
-	 * Main method; launches the application
+	 * Main method; launches the application & establishes connection with database
 	 */
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		DatabaseHandler.connect();
 		launch(args);
-		DatabaseHandler.disconnect();
-	}
+		DatabaseHandler.disconnect(); //CLOSE THE DATABASE 
+	}	
 
 
 
