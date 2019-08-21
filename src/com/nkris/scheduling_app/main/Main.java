@@ -5,7 +5,7 @@ import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.stage.Stage;
+import javafx.stage.Stage; 
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import com.nkris.scheduling_app.database.*;
