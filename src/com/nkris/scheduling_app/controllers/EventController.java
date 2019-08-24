@@ -21,7 +21,6 @@ public class EventController
 	@FXML
 	AnchorPane popupAnchorPane;
 	
-	private EventPopUpController eventPopup = new EventPopUpController();
 
 
 	public Stage stage = null;

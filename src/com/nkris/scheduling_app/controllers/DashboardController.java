@@ -16,9 +16,9 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
-import com.nkris.scheduling_app.calendar.Calendar;
 import com.nkris.scheduling_app.calendar.event.Appointment;
 import com.nkris.scheduling_app.controllers.helpers.EventPopUpController;
+import com.nkris.scheduling_app.models.Calendar;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -184,7 +184,7 @@ public class DashboardController implements Initializable
 	        	timeClock.setText("\n"+(LocalDateTime.now().getHour()-12 ) +
 	        			":"+LocalDateTime.now().format(pmFormatter)+" p.m.");
 	        }
-	        if(LocalDateTime.now().getHour() == 0)
+	        else if(LocalDateTime.now().getHour() == 0)
 	        {
 	        	timeClock.setText("\n"+(LocalDateTime.now().getHour()+12) + 
 	        			":"+LocalDateTime.now().format(pmFormatter)+" a.m.");

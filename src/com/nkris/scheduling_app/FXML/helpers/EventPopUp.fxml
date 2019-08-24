@@ -7,18 +7,19 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="392.0" prefWidth="431.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nkris.scheduling_app.controllers.helpers.EventPopUpController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="669.0" prefWidth="533.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nkris.scheduling_app.controllers.helpers.EventPopUpController">
    <children>
       <Label layoutX="22.0" layoutY="27.0" text="Event Title:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="eventTitleTextField" layoutX="106.0" layoutY="23.0" prefHeight="34.0" prefWidth="243.0" promptText="Title" style="-fx-background-color: #F4FEFD; -fx-border-color: #EFEEEE;">
+      <TextField fx:id="eventTitleTextField" layoutX="119.0" layoutY="23.0" prefHeight="34.0" prefWidth="324.0" promptText="Title" style="-fx-background-color: #F4FEFD; -fx-border-color: #EFEEEE;">
          <font>
             <Font size="14.0" />
          </font>
@@ -32,36 +33,36 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="216.0" layoutY="80.0" text="End Date:">
+      <Label layoutX="307.0" layoutY="80.0" text="End Date:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <JFXDatePicker fx:id="endDatePicker" layoutX="294.0" layoutY="79.0" prefHeight="28.0" prefWidth="110.0" />
-      <JFXTimePicker fx:id="startTimePicker" layoutX="106.0" layoutY="137.0" prefHeight="28.0" prefWidth="94.0" />
-      <JFXTimePicker fx:id="endTimePicker" layoutX="294.0" layoutY="137.0" prefHeight="28.0" prefWidth="94.0" />
-      <Label layoutX="23.0" layoutY="139.0" text="Start Time:">
+      <JFXDatePicker fx:id="endDatePicker" layoutX="388.0" layoutY="79.0" prefHeight="28.0" prefWidth="110.0" />
+      <JFXTimePicker fx:id="startTimePicker" layoutX="103.0" layoutY="152.0" prefHeight="28.0" prefWidth="116.0" />
+      <JFXTimePicker fx:id="endTimePicker" layoutX="388.0" layoutY="152.0" prefHeight="28.0" prefWidth="110.0" />
+      <Label layoutX="21.0" layoutY="154.0" text="Start Time:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="213.0" layoutY="139.0" text="End Time:">
+      <Label layoutX="307.0" layoutY="154.0" text="End Time:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label layoutX="23.0" layoutY="187.0" text="Description:">
+      <Label layoutX="18.0" layoutY="407.0" text="Description:">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextArea fx:id="descriptionTextArea" layoutX="110.0" layoutY="187.0" prefHeight="124.0" prefWidth="310.0" />
-      <Button fx:id="cancelEventButton" layoutX="272.0" layoutY="328.0" mnemonicParsing="false" onAction="#cancelNewEvent" prefHeight="50.0" prefWidth="142.0" text="Cancel">
+      <TextArea fx:id="descriptionTextArea" layoutX="144.0" layoutY="407.0" prefHeight="118.0" prefWidth="324.0" />
+      <Button fx:id="cancelEventButton" layoutX="328.0" layoutY="545.0" mnemonicParsing="false" onAction="#cancelNewEvent" prefHeight="41.0" prefWidth="142.0" text="Cancel">
          <font>
             <Font size="16.0" />
          </font>
       </Button>
-      <Button fx:id="saveEventButton" layoutX="112.0" layoutY="328.0" mnemonicParsing="false" onAction="#saveEvent" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #24AEFE;" text="Save" textFill="WHITE">
+      <Button fx:id="saveEventButton" layoutX="144.0" layoutY="545.0" mnemonicParsing="false" onAction="#saveEvent" prefHeight="41.0" prefWidth="150.0" style="-fx-background-color: #24AEFE;" text="Save" textFill="WHITE">
          <font>
             <Font name="SansSerif Regular" size="16.0" />
          </font>
@@ -69,5 +70,56 @@
             <DropShadow offsetX="1.4" offsetY="3.0" />
          </effect>
       </Button>
+      <TextField fx:id="customerTextField" layoutX="99.0" layoutY="220.0" prefHeight="25.0" prefWidth="142.0" promptText="Customer Name" style="-fx-background-color: #F4FEFD; -fx-border-color: #EFEEEE;">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow color="#94a19c" height="3.47" offsetY="2.0" radius="1.48" width="4.45" />
+         </effect>
+      </TextField>
+      <TextField fx:id="contactTextField" layoutX="341.0" layoutY="221.0" prefHeight="28.0" prefWidth="142.0" promptText="Contact Info" style="-fx-background-color: #F4FEFD; -fx-border-color: #EFEEEE;">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow color="#94a19c" height="3.47" offsetY="2.0" radius="1.48" width="4.45" />
+         </effect>
+      </TextField>
+      <Label layoutX="23.0" layoutY="224.0" text="Customer:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="265.0" layoutY="224.0" text="Contact:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="27.0" layoutY="314.0" text="Location ">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="28.0" fitWidth="33.0" layoutX="92.0" layoutY="313.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../../../../../../Desktop%20Scheduling%20App/location.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="199.0" layoutY="314.0" text="Appointment Type:">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="typeTextField" layoutX="341.0" layoutY="311.0" prefHeight="28.0" prefWidth="142.0" promptText="Contact Info" style="-fx-background-color: #F4FEFD; -fx-border-color: #EFEEEE;">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow color="#94a19c" height="3.47" offsetY="2.0" radius="1.48" width="4.45" />
+         </effect>
+      </TextField>
+      <Label layoutX="14.0" layoutY="632.0" prefHeight="17.0" prefWidth="65.0" text="Created by" />
+      <Label layoutX="97.0" layoutY="632.0" prefHeight="17.0" prefWidth="84.0" text="Last updated" />
    </children>
 </AnchorPane>

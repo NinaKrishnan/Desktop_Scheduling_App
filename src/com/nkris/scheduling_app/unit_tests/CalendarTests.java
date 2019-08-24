@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import com.nkris.scheduling_app.calendar.Calendar;
+import com.nkris.scheduling_app.models.Calendar;
 
 class CalendarTests {
 

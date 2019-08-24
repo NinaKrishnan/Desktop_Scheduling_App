@@ -1,4 +1,4 @@
-package com.nkris.scheduling_app.calendar;
+package com.nkris.scheduling_app.models;
 
 import java.sql.Date;
 import java.time.DayOfWeek;
