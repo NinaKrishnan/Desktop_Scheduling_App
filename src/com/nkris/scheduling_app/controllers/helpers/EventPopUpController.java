@@ -67,7 +67,7 @@ public class EventPopUpController implements Initializable
 	{
 		
 	}
-
+ 
 	@FXML
 	public void saveEvent(ActionEvent event)
 	{

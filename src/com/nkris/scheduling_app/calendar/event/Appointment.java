@@ -141,7 +141,7 @@ public class Appointment
 	
 	public String getURL()
 	{
-		return url;
+		return url; 
 	}
 	
 	

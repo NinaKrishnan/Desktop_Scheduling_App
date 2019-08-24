@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 
 import com.nkris.scheduling_app.calendar.event.Appointment;
-
+  
 import javafx.beans.property.StringProperty;
 
 public class SQL_Appointments 
