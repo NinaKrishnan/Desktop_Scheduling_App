@@ -51,7 +51,10 @@ public class SQL_Customer
 	    	Customer customer = new Customer();
 	    	customer.setName(set.getString("customerName"));
 	    	customer.setCustomerID(set.getInt("customerId"));
+	    	customer.setAddress(SQL_Address.getAddress(set.getInt("addressId")));
+	    	customers.add(customer);
 	    }
+	     
 	    
 	    
 	    return customers;

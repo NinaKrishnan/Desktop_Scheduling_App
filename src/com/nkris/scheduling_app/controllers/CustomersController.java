@@ -1,10 +1,12 @@
 package com.nkris.scheduling_app.controllers;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.nkris.scheduling_app.controllers.helpers.NewCustomerController;
+import com.nkris.scheduling_app.database.SQL_Customer;
 import com.nkris.scheduling_app.models.Customer;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -16,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -47,11 +50,35 @@ public class CustomersController implements Initializable
 	@Override
 	public void initialize(URL url, ResourceBundle rb) 
 	{
-        nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-        addressColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress().getAddress()));
-        addressIDColumn.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().getAddress().getID())));
-        personalIDColumn.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().getCustomerID())));
-        activeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().getActive())));
+
+		nameColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("name"));
+		addressColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("stringAddress"));
+		personalIDColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("customerID"));
+		activeColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("active"));
+
+        try {
+			populateCustomers();
+		} 
+        catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//TODO
+	private void test()
+	{
+		 nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+	     addressColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCustomerAddress().getAddress()));
+	     addressIDColumn.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().getCustomerAddress().getID())));
+	     personalIDColumn.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().getCustomerID())));
+	     activeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().getActive())));
+	}
+	
+	
+	
+	private void populateCustomers() throws SQLException
+	{
+		customersTable.setItems(SQL_Customer.getCustomers());
 	}
 	
 	

@@ -11,6 +11,11 @@ public class Address
 	
 	
 	
+	public Address()
+	{
+		id = this.hashCode();
+	}
+	
 	public void setPhoneNumber(String number)
 	{
 		phoneNumber = number;
@@ -53,12 +58,12 @@ public class Address
 	
 	public void setID(int id)
 	{
-		this.id = this.hashCode();
+		this.id = id;
 	}
 	
 	public int getID()
 	{
-		return this.hashCode();
+		return this.id;
 	}
 	
 	public void setAddress(String address)
@@ -71,6 +76,13 @@ public class Address
 		return address;
 	}
 	
+	
+	
+	@Override
+	public String toString()
+	{
+		return address;
+	}
 	
 	
 }

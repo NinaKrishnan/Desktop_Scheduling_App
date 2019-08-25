@@ -7,6 +7,8 @@ public class Customer
 	private Address address;
 	private int customerID;
 	private int active;
+	private String stringAddress;
+	
 	
 	public Customer()
 	{
@@ -31,12 +33,18 @@ public class Customer
 		this.address = address;
 	}
 	
+	
+	public Address getAddress()
+	{
+		return address;
+	}
+	
 	public int getAddressID()
 	{
 		return address.getID();
 	}
 	
-	public Address getAddress()
+	public Address getCustomerAddress()
 	{
 		return address;
 	}
@@ -60,6 +68,22 @@ public class Customer
 	public int getActive()
 	{
 		return active;
+	}
+	
+	public void setStringAddress(String address)
+	{
+		stringAddress = address;
+	}
+	
+	public String getStringAddress()
+	{
+		return stringAddress;
+	}
+
+	
+	public String stringAddressProperty()
+	{
+		return stringAddress;
 	}
 	
 

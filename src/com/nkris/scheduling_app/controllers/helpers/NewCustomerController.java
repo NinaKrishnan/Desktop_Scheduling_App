@@ -74,6 +74,8 @@ public class NewCustomerController
 		
 		customer.setAddress(createNewAddress());
 		
+		customer.setStringAddress(customer.getAddress().getAddress());
+		
 		return customer;
 		
 	}

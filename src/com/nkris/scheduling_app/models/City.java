@@ -26,5 +26,24 @@ public class City
 		this.country = country;
 	}
 	
+	public Country getCountry()
+	{
+		return country;
+	}
+	
+	
+	public void setCityID(int id)
+	{
+		cityID = id;
+	}
+	
+	public int getCityID()
+	{
+		return cityID;
+	}
+	
+
+	
+	
 	
 }
