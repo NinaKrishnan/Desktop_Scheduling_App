@@ -1,5 +1,6 @@
 package com.nkris.scheduling_app.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -7,6 +8,7 @@ import java.util.ResourceBundle;
 import com.jfoenix.controls.JFXButton;
 import com.nkris.scheduling_app.controllers.helpers.NewCustomerController;
 import com.nkris.scheduling_app.database.SQL_Customer;
+import com.nkris.scheduling_app.models.Address;
 import com.nkris.scheduling_app.models.Customer;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -14,11 +16,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -28,13 +33,13 @@ public class CustomersController implements Initializable
 	private JFXButton newCustomerButton;
 	
 	@FXML
-	private TableView <Customer> customersTable;
+	public TableView <Customer> customersTable;
 	
 	@FXML
 	private TableColumn<Customer, String> nameColumn;
 	
 	@FXML
-	private TableColumn<Customer, String> addressColumn;
+	private TableColumn<Address, String> addressColumn;
 	
 	@FXML
 	private TableColumn<Customer, String> personalIDColumn;
@@ -45,6 +50,9 @@ public class CustomersController implements Initializable
 	@FXML
 	private TableColumn<Customer, String> activeColumn;
 	
+	@FXML
+	private ImageView backArrow;
+	
 	
 	
 	@Override
@@ -52,7 +60,7 @@ public class CustomersController implements Initializable
 	{
 
 		nameColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("name"));
-		addressColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("stringAddress"));
+		addressColumn.setCellValueFactory(new PropertyValueFactory<Address, String>("address"));
 		personalIDColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("customerID"));
 		activeColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("active"));
 
@@ -68,7 +76,7 @@ public class CustomersController implements Initializable
 	private void test()
 	{
 		 nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-	     addressColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getCustomerAddress().getAddress()));
+	     addressColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress()));
 	     addressIDColumn.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().getCustomerAddress().getID())));
 	     personalIDColumn.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().getCustomerID())));
 	     activeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().getActive())));
@@ -103,6 +111,7 @@ public class CustomersController implements Initializable
 			stage.initModality(Modality.WINDOW_MODAL);
 			stage.setScene(scene);
 			stage.showAndWait();
+			updateCustomers();
 		} 
 		catch (Exception e)
 		{ 
@@ -110,7 +119,23 @@ public class CustomersController implements Initializable
 		}
 	}
 
+	
+	public void updateCustomers() throws SQLException
+	{
+		customersTable.setItems(SQL_Customer.getCustomers());
+	}
 
+	@FXML
+	private void backToDashboard(MouseEvent event) throws IOException
+	{
+		Parent parent = FXMLLoader.load(getClass().getResource
+				("/com/nkris/scheduling_app/FXML/DashboardUI.fxml"));
+		Scene scene = new Scene(parent);
+		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		stage.setScene(scene);
+		stage.show();
+		
+	}
 
 
 

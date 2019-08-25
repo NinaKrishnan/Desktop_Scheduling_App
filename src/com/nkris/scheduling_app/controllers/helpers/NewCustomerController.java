@@ -2,6 +2,7 @@ package com.nkris.scheduling_app.controllers.helpers;
 
 import java.sql.SQLException;
 
+import com.nkris.scheduling_app.controllers.CustomersController;
 import com.nkris.scheduling_app.database.SQL_Customer;
 import com.nkris.scheduling_app.models.Address;
 import com.nkris.scheduling_app.models.City;
@@ -50,14 +51,21 @@ public class NewCustomerController
 	private void saveNewCustomer(ActionEvent event)
 	{
 		try {
-			SQL_Customer.insertCustomer(createCustomer());
+			Customer customer = createCustomer();
+			SQL_Customer.insertCustomer(customer);
+			SQL_Customer.customers.add(customer);
+			
 		} 
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
 	    ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
-
+	  
 	}
+	
+	
+	
+	
 	
 	@FXML
 	private void cancelNewCustomer(ActionEvent event)

@@ -14,6 +14,10 @@ public class SQL_Customer
 {
 	
 	
+	public static ObservableList<Customer> customers = FXCollections.observableArrayList();
+
+	
+	
 	public static void insertCustomer(Customer customer) throws SQLException
 	{
 		 String addCustomerQuery = String.join(" ",
@@ -54,9 +58,9 @@ public class SQL_Customer
 	    	customer.setAddress(SQL_Address.getAddress(set.getInt("addressId")));
 	    	customers.add(customer);
 	    }
-	     
-	    
-	    
+
 	    return customers;
 	}
+	
+
 }
