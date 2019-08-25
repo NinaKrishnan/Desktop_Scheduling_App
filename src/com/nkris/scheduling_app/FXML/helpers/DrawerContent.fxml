@@ -34,7 +34,7 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </JFXButton>
-            <JFXButton id="cursor" buttonType="RAISED" prefHeight="61.0" prefWidth="114.0" ripplerFill="#0ed6ed" style="-fx-border-color: #000000; -fx-background-color: #0356fc;" stylesheets="@../../main/stylesheets/application.css" text="Customers" textFill="WHITE">
+            <JFXButton id="cursor" fx:id="customersButton" buttonType="RAISED" onAction="#openCustomersScreen" prefHeight="61.0" prefWidth="114.0" ripplerFill="#0ed6ed" style="-fx-border-color: #000000; -fx-background-color: #0356fc;" stylesheets="@../../main/stylesheets/application.css" text="Customers" textFill="WHITE">
                <effect>
                   <InnerShadow choke="0.6" height="202.8" radius="113.95" width="255.0" />
                </effect>

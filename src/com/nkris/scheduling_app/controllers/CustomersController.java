@@ -1,0 +1,94 @@
+package com.nkris.scheduling_app.controllers;
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import com.jfoenix.controls.JFXButton;
+import com.nkris.scheduling_app.controllers.helpers.NewCustomerController;
+import com.nkris.scheduling_app.models.Customer;
+
+import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+
+public class CustomersController implements Initializable
+{
+	@FXML
+	private JFXButton newCustomerButton;
+	
+	@FXML
+	private TableView <Customer> customersTable;
+	
+	@FXML
+	private TableColumn<Customer, String> nameColumn;
+	
+	@FXML
+	private TableColumn<Customer, String> addressColumn;
+	
+	@FXML
+	private TableColumn<Customer, String> personalIDColumn;
+	
+	@FXML
+	private TableColumn<Customer, String> addressIDColumn;
+	
+	@FXML
+	private TableColumn<Customer, String> activeColumn;
+	
+	
+	
+	@Override
+	public void initialize(URL url, ResourceBundle rb) 
+	{
+        nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+        addressColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress().getAddress()));
+        addressIDColumn.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().getAddress().getID())));
+        personalIDColumn.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().getCustomerID())));
+        activeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().getActive())));
+	}
+	
+	
+	@FXML
+	private void addNewCustomer(ActionEvent event)
+	{
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/com/nkris/scheduling_app/FXML/helpers/NewCustomer.fxml"));
+		
+		NewCustomerController controller = new NewCustomerController();
+		loader.setController(controller);
+		
+		
+		Parent layout;
+		try 
+		{
+			layout = loader.load(getClass().getResource("/com/nkris/scheduling_app/FXML/helpers/NewCustomer.fxml"));
+			Scene scene = new Scene(layout);
+			Stage stage = new Stage();
+			controller.setStage(stage);
+			
+			stage.initModality(Modality.WINDOW_MODAL);
+			stage.setScene(scene);
+			stage.showAndWait();
+		} 
+		catch (Exception e)
+		{ 
+			e.printStackTrace();
+		}
+	}
+
+
+
+
+
+	
+	
+	
+	
+}

@@ -1,14 +1,18 @@
 package com.nkris.scheduling_app.main;
 import java.net.URL;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import com.nkris.scheduling_app.database.DatabaseHandler;
+import com.nkris.scheduling_app.models.User;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.stage.Stage; 
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
-import com.nkris.scheduling_app.database.*;
+import javafx.stage.Stage;
 
 
 //*****************************************************************************************************//
@@ -25,7 +29,17 @@ import com.nkris.scheduling_app.database.*;
 
 //TODO: external style sheets
 
+
+
+
+
 public class Main extends Application implements Initializable{
+	
+	public static User user = new User();
+	
+	public static Connection connection = null;
+	
+	
 	
 	/*
 	 * Start method; displays the login screen.
@@ -53,12 +67,10 @@ public class Main extends Application implements Initializable{
 	 * Main method; launches the application & establishes connection with database
 	 */
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		//DatabaseHandler.connect();
+		connection = DatabaseHandler.getConnection();
 		launch(args);
 		//DatabaseHandler.disconnect(); //CLOSE THE DATABASE 
 	}	
-
-
 
 
 

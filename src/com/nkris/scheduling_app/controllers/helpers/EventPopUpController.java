@@ -6,8 +6,8 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
-import com.nkris.scheduling_app.calendar.event.Appointment;
 import com.nkris.scheduling_app.database.SQL_Appointments;
+import com.nkris.scheduling_app.models.Appointment;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

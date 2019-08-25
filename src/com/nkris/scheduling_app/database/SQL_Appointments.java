@@ -4,8 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
-import com.nkris.scheduling_app.calendar.event.Appointment;
-  
+import com.nkris.scheduling_app.main.Main;
+import com.nkris.scheduling_app.models.Appointment;
+
 import javafx.beans.property.StringProperty;
 
 public class SQL_Appointments 
@@ -31,7 +32,7 @@ public class SQL_Appointments
 		            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, NOW(), ?)"
 		        );
 		
-         PreparedStatement statement = DatabaseHandler.getConnection().prepareStatement(addAppointmentQuery);
+         PreparedStatement statement = Main.connection.prepareStatement(addAppointmentQuery);
          statement.setInt(1, appointment.getID());
          statement.setInt(2, appointment.getCustomer().getCustomerID());
          statement.setString(3, appointment.getTitle());

@@ -1,4 +1,4 @@
-package com.nkris.scheduling_app.calendar.event;
+package com.nkris.scheduling_app.models;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -6,9 +6,6 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-
-import com.nkris.scheduling_app.models.Customer;
-import com.nkris.scheduling_app.models.User;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

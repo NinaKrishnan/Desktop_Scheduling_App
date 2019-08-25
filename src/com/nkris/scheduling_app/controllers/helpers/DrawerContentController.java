@@ -2,10 +2,11 @@ package com.nkris.scheduling_app.controllers.helpers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
+
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXColorPicker;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,14 +14,16 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
+import javafx.stage.Stage;
 
 
 public class DrawerContentController implements Initializable
@@ -48,6 +51,9 @@ public class DrawerContentController implements Initializable
 	
 	@FXML
 	private JFXButton dashboardButton; //Dashboard button in main nav drawer
+	
+	@FXML
+	private JFXButton customersButton;
 	
 	
 	
@@ -253,5 +259,17 @@ public class DrawerContentController implements Initializable
 		settingsButton.setText("Settings ⮟");
 	}
 
+	
+	@FXML
+	private void openCustomersScreen(ActionEvent event) throws IOException
+	{
+		Parent parent = FXMLLoader.load(getClass().getResource
+				("/com/nkris/scheduling_app/FXML/CustomersScreen.fxml"));
+		Scene scene = new Scene(parent);
+		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		stage.setScene(scene);
+		stage.show();
+	}
+	
 	
 }

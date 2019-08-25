@@ -3,14 +3,16 @@ package com.nkris.scheduling_app.controllers;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.ResourceBundle;
+
+import com.nkris.scheduling_app.main.Main;
+import com.nkris.scheduling_app.models.User;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
-import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -99,8 +101,7 @@ public class LogInController implements Initializable
     @FXML
     private Button loginButton; //Login button; validates username and password and logs user into 
     							//system if valid, and displays error message otherwise.
-    
-    static HashMap<String, String> credentials = new HashMap<String, String>();
+        
     
     //TODO							
     private final int loginAttempLimit = 3; //Maximum number of incorrect login attempts from any one user
@@ -211,6 +212,7 @@ public class LogInController implements Initializable
 	@FXML
 	void loginButtonClicked(ActionEvent event) throws IOException
 	{
+		setUserName(usernameTextField.getText());
 		Parent parent = FXMLLoader.load(getClass().getResource
 				("/com/nkris/scheduling_app/FXML/DashboardUI.fxml"));
 		Scene homeScreen = new Scene(parent);
@@ -219,6 +221,12 @@ public class LogInController implements Initializable
 		stage.show();
 	}
 
+	
+	private void setUserName(String userName)
+	{
+		Main.user.setUserName(userName);
+	}
+	
 	
 	
 

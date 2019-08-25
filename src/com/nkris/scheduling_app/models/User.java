@@ -14,11 +14,19 @@ public class User
 	
 	
 	
-	
+	public void setUserID(int id)
+	{
+		this.id = id;
+	}
 	
 	public int getUserID()
 	{
 		return id;
+	}
+	
+	public void setUserName(String userName)
+	{
+		this.userName = userName;
 	}
 	
 	public String getUserName()

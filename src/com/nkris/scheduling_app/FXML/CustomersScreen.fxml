@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="739.0" prefWidth="1068.0" style="-fx-background-color: #24AEFE;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nkris.scheduling_app.controllers.CustomersController">
+   <children>
+      <TableView fx:id="customersTable" layoutX="65.0" layoutY="104.0" prefHeight="589.0" prefWidth="938.0">
+        <columns>
+          <TableColumn fx:id="nameColumn" prefWidth="227.5" text="Name" />
+          <TableColumn fx:id="addressColumn" prefWidth="237.0" text="Address" />
+            <TableColumn fx:id="personalIDColumn" prefWidth="180.0" text="Personal ID" />
+            <TableColumn fx:id="addressIDColumn" prefWidth="161.5" text="Address ID" />
+            <TableColumn fx:id="activeColumn" prefWidth="131.0" text="Active Status" />
+        </columns>
+      </TableView>
+      <JFXButton fx:id="newCustomerButton" buttonType="RAISED" layoutX="65.0" layoutY="21.0" onAction="#addNewCustomer" ripplerFill="#3af271" text="+ New Customer" textFill="#1409eb">
+         <font>
+            <Font name="SansSerif Regular" size="18.0" />
+         </font>
+      </JFXButton>
+   </children>
+   <effect>
+      <DropShadow offsetX="3.0" />
+   </effect>
+</AnchorPane>
