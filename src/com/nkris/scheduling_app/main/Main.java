@@ -37,7 +37,6 @@ public class Main extends Application implements Initializable{
 	
 	public static User user = new User();
 	
-	public static Connection connection = null;
 	
 	
 	
@@ -67,9 +66,8 @@ public class Main extends Application implements Initializable{
 	 * Main method; launches the application & establishes connection with database
 	 */
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		connection = DatabaseHandler.getConnection();
 		launch(args);
-		//DatabaseHandler.disconnect(); //CLOSE THE DATABASE 
+		//CLOSE THE DATABASE 
 	}	
 
 

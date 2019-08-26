@@ -3,11 +3,12 @@ package com.nkris.scheduling_app.models;
 public class Address 
 {
 	private int id;
-	private String address;
+	private String streetAddress;
 	private City city;
 	private Country country;
 	private String zipCode;
 	private String phoneNumber;
+	private String state;
 	
 	
 	
@@ -56,32 +57,42 @@ public class Address
 		return city;
 	}
 	
-	public void setID(int id)
+	public void setId(int id)
 	{
 		this.id = id;
 	}
 	
-	public int getID()
+	public int getId()
 	{
 		return this.id;
 	}
 	
-	public void setAddress(String address)
+	public void setStreetAddress(String address)
 	{
-		this.address = address;
+		streetAddress = address;
 	}
 	
-	public String getAddress()
+	public String getStreetAddress()
 	{
-		return address;
+		return streetAddress;
 	}
 	
 	
 	@Override
 	public String toString()
 	{
-		return address;
+		return streetAddress;
 	}
 	
+	
+	public void setState(String state)
+	{
+		this.state = state;
+	}
+	
+	public String getState()
+	{
+		return state;
+	}
 	
 }

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
@@ -9,17 +11,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="739.0" prefWidth="1068.0" style="-fx-background-color: #24AEFE;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nkris.scheduling_app.controllers.CustomersController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="761.0" prefWidth="1068.0" style="-fx-background-color: #24AEFE;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nkris.scheduling_app.controllers.CustomersController">
    <children>
-      <TableView fx:id="customersTable" layoutX="65.0" layoutY="104.0" prefHeight="589.0" prefWidth="938.0">
-        <columns>
-          <TableColumn fx:id="nameColumn" prefWidth="227.5" text="Name" />
-          <TableColumn fx:id="addressColumn" prefWidth="237.0" text="Address" />
-            <TableColumn fx:id="personalIDColumn" prefWidth="180.0" text="Personal ID" />
-            <TableColumn fx:id="addressIDColumn" prefWidth="161.5" text="Address ID" />
-            <TableColumn fx:id="activeColumn" prefWidth="131.0" text="Active Status" />
-        </columns>
-      </TableView>
+      <ScrollPane layoutX="65.0" layoutY="104.0">
+         <content>
+            <TableView fx:id="customersTable" prefHeight="589.0" prefWidth="938.0">
+              <columns>
+                <TableColumn fx:id="nameColumn" prefWidth="287.5" text="Name" />
+                  <TableColumn fx:id="personalIDColumn" prefWidth="247.0" text="Customer ID" />
+                  <TableColumn fx:id="addressIDColumn" prefWidth="212.0" text="Address ID" />
+                  <TableColumn fx:id="activeColumn" prefWidth="190.5" text="Active Status" />
+              </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
       <JFXButton fx:id="newCustomerButton" buttonType="RAISED" layoutX="65.0" layoutY="47.0" onAction="#addNewCustomer" ripplerFill="#3af271" text="+ New Customer" textFill="#1b15cd">
          <font>
             <Font name="SansSerif Regular" size="20.0" />
@@ -30,6 +35,16 @@
             <Image url="@../../../../../../../../../Desktop%20Scheduling%20App/back%20arrow.png" />
          </image>
       </ImageView>
+      <Button fx:id="viewCustomerButton" layoutX="707.0" layoutY="715.0" mnemonicParsing="false" onAction="#viewCustomer" prefHeight="25.0" prefWidth="130.0" text="View">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+      <Button layoutX="875.0" layoutY="715.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #cf0c0c;" text="Delete" textFill="WHITE">
+         <font>
+            <Font name="SansSerif Regular" size="14.0" />
+         </font>
+      </Button>
    </children>
    <effect>
       <DropShadow offsetX="3.0" />

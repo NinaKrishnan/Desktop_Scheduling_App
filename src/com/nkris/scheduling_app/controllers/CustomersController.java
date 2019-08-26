@@ -19,7 +19,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
@@ -38,31 +40,46 @@ public class CustomersController implements Initializable
 	@FXML
 	private TableColumn<Customer, String> nameColumn;
 	
-	@FXML
-	private TableColumn<Address, String> addressColumn;
 	
 	@FXML
 	private TableColumn<Customer, String> personalIDColumn;
 	
 	@FXML
-	private TableColumn<Customer, String> addressIDColumn;
+	private TableColumn<Customer, Address> addressIDColumn;
 	
 	@FXML
-	private TableColumn<Customer, String> activeColumn;
+	private TableColumn<Customer, Integer> activeColumn;
 	
 	@FXML
 	private ImageView backArrow;
+	
+	@FXML
+	private Button viewCustomerButton;
+	
+	public static Customer selectedCustomer;
+
 	
 	
 	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) 
 	{
-
+		try {
+			setCellValues();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		getCellValues();
+		
+	}
+	
+	
+	private void setCellValues() throws ClassNotFoundException
+	{
 		nameColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("name"));
-		addressColumn.setCellValueFactory(new PropertyValueFactory<Address, String>("address"));
 		personalIDColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("customerID"));
-		activeColumn.setCellValueFactory(new PropertyValueFactory<Customer, String>("active"));
+		activeColumn.setCellValueFactory(new PropertyValueFactory<Customer, Integer>("active"));
+		addressIDColumn.setCellValueFactory(new PropertyValueFactory<Customer, Address>("address"));
 
         try {
 			populateCustomers();
@@ -72,19 +89,15 @@ public class CustomersController implements Initializable
 		}
 	}
 	
-	//TODO
-	private void test()
+	private void getCellValues()
 	{
-		 nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-	     addressColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getAddress()));
-	     addressIDColumn.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().getCustomerAddress().getID())));
-	     personalIDColumn.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().getCustomerID())));
-	     activeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(Integer.toString(cellData.getValue().getActive())));
+        nameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
+        personalIDColumn.setCellValueFactory(cellData -> new SimpleStringProperty
+        		(Integer.toString(cellData.getValue().getCustomerID())));
 	}
 	
 	
-	
-	private void populateCustomers() throws SQLException
+	private void populateCustomers() throws SQLException, ClassNotFoundException
 	{
 		customersTable.setItems(SQL_Customer.getCustomers());
 	}
@@ -120,7 +133,7 @@ public class CustomersController implements Initializable
 	}
 
 	
-	public void updateCustomers() throws SQLException
+	public void updateCustomers() throws SQLException, ClassNotFoundException
 	{
 		customersTable.setItems(SQL_Customer.getCustomers());
 	}
@@ -137,6 +150,47 @@ public class CustomersController implements Initializable
 		
 	}
 
+	
+	@FXML
+	private void viewCustomer(ActionEvent event) throws IOException, SQLException
+	{
+		selectedCustomer = customersTable.getSelectionModel().getSelectedItem();
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/com/nkris/scheduling_app/FXML/helpers/NewCustomer.fxml"));
+		
+		NewCustomerController controller = new NewCustomerController();
+		loader.setController(controller);
+		
+		
+		Parent layout;
+		try 
+		{
+			layout = loader.load(getClass().getResource("/com/nkris/scheduling_app/FXML/helpers/NewCustomer.fxml"));
+			Scene scene = new Scene(layout);
+			Stage stage = new Stage();
+			controller.setStage(stage);
+			
+			stage.initModality(Modality.WINDOW_MODAL);
+			stage.setScene(scene);
+			
+			stage.showAndWait();
+			updateCustomers();
+		} 
+		catch (Exception e)
+		{ 
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public int getValueAt()
+	{
+	    TablePosition pos = customersTable.getSelectionModel().getSelectedCells().get(0);
+	    int row = pos.getRow();
+	    int column = 1;
+	    int id = (Integer) customersTable.getColumns().get(column).getCellObservableValue(row).getValue();
+	   return id;
+	}
 
 
 	

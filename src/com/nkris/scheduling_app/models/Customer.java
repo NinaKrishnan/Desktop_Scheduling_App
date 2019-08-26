@@ -4,16 +4,24 @@ import com.nkris.scheduling_app.models.Address;
 public class Customer
 {
 	private String name;
+	private String firstName;
+	private String lastName;
 	private Address address;
 	private int customerID;
 	private int active;
-	private String stringAddress;
+	private int addressId;
 	
 	
-	public Customer()
+	public Customer(Address address)
 	{
 		customerID = this.hashCode();
 		active = 1;
+		this.address = address;
+	}
+	
+	public Customer()
+	{
+		
 	}
 	 
 	
@@ -41,7 +49,7 @@ public class Customer
 	
 	public int getAddressID()
 	{
-		return address.getID();
+		return address.hashCode();
 	}
 	
 	public Address getCustomerAddress()
@@ -70,23 +78,32 @@ public class Customer
 		return active;
 	}
 	
-	public void setStringAddress(String address)
+	
+	public int getAddressId()
 	{
-		stringAddress = address;
+		return addressId;
 	}
 	
-	public String getStringAddress()
+	public void setFirstName(String name)
 	{
-		return stringAddress;
-	}
-
-	
-	public String stringAddressProperty()
-	{
-		return stringAddress;
+		firstName = name;
 	}
 	
-
+	public String getFirstName()
+	{
+		return firstName;
+	}
+	
+	public void setLastName(String name)
+	{
+		lastName = name;
+	}
+	
+	public String getLastName()
+	{
+		return lastName;
+	}
+	
 
 	
 	

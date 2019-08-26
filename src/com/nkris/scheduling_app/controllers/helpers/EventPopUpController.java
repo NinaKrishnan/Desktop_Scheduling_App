@@ -82,7 +82,7 @@ public class EventPopUpController implements Initializable
 	    
 	    try {
 			SQL_Appointments.insertAppointment(newEvent);
-		} catch (SQLException e) {
+		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
