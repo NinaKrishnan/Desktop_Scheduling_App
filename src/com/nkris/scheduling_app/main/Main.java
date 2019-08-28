@@ -1,10 +1,13 @@
 package com.nkris.scheduling_app.main;
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import com.nkris.scheduling_app.database.DatabaseHandler;
+import com.nkris.scheduling_app.models.Address;
+import com.nkris.scheduling_app.models.City;
+import com.nkris.scheduling_app.models.Country;
+import com.nkris.scheduling_app.models.Customer;
 import com.nkris.scheduling_app.models.User;
 
 import javafx.application.Application;
@@ -66,6 +69,7 @@ public class Main extends Application implements Initializable{
 	 * Main method; launches the application & establishes connection with database
 	 */
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
+		DatabaseHandler.connect();
 		launch(args);
 		//CLOSE THE DATABASE 
 	}	
@@ -75,6 +79,13 @@ public class Main extends Application implements Initializable{
 	@Override
 	public void initialize(URL url, ResourceBundle rb) 
 	{
-		
+		try {
+			Customer.setIndex();
+			Address.setIndex();
+			City.setIndex();
+			Country.setIndex();
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

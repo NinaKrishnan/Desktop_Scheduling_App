@@ -42,6 +42,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -523,8 +524,8 @@ public class DashboardController implements Initializable
 		Appointment event = EventPopUpController.getEvent();
 		if(event != null)
 		{
-			String name = event.getTitle();
-			Label label = new Label(name);
+			//String name = event.getTitle();
+			Label label = new Label();
 			label.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
 				handleEventPopup();
 			});
@@ -533,6 +534,7 @@ public class DashboardController implements Initializable
 			calendarGrid.add(label, j, i);
 		}
 	}
+
 	
 
 	

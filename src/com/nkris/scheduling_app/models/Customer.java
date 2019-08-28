@@ -1,5 +1,8 @@
 package com.nkris.scheduling_app.models;
-import com.nkris.scheduling_app.models.Address;
+import java.sql.SQLException;
+
+import com.nkris.scheduling_app.database.DatabaseHandler;
+import com.nkris.scheduling_app.database.SQL_Customer;
 
 public class Customer
 {
@@ -10,20 +13,19 @@ public class Customer
 	private int customerID;
 	private int active;
 	private int addressId;
+	public static int customerIndex;
 	
-	
-	public Customer(Address address)
-	{
-		customerID = this.hashCode();
-		active = 1;
-		this.address = address;
-	}
-	
+		
 	public Customer()
 	{
-		
+	
 	}
 	 
+	public static void setIndex() throws ClassNotFoundException, SQLException
+	{
+		int index = SQL_Customer.getLastIndex(DatabaseHandler.getDBconnection());
+		customerIndex = index;
+	}
 	
 	public void setName(String name)
 	{
@@ -47,11 +49,6 @@ public class Customer
 		return address;
 	}
 	
-	public int getAddressID()
-	{
-		return address.hashCode();
-	}
-	
 	public Address getCustomerAddress()
 	{
 		return address;
@@ -59,12 +56,18 @@ public class Customer
 	
 	public void setCustomerID(int id)
 	{
-		this.customerID = id;
+		customerID = id;
+	}
+	
+	public void setCustomerID()
+	{
+		customerID = customerIndex;
+		customerIndex++;
 	}
 	
 	public int getCustomerID()
 	{
-		return this.hashCode();
+		return customerID;
 	}
 	
 	
@@ -81,7 +84,7 @@ public class Customer
 	
 	public int getAddressId()
 	{
-		return addressId;
+		return address.getId();
 	}
 	
 	public void setFirstName(String name)

@@ -13,7 +13,7 @@ public class SQL_Appointments
 	
 	public static void insertAppointment(Appointment appointment) throws SQLException, ClassNotFoundException
 	{
-		connection = DatabaseHandler.getConnection();
+		connection = DatabaseHandler.getDBconnection();
 		
 
 		StringProperty start = appointment.getStringDateTime(appointment.getStartTime(), appointment.getStartDate());

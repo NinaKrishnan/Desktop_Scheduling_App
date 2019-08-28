@@ -15,26 +15,41 @@ public class SQL_Country
 	
 	public static void insertCountry(Country country, Connection connection) throws SQLException, ClassNotFoundException
 	{
-		//connection = DatabaseHandler.getConnection();
 		String addCountryQuery = String.join(" ",
-	            "INSERT INTO city (countryId, country, createDate, "
+	            "INSERT INTO country (countryId, country, createDate, "
 	            + "createdBy, lastUpdate, lastUpdateBy)",
 	            "VALUES (?, ?, NOW(), ?, NOW(), ?)");
+		String foreignKeyQuery = "SET FOREIGN_KEY_CHECKS=0";
+		String foreignKeyQuery2 = "SET FOREIGN_KEY_CHECKS=1";
 		PreparedStatement statement = connection.prepareStatement(addCountryQuery);
 		statement.setInt(1, country.getCountryId());
 		statement.setString(2, country.getCountryName());
 		statement.setString(3, Main.user.getUserName());
 		statement.setString(4, Main.user.getUserName());
-		
+		PreparedStatement fkStatement = connection.prepareStatement(foreignKeyQuery);
+	    PreparedStatement fkStatement2 = connection.prepareStatement(foreignKeyQuery2);
+	    fkStatement.executeUpdate();
 		statement.executeUpdate();
+		fkStatement2.executeUpdate();
 	}
 	
 	
-	
+	public static int getLastIndex(Connection connection) throws SQLException, ClassNotFoundException
+	{
+		int index = 0;
+		String query = "SELECT MAX(customerId)FROM customer";
+		PreparedStatement statement = connection.prepareStatement(query);
+		ResultSet set = statement.executeQuery();
+		if(set.next())
+		{
+			index = set.getInt(1);
+		}
+		return index + 1;
+	}
 	
 	public static Country getCountry(int countryID) throws SQLException, ClassNotFoundException
 	{
-		connection = DatabaseHandler.getConnection();
+		connection = DatabaseHandler.getDBconnection();
 		
 		 String countryQuery = "SELECT * FROM country WHERE countryId = ?"; 
 	     Country country = new Country();

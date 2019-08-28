@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 import com.nkris.scheduling_app.main.Main;
 import com.nkris.scheduling_app.models.Address;
+import com.nkris.scheduling_app.models.City;
+import com.nkris.scheduling_app.models.Country;
 import com.nkris.scheduling_app.models.Customer;
 
 import javafx.collections.FXCollections;
@@ -31,7 +33,7 @@ public class SQL_Customer
          PreparedStatement statement = connection.prepareStatement(addCustomerQuery);
          statement.setInt(1, customer.getCustomerID());
          statement.setString(2, customer.getName());
-         statement.setInt(3, customer.getAddressID());
+         statement.setInt(3, customer.getAddress().getId());
          statement.setString(4, Main.user.getUserName());
          statement.setString(5, Main.user.getUserName());
          PreparedStatement fkStatement = connection.prepareStatement(foreignKeyQuery);
@@ -39,17 +41,24 @@ public class SQL_Customer
          fkStatement.executeUpdate();
          statement.executeUpdate();
          fkStatement2.executeUpdate();
+         
+        SQL_Address.insertAddress(customer.getAddress(), connection);
+         SQL_City.insertCity(customer.getAddress().getCity(), connection);
+         SQL_Country.insertCountry(customer.getAddress().getCity().getCountry(), connection);
 	}
 	
 	
 	
 	public static ObservableList<Customer> getCustomers() throws SQLException, ClassNotFoundException
 	{
-		connection = DatabaseHandler.getConnection();
+		connection = DatabaseHandler.getDBconnection();
 		ObservableList<Customer> customers = FXCollections.observableArrayList();
 	    String customersQuery = "SELECT * FROM customer"; 
+	    String addressQuery = "SELECT * FROM address WHERE addressId = ?";
 	    
 	    PreparedStatement statement = connection.prepareStatement(customersQuery);
+	    PreparedStatement addressStatement = connection.prepareStatement(addressQuery);
+	    
 	    ResultSet set = statement.executeQuery();
 	    
 	    while(set.next())
@@ -57,35 +66,103 @@ public class SQL_Customer
 	    	Customer customer = new Customer();
 	    	customer.setName(set.getString("customerName"));
 	    	customer.setCustomerID(set.getInt("customerId"));
-	    	customer.setAddress(SQL_Address.getAddress(set.getInt("addressId")));;
 	    	customer.setActive(set.getInt("active"));
-	    	
-	    	customers.add(customer);
-	    }
-    	connection.close();
+	    	addressStatement.setInt(1, set.getInt("addressId"));
+	    	ResultSet addressSet = addressStatement.executeQuery();
+	    	if(addressSet.next())
+	    	{
+	    		Address address = new Address();
+	    		address.setStreetAddress(addressSet.getString("address"));
+	    		String cityQuery = "SELECT * FROM city WHERE cityId = ?";
+	    		PreparedStatement cityStatement = connection.prepareStatement(cityQuery);
+	    		cityStatement.setInt(1, addressSet.getInt("cityId"));
+	    		ResultSet citySet = cityStatement.executeQuery();
+	    		if(citySet.next())
+	    		{
+	    			City city = new City();
+	    			city.setCityName(citySet.getString("city"));
+	    			String countryQuery = "SELECT * FROM country WHERE countryId = ?";
+	    			PreparedStatement countryStatement = connection.prepareStatement(countryQuery);
+	    			countryStatement.setInt(1, citySet.getInt("countryId"));
+	    			ResultSet countrySet = countryStatement.executeQuery();
+	    			if(countrySet.next())
+	    			{
+	    				Country country = new Country();
+	    				country.setCountryName(countrySet.getString("country"));
+	    				city.setCountry(country);
+	    				address.setCity(city);
+	    				customer.setAddress(address);
+	    		    	customers.add(customer);
 
+	    			}
+	    			
+	    		}
+	    	}
+	    	
+	    }
 	    return customers;
+	}
+	
+	public static int getLastIndex(Connection connection) throws SQLException, ClassNotFoundException
+	{
+		int index = 0;
+		String query = "SELECT MAX(customerId)FROM customer";
+		PreparedStatement statement = connection.prepareStatement(query);
+		ResultSet set = statement.executeQuery();
+		if(set.next())
+		{
+			index = set.getInt(1);
+		}
+		return index + 1;
 	}
 	
 	public static Customer getSelectedCustomer(int id) throws SQLException, ClassNotFoundException
 	{
-		connection = DatabaseHandler.getConnection();
+		connection = DatabaseHandler.getDBconnection();
 		String customerQuery = "SELECT * FROM customer WHERE customerId = ?";
 		Customer customer = new Customer();
 		
-		PreparedStatement statement = DatabaseHandler.getConnection().prepareStatement(customerQuery);
+		PreparedStatement statement = connection.prepareStatement(customerQuery);
 		statement.setInt(1, id);
 		ResultSet set = statement.executeQuery();
 		
 		if(set.next())
 		{ 
-			customer.setName(set.getString("customerName"));
-			customer.setCustomerID(set.getInt("customerId"));
-	    	customer.setAddress(SQL_Address.getAddress(set.getInt("addressId")));
-	    	customer.setActive(set.getInt("active"));
+			String addressQuery = "SELECT * FROM address WHERE addressId = ?";
+			PreparedStatement addressStatement = connection.prepareStatement(addressQuery);
+	    	addressStatement.setInt(1, set.getInt("addressId"));
+	    	ResultSet addressSet = addressStatement.executeQuery();
+	    	if(addressSet.next())
+	    	{
+	    		Address address = new Address();
+	    		address.setStreetAddress(addressSet.getString("address"));
+	    		String cityQuery = "SELECT * FROM city WHERE cityId = ?";
+	    		PreparedStatement cityStatement = connection.prepareStatement(cityQuery);
+	    		cityStatement.setInt(1, addressSet.getInt("cityId"));
+	    		ResultSet citySet = cityStatement.executeQuery();
+	    		if(citySet.next())
+	    		{
+	    			City city = new City();
+	    			city.setCityName(citySet.getString("city"));
+	    			String countryQuery = "SELECT * FROM country WHERE countryId = ?";
+	    			PreparedStatement countryStatement = connection.prepareStatement(countryQuery);
+	    			countryStatement.setInt(1, citySet.getInt("countryId"));
+	    			ResultSet countrySet = countryStatement.executeQuery();
+	    			if(countrySet.next())
+	    			{
+	    				Country country = new Country();
+	    				country.setCountryName(countrySet.getString("country"));
+	    				city.setCountry(country);
+	    				address.setCity(city);
+	    				customer.setAddress(address);
+	    		    	customers.add(customer);
+
+	    			}
+	    			
+	    		}
+	    	}
 	    	
 		}
-		connection.close();
 		return customer;
 	 
 	}

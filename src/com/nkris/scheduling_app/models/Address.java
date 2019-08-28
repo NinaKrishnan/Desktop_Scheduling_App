@@ -1,5 +1,10 @@
 package com.nkris.scheduling_app.models;
 
+import java.sql.SQLException;
+
+import com.nkris.scheduling_app.database.DatabaseHandler;
+import com.nkris.scheduling_app.database.SQL_Address;
+
 public class Address 
 {
 	private int id;
@@ -9,12 +14,26 @@ public class Address
 	private String zipCode;
 	private String phoneNumber;
 	private String state;
+	private static int addressIndex;
 	
-	
-	
+
 	public Address()
 	{
-		id = this.hashCode();
+	
+	}
+	
+	
+	public Address(City city, Country country, String streetName)
+	{
+		this.city = city;
+		this.country = country;
+		streetAddress = streetName;
+	}
+	
+	public static void setIndex() throws ClassNotFoundException, SQLException
+	{
+		int index = SQL_Address.getLastIndex(DatabaseHandler.getDBconnection());
+		addressIndex = index;
 	}
 	
 	public void setPhoneNumber(String number)
@@ -62,9 +81,15 @@ public class Address
 		this.id = id;
 	}
 	
+	public void setId()
+	{
+		id = addressIndex;
+		addressIndex++;
+	}
+	
 	public int getId()
 	{
-		return this.id;
+		return id;
 	}
 	
 	public void setStreetAddress(String address)

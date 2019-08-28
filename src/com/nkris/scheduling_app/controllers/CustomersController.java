@@ -19,7 +19,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
@@ -57,6 +60,8 @@ public class CustomersController implements Initializable
 	private Button viewCustomerButton;
 	
 	public static Customer selectedCustomer;
+	
+	public static int selectedCustomerId;
 
 	
 	
@@ -155,45 +160,62 @@ public class CustomersController implements Initializable
 	private void viewCustomer(ActionEvent event) throws IOException, SQLException
 	{
 		selectedCustomer = customersTable.getSelectionModel().getSelectedItem();
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(getClass().getResource("/com/nkris/scheduling_app/FXML/helpers/NewCustomer.fxml"));
-		
-		NewCustomerController controller = new NewCustomerController();
-		loader.setController(controller);
-		
-		
-		Parent layout;
-		try 
+		if(selectedCustomer == null)
 		{
-			layout = loader.load(getClass().getResource("/com/nkris/scheduling_app/FXML/helpers/NewCustomer.fxml"));
-			Scene scene = new Scene(layout);
-			Stage stage = new Stage();
-			controller.setStage(stage);
+			noSelectionAlert();
+		}
+		else
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("/com/nkris/scheduling_app/FXML/helpers/ViewCustomer.fxml"));
 			
-			stage.initModality(Modality.WINDOW_MODAL);
-			stage.setScene(scene);
+			NewCustomerController controller = new NewCustomerController();
+			loader.setController(controller);
 			
-			stage.showAndWait();
-			updateCustomers();
-		} 
-		catch (Exception e)
-		{ 
-			e.printStackTrace();
+			
+			Parent layout;
+			try 
+			{
+				layout = loader.load(getClass().getResource("/com/nkris/scheduling_app/FXML/helpers/ViewCustomer.fxml"));
+				Scene scene = new Scene(layout);
+				Stage stage = new Stage();
+				controller.setStage(stage);
+				
+				stage.initModality(Modality.WINDOW_MODAL);
+				stage.setScene(scene);
+				
+				stage.showAndWait();
+				updateCustomers();
+			} 
+			catch (Exception e)
+			{ 
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private void noSelectionAlert()
+	{
+		Alert alert = new Alert(AlertType.ERROR, "You must select a customer to view.", ButtonType.OK);
+		alert.showAndWait();
+		if(alert.getResult() == ButtonType.OK)
+		{
+			alert.close();
 		}
 	}
 	
 	
-	public int getValueAt()
+	private void getValueAt()
 	{
 	    TablePosition pos = customersTable.getSelectionModel().getSelectedCells().get(0);
 	    int row = pos.getRow();
 	    int column = 1;
 	    int id = (Integer) customersTable.getColumns().get(column).getCellObservableValue(row).getValue();
-	   return id;
+	    selectedCustomerId = id;
 	}
 
-
 	
+
 	
 	
 	

@@ -2,17 +2,24 @@ package com.nkris.scheduling_app.unit_tests;
 
 import static org.junit.Assert.assertEquals;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 
 import org.junit.jupiter.api.Test;
 
-import com.nkris.scheduling_app.controllers.helpers.NewCustomerController;
+import com.nkris.scheduling_app.controllers.helpers.ViewCustomerController;
+import com.nkris.scheduling_app.database.DatabaseHandler;
+import com.nkris.scheduling_app.database.SQL_Address;
 import com.nkris.scheduling_app.database.SQL_Customer;
+import com.nkris.scheduling_app.models.Address;
+import com.nkris.scheduling_app.models.City;
+import com.nkris.scheduling_app.models.Country;
+import com.nkris.scheduling_app.models.Customer;
 
 class CalendarTests {
 
 	
-	NewCustomerController ncc = new NewCustomerController();
+	ViewCustomerController ncc = new ViewCustomerController();
 	
 	@Test
 	void firstNameText()
@@ -26,16 +33,43 @@ class CalendarTests {
 		assertEquals(ncc.getLastName("Nina Krishnan"), "Krishnan");
 	}
 	
+	
 	@Test
-	void getCustomerSelection() throws SQLException, ClassNotFoundException
+	void getZipCode() throws SQLException, ClassNotFoundException
 	{
-		assertEquals(SQL_Customer.getSelectedCustomer(901126450).getName(), "Shell Silverado");
+		DatabaseHandler.connect();
+		assertEquals(SQL_Address.getZipcode(43), "19382");
 	}
 	
 	@Test
-	void getAddressID() throws SQLException, ClassNotFoundException
+	void getAddressId() throws SQLException, ClassNotFoundException
 	{
-		assertEquals(SQL_Customer.getSelectedCustomer(901126450).getAddress().getId(), 1165285614);
+		DatabaseHandler.connect();
+		assertEquals(SQL_Address.getAddressId(2), 1);
+	}
+	
+	@Test
+	void testzipcode() throws ClassNotFoundException, SQLException
+	{
+		assertEquals(SQL_Address.getZipcode(2), "28274");
+	}
+	
+	
+	
+	
+	@Test
+	void getCustomerID() throws SQLException, ClassNotFoundException
+	{
+		DatabaseHandler.connect();
+		Connection conn = DatabaseHandler.getDBconnection();
+		assertEquals(SQL_Customer.getLastIndex(conn), 0);
+	}
+	
+	@Test
+	void getId() throws SQLException, ClassNotFoundException
+	{
+		DatabaseHandler.connect();
+		assertEquals(SQL_Address.getAddressId(1), 1);
 	}
 	
 	

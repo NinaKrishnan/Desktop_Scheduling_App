@@ -9,21 +9,21 @@ import java.util.*;
 public class DatabaseHandler
 {
 
-  	static Connection conn;
+  	public static Connection connection;
     static String driver = "com.mysql.cj.jdbc.Driver";
     static String db = "U068iL";
     static String url = "jdbc:mysql://52.206.157.109 /" + db;
     static String user = "U068iL";
     static String pass = "53688698592";
 	
-	public static Connection getConnection() throws ClassNotFoundException
+	public static void connect() throws ClassNotFoundException
 	{
 		
 
 	    try
 	     {
 	          Class.forName(driver);
-	          conn = DriverManager.getConnection(url,user,pass);
+	          connection = DriverManager.getConnection(url,user,pass);
 	      }
 
 	     catch (SQLException e)
@@ -32,13 +32,18 @@ public class DatabaseHandler
 	          System.out.println("SQLState: "+e.getSQLState());
 	          System.out.println("VendorError: "+e.getErrorCode());
 	      }
-	    return conn;
+	    
 	   }
 
+	public static Connection getDBconnection()
+	{
+		return connection;
+	}
+	
 	
 	public static void disconnect() throws SQLException
 	{
-		conn.close();
+		connection.close();
 	}
 	
 
