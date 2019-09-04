@@ -26,6 +26,7 @@ public class Appointment
 	private String contact;
 	private String type;
 	private String url;
+	private int customerId;
 	
 	
 	public Appointment()
@@ -39,7 +40,10 @@ public class Appointment
 			
 	}
 	
-
+	public void setID(int id)
+	{
+		this.id = id;
+	}
 	
 	public int getID()
 	{
@@ -106,11 +110,29 @@ public class Appointment
 		return description; 
 	}
 	
+	public void setCustomerId(int id)
+	{
+		customerId = id;
+	}
 	
+	public int getCustomerId()
+	{
+		return customerId;
+	}
+	
+	public void setCustomer(Customer customer)
+	{
+		this.customer = customer;
+	}
 	
 	public Customer getCustomer()
 	{
 		return customer;
+	}
+	
+	public void setUser(User user)
+	{
+		this.user = user;
 	}
 	
 	public User getUser()
@@ -118,22 +140,39 @@ public class Appointment
 		return user;
 	}
 	
+	public void setLocation(String location)
+	{
+		this.location = location;
+	}
 	
 	public String getLocation()
 	{
 		return location;
 	}
 	
+	public void setContact(String contact)
+	{
+		this.contact = contact;
+	}
 	
 	public String getContact()
 	{
 		return contact;
 	}
 	
+	public void setType(String type)
+	{
+		this.type = type;
+	}
 	
 	public String getType()
 	{
 		return type;
+	}
+	
+	public void setURL(String url)
+	{
+		this.url = url;
 	}
 	
 	public String getURL()

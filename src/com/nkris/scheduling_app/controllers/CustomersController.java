@@ -75,6 +75,7 @@ public class CustomersController implements Initializable
 			e.printStackTrace();
 		}
 		getCellValues();
+	
 		
 	}
 	
@@ -104,6 +105,7 @@ public class CustomersController implements Initializable
 	
 	private void populateCustomers() throws SQLException, ClassNotFoundException
 	{
+		customersTable.getItems().clear();
 		customersTable.setItems(SQL_Customer.getCustomers());
 	}
 	
@@ -140,6 +142,7 @@ public class CustomersController implements Initializable
 	
 	public void updateCustomers() throws SQLException, ClassNotFoundException
 	{
+		customersTable.getItems().clear();
 		customersTable.setItems(SQL_Customer.getCustomers());
 	}
 
@@ -185,7 +188,6 @@ public class CustomersController implements Initializable
 				stage.setScene(scene);
 				
 				stage.showAndWait();
-				updateCustomers();
 			} 
 			catch (Exception e)
 			{ 

@@ -52,7 +52,7 @@ public class SQL_Customer
 	public static ObservableList<Customer> getCustomers() throws SQLException, ClassNotFoundException
 	{
 		connection = DatabaseHandler.getDBconnection();
-		ObservableList<Customer> customers = FXCollections.observableArrayList();
+		//ObservableList<Customer> customers = FXCollections.observableArrayList();
 	    String customersQuery = "SELECT * FROM customer"; 
 	    String addressQuery = "SELECT * FROM address WHERE addressId = ?";
 	    
@@ -166,6 +166,7 @@ public class SQL_Customer
 		return customer;
 	 
 	}
+	
 	
 
 }

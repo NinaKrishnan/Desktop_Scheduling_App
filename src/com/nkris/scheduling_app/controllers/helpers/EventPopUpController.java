@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 import com.nkris.scheduling_app.database.SQL_Appointments;
 import com.nkris.scheduling_app.models.Appointment;
+import com.nkris.scheduling_app.models.Customer;
 
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -54,6 +55,10 @@ public class EventPopUpController implements Initializable
 	private TextField contactTextField;
 	
 	@FXML
+	private TextField locationTextField;
+
+	
+	@FXML
 	private TextField typeTextField;
 	
 	public static Appointment newEvent;
@@ -72,13 +77,17 @@ public class EventPopUpController implements Initializable
 	public void saveEvent(ActionEvent event)
 	{
 	    ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
+	    
+	    Appointment newEvent = new Appointment();
 	    newEvent = new Appointment();
+	    newEvent.setCustomer(new Customer());
 	    newEvent.setTitle(eventTitleTextField.getText());
 	    newEvent.setStartDate(startDatePicker.getValue());
 	    newEvent.setEndDate(endDatePicker.getValue());
 	    newEvent.setStartTime(startTimePicker.getValue());
 	    newEvent.setEndTime(endTimePicker.getValue());
 	    newEvent.setDescription(descriptionTextArea.getText());   
+	    
 	    
 	    try {
 			SQL_Appointments.insertAppointment(newEvent);
