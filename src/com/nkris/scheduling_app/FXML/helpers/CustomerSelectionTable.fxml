@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="636.0" prefWidth="394.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nkris.scheduling_app.controllers.helpers.CustomerSelectionController">
+   <children>
+      <ScrollPane layoutX="-1.0" layoutY="1.0">
+         <content>
+            <TableView fx:id="customerSelectionTable" prefHeight="578.0" prefWidth="394.0">
+              <columns>
+                <TableColumn fx:id="customerNameColumn" prefWidth="247.5" text="Customer Name" />
+                <TableColumn fx:id="customerIdColumn" prefWidth="145.5" text="Customer ID" />
+              </columns>
+            </TableView>
+         </content>
+      </ScrollPane>
+      <Button fx:id="selectCustomerButton" layoutX="241.0" layoutY="587.0" mnemonicParsing="false" onAction="#selectCustomer" prefHeight="35.0" prefWidth="139.0" text="Select Customer" />
+   </children>
+</AnchorPane>

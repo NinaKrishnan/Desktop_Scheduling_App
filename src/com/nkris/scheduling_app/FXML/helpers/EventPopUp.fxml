@@ -75,7 +75,7 @@
             <DropShadow offsetX="1.4" offsetY="3.0" />
          </effect>
       </Button>
-      <TextField fx:id="customerTextField" layoutX="110.0" layoutY="221.0" prefHeight="25.0" prefWidth="142.0" promptText="Customer Name" style="-fx-background-color: #F4FEFD; -fx-border-color: #EFEEEE;">
+      <TextField fx:id="customerTextField" layoutX="110.0" layoutY="221.0" onMouseClicked="#showCustomerSelection" prefHeight="25.0" prefWidth="142.0" promptText="Customer Name" style="-fx-background-color: #F4FEFD; -fx-border-color: #EFEEEE;">
          <font>
             <Font size="14.0" />
          </font>
