@@ -125,7 +125,7 @@ public class ViewCustomerController implements Initializable
 		cityTextField.setText(customer.getAddress().getCity().getCityName());
 		stateTextField.setText(customer.getAddress().getState());
 		countryTextField.setText(customer.getAddress().getCity().getCountry().getCountryName());
-		//zipcodeTextField.setText(SQL_Address.getZipcode(customer.getAddress().getId()));
+		zipcodeTextField.setText(SQL_Address.getZipcode(customer.getAddress().getId()));
 		phoneTextField.setText(customer.getAddress().getPhoneNumber());
 		zipcodeTextField.setText(getZipcode(customer));
 	}
