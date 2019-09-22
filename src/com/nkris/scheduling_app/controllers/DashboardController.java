@@ -153,6 +153,7 @@ public class DashboardController implements Initializable
 	@Override
 	public void initialize(URL url, ResourceBundle rb)
 	{
+		setMonthAndYearHeader();
 		setMonth();
 		setYear();
 		setClock();
@@ -185,6 +186,15 @@ public class DashboardController implements Initializable
 		return LocalDate.now().getYear();
 	}
  
+	
+	private void setMonthAndYearHeader()
+	{
+		
+		int month = LocalDate.now().getMonthValue();
+		int year = LocalDate.now().getYear();
+		
+		monthAndYearLabel.setText(Calendar.getMonthName(month)+" "+year);
+	}
 	
 	/*
 	 * Creates a 12-hour clock in the left hand corner of dashboard schedule. Clock is localized to
@@ -537,6 +547,8 @@ public class DashboardController implements Initializable
 		{ 
 			e.printStackTrace();
 		}
+		
+		
 	}
 	 
 	//Add a flag to the calendar monthly view if an event is created that day
@@ -554,6 +566,7 @@ public class DashboardController implements Initializable
 			label.setStyle("-fx-text-fill: white;" + "-fx-background-color: #eb4034;");
 			calendarGrid.add(label, j, i);
 		}
+		EventPopUpController.currentEvent = null;
 	}	
 	
 	
@@ -575,5 +588,10 @@ public class DashboardController implements Initializable
 
 	}
 	
+	public static void createEventLabel()
+	{
+		Label label = new Label();
+		label.setStyle("-fx-background-color: #e3071d");
+	}
 	
 }

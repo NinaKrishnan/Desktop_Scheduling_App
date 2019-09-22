@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.util.Collections;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+
 import com.nkris.scheduling_app.models.Appointment;
 
 import javafx.beans.property.StringProperty;
@@ -24,30 +26,39 @@ public class SQL_Appointments
 		connection = DatabaseHandler.getDBconnection();
 		
 
-		StringProperty start = appointment.getStringDateTime(appointment.getStartTime(), appointment.getStartDate());
-		StringProperty end = appointment.getStringDateTime(appointment.getEndTime(), appointment.getEndDate());
-		
+		Timestamp start = getTimestamp(appointment, appointment.getStartDate(), appointment.getStartTime());
+		Timestamp end = getTimestamp(appointment, appointment.getEndDate(), appointment.getEndTime());
 
 		 String addAppointmentQuery = String.join(" ",
-		            "INSERT INTO appointment (appointmentId, customerId, title, description, location, contact, url, start, end, createDate, createdBy, lastUpdate, lastUpdateBy)",
-		            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, NOW(), ?)"
+		            "INSERT INTO appointment (appointmentId, customerId, userId, title, description, location, contact, type, url, start, end, createDate, createdBy, lastUpdate, lastUpdateBy)",
+		            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), ?, NOW(), ?)"
 		        );
 		
          PreparedStatement statement = connection.prepareStatement(addAppointmentQuery);
+         String foreignKeyQuery = "SET FOREIGN_KEY_CHECKS=0";
+		 String foreignKeyQuery2 = "SET FOREIGN_KEY_CHECKS=1";
          statement.setInt(1, appointment.getID());
          statement.setInt(2, appointment.getCustomer().getCustomerID());
-         statement.setString(3, appointment.getTitle());
-         statement.setString(4, appointment.getDescription());
-         statement.setString(5, appointment.getLocation());
-         statement.setString(6, appointment.getContact());
-         statement.setString(7, appointment.getURL());
-         statement.setTimestamp(8, Timestamp.valueOf(start.toString()));
-         statement.setTimestamp(9, Timestamp.valueOf(end.toString()));
-         statement.setString(10, appointment.getUser().getUserName());
-         statement.setString(11, appointment.getUser().getUserName());
          
+         //TODO: SET USER ID
+         statement.setInt(3, 98001);
+         statement.setString(4, appointment.getTitle());
+         statement.setString(5, appointment.getDescription());
+         statement.setString(6, appointment.getLocation());
+         statement.setString(7, appointment.getContact());
+         statement.setString(8, appointment.getType());
+         statement.setString(9, appointment.getURL());
+         statement.setTimestamp(10, start);
+         statement.setTimestamp(11, end);
+         
+         //TODO: CREATE USER/PASSWORD 
+         statement.setString(12, "nkris007");
+         statement.setString(13, "nkris007");
+         PreparedStatement fkStatement = connection.prepareStatement(foreignKeyQuery);
+         PreparedStatement fkStatement2 = connection.prepareStatement(foreignKeyQuery2);
+         fkStatement.executeUpdate();
          statement.executeUpdate();
-
+         fkStatement2.executeUpdate();
 		connection.close();
 	}
 	
@@ -83,6 +94,14 @@ public class SQL_Appointments
 		return appointments;
 	}
 	
+	
+	private static Timestamp getTimestamp(Appointment appointment, LocalDate date, LocalTime time)
+	{
+		LocalDateTime ldt = LocalDateTime.of(date, time);
+		Timestamp timestamp = Timestamp.valueOf(ldt);
+		
+		return timestamp;
+	}
 	
 	
 	
