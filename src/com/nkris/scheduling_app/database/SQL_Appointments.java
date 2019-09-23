@@ -1,6 +1,7 @@
 package com.nkris.scheduling_app.database;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,10 +9,10 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import com.nkris.scheduling_app.models.Appointment;
 
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -19,7 +20,7 @@ public class SQL_Appointments
 {
 	private static Connection connection;
 	
-	public static ObservableList<Appointment> appointments = FXCollections.observableArrayList();
+	public static ObservableList<Appointment> appointments;
 	
 	public static void insertAppointment(Appointment appointment) throws SQLException, ClassNotFoundException
 	{
@@ -65,16 +66,19 @@ public class SQL_Appointments
 	
 	public static ObservableList<Appointment> getAppointments(LocalDate date) throws SQLException, ClassNotFoundException
 	{
+		appointments = FXCollections.observableArrayList();
 		connection = DatabaseHandler.getDBconnection();
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss");
 		
-		String query = "SELECT * FROM appointment WHERE start = ?";
+		Timestamp dateTimestamp = Timestamp.valueOf(date.toString()+" "+LocalDateTime.now().format(formatter));
+		Date truncDate = new Date(dateTimestamp.getTime());
+		String query = "SELECT * FROM appointment WHERE DATE(start) = "+"\""+truncDate.toString()+"\";";
+		
 		PreparedStatement statement = connection.prepareStatement(query);
-		
+				
 		ResultSet set = statement.executeQuery();
+
 		
-		Timestamp start = Timestamp.valueOf(date.toString());
-		
-		statement.setTimestamp(1, start);
 		while(set.next())
 		{
 			Appointment appointment = new Appointment();
@@ -86,6 +90,9 @@ public class SQL_Appointments
 			appointment.setContact(set.getString("contact"));
 			appointment.setType(set.getString("type"));
 			appointment.setURL(set.getString("url"));
+			appointment.setStartTime(set.getTimestamp("start").toLocalDateTime().toLocalTime());
+			appointment.setEndTime(set.getTimestamp("end").toLocalDateTime().toLocalTime());
+			appointment.setTimeRange();
 			
 			appointments.add(appointment);
 		}
