@@ -27,7 +27,7 @@ public class Appointment
 	private String type;
 	private String url;
 	private int customerId;
-	
+	private String timeRange;
 	
 	public Appointment()
 	{
@@ -90,6 +90,7 @@ public class Appointment
 		return startTime;
 	}
 	
+	
 	public void setEndTime(LocalTime time)
 	{
 		endTime = time;
@@ -98,6 +99,28 @@ public class Appointment
 	public LocalTime getEndTime()
 	{
 		return endTime;
+	}
+	
+	public void setTimeRange()
+	{	
+		String start = formatTime(startTime);
+		String end = formatTime(endTime);
+		
+		timeRange = start + " - " + end;
+	}
+	
+	private String formatTime(LocalTime time)
+	{
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("h:mm");
+		if(time.getHour() > 12) {
+			return formatter.format(time) + " p.m.";
+		}
+		return formatter.format(time)+" a.m.";
+	}
+	
+	public String getTimeRange()
+	{
+		return timeRange;
 	}
 	
 	public void setDescription(String description)

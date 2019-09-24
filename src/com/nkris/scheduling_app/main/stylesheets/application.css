@@ -49,4 +49,10 @@
 	-fx-font-weight: bold;
 }
 
+#tableView {
+	-fx-font-size: 24;
+	-fx-background-color: #a1ecf7;
+	-fx-font-weight: bold;
+}
+
 

@@ -3,6 +3,7 @@ package com.nkris.scheduling_app.controllers.helpers;
 //imports
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXDatePicker;
@@ -11,7 +12,6 @@ import com.nkris.scheduling_app.controllers.EventController;
 import com.nkris.scheduling_app.database.SQL_Appointments;
 import com.nkris.scheduling_app.models.Appointment;
 
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -101,7 +101,9 @@ public class EventPopUpController implements Initializable
 											//The DashboardController class will use this to add a flag to the
 											//calendar on the right day, then sets this back to null. 
 	
-	
+	public static LocalDate currentEventStart; //This stores the start date of the appointment that was just created
+											   //and saved so that the DashboardController class can access it and 
+											   //save an event flag to the appropriate cell on the calendar grid.
 	
 	
 	@Override
@@ -129,6 +131,7 @@ public class EventPopUpController implements Initializable
 	    newEvent.setEndTime(endTimePicker.getValue());
 	    newEvent.setDescription(descriptionTextArea.getText());   
 	    newEvent.setType(typeTextField.getText());
+	    newEvent.setTimeRange();
 	    
 	    try {
 			SQL_Appointments.insertAppointment(newEvent);
@@ -139,6 +142,7 @@ public class EventPopUpController implements Initializable
 	    finally {
 		    ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
 		    currentEvent = newEvent;
+		    currentEventStart = newEvent.getStartDate();
 	    }
 	}
 	

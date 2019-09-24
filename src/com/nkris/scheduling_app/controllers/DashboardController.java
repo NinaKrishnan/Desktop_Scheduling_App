@@ -160,6 +160,12 @@ public class DashboardController implements Initializable
 		setHamburgerTransition();	
 		displayCurrentDate();
 		setDays(getMonth(), getYear(), false);
+		setAgendaFeedCellValues();
+		try {
+			populateAgendaFeed();
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
@@ -548,24 +554,25 @@ public class DashboardController implements Initializable
 			e.printStackTrace();
 		}
 		
+		if(EventPopUpController.currentEvent != null) {
+			addEventFlag(getEventDay(EventPopUpController.currentEventStart));
+		}
+		
 		
 	}
 	 
 	//Add a flag to the calendar monthly view if an event is created that day
 	private void addEventToCalendar(int j, int i) 
 	{
-		Appointment event = EventPopUpController.getEvent();
-		if(event != null)
-		{
-			//String name = event.getTitle();
-			Label label = new Label();
-			label.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
-				handleEventPopup();
-			});
-			label.setTextOverrun(OverrunStyle.ELLIPSIS);
-			label.setStyle("-fx-text-fill: white;" + "-fx-background-color: #eb4034;");
-			calendarGrid.add(label, j, i);
-		}
+		Label label = new Label();
+		label.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
+			handleEventPopup();
+		});
+		
+		label.setStyle("-fx-background-color: #fc0324;");
+		calendarGrid.add(label, j, i);
+		label.toFront();
+		
 		EventPopUpController.currentEvent = null;
 	}	
 	
@@ -577,14 +584,23 @@ public class DashboardController implements Initializable
 		LocalDate today = LocalDate.now();
 		ObservableList<Appointment> appointments = SQL_Appointments.getAppointments(today);
 		
-		//dashboardTable.set
+		//dashboardTable.getItems().clear();
+		dashboardTable.setItems(appointments);
+		setAgendaFeedStyle();
+	}
+	
+	private void setAgendaFeedStyle()
+	{
+		dashboardTable.setStyle("-fx-background-color: #aae6f2;");
+		appointmentsColumn.setStyle("-fx-font-color: #130f94;"+"-fx-font-weight: bold;"+"-fx-font-size: 17.5;");
+		timeColumn.setStyle("-fx-font-size: 17;");
 	}
 	
 	
-	private void setCellValues()
+	private void setAgendaFeedCellValues()
 	{
 		appointmentsColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("title"));
-		timeColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>(""));
+		timeColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("timeRange"));
 
 	}
 	
@@ -594,4 +610,35 @@ public class DashboardController implements Initializable
 		label.setStyle("-fx-background-color: #e3071d");
 	}
 	
+	/*
+	 * This method takes in a day of the month and returns the corresponding coordinates for that day on the 
+	 * calendar grid. It calculates this relative to the first day of the month: 
+	 */
+	private int getEventDay(LocalDate date)
+	{
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d");
+		String dayFormat = formatter.format(date);
+		Integer dayDate = Integer.parseInt(dayFormat);
+		return dayDate;
+	}
+	
+	private void addEventFlag(int day)
+	{
+		int index = 1;
+		int firstDay = Calendar.getFirstDayOfMonth(EventPopUpController.currentEventStart);
+		
+		for(int i = 1; i < 7; i++)
+		{
+			for(int j = 0; j < 7; j++)
+			{
+				if(index == day) {
+					addEventToCalendar(j, i);
+				}
+				if(j > firstDay || i > 1)
+				{
+					index++;
+				}
+			}
+		}
+	}
 }

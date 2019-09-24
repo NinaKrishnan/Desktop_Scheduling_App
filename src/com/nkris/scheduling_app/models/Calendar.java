@@ -94,10 +94,10 @@ public class Calendar
 
 
 	
-	public static int getFirstDayOfMonth()
+	public static int getFirstDayOfMonth(LocalDate localDate)
 	{
-		int month = LocalDate.now().getMonthValue();
-		int year = LocalDate.now().getYear();
+		int month = localDate.getMonthValue();
+		int year = localDate.getYear();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
 		LocalDate date = LocalDate.parse(month+"/1/"+year, formatter);
 		DayOfWeek dow = date.getDayOfWeek();
