@@ -65,16 +65,15 @@ public class WeeklyCalendarController implements Initializable
 	@Override
 	public void initialize(URL url, ResourceBundle rb) 
 	{
-		
+		setCellValues();
+		try {
+			populateCalendar();
+		} 
+		catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
-	
-	
-	private void populateCalendar(TableView<Appointment> table) 
-	{
-	
-		
-	}
 	
 	private void setCellValues() 
 	{
