@@ -149,12 +149,12 @@
                   <Font size="24.0" />
                </font>
             </Label>
-            <ToggleButton layoutX="185.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" selected="true" style="-fx-border-color: #24AEFE;" text="Month">
+            <ToggleButton fx:id="monthToggleButton" layoutX="185.0" layoutY="60.0" mnemonicParsing="false" onAction="#switchToMonthlyView" prefHeight="25.0" prefWidth="90.0" selected="true" style="-fx-border-color: #24AEFE;" text="Month">
                <toggleGroup>
                   <ToggleGroup fx:id="calendarView" />
                </toggleGroup>
             </ToggleButton>
-            <ToggleButton layoutX="275.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" style="-fx-border-color: #24AEFE;" text="Week" toggleGroup="$calendarView" />
+            <ToggleButton fx:id="weekToggleButton" layoutX="275.0" layoutY="60.0" mnemonicParsing="false" onAction="#switchToWeeklyView" prefHeight="25.0" prefWidth="90.0" style="-fx-border-color: #24AEFE;" text="Week" toggleGroup="$calendarView" />
             <ToggleButton layoutX="365.0" layoutY="60.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" style="-fx-border-color: #24AEFE;" text="Day" toggleGroup="$calendarView" />
             <Button id="cursor" fx:id="nextMonthButton" layoutX="523.0" layoutY="37.0" mnemonicParsing="false" onAction="#goToNextMonth" style="-fx-background-color: #FFFFFF;" stylesheets="@../main/stylesheets/application.css" text="&gt;">
                <font>

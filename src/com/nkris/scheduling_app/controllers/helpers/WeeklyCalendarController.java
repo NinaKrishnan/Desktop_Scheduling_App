@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 public class WeeklyCalendarController implements Initializable
 {
@@ -60,6 +61,7 @@ public class WeeklyCalendarController implements Initializable
 	@FXML
 	private TableColumn<Appointment, String> col7;
 
+	public Stage stage = null;
 	
 	
 	@Override
@@ -139,4 +141,9 @@ public class WeeklyCalendarController implements Initializable
 		col.setText(Calendar.getDayName(day++));
 	}
 	
+	
+	public void setStage(Stage stage) 
+	{
+		this.stage = stage;
+	}
 }

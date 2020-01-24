@@ -18,10 +18,10 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import com.nkris.scheduling_app.controllers.helpers.EventPopUpController;
+import com.nkris.scheduling_app.controllers.helpers.WeeklyCalendarController;
 import com.nkris.scheduling_app.database.SQL_Appointments;
 import com.nkris.scheduling_app.models.Appointment;
 import com.nkris.scheduling_app.models.Calendar;
-import com.nkris.scheduling_app.models.Customer;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -38,7 +38,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.OverrunStyle;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleButton;
@@ -564,6 +563,38 @@ public class DashboardController implements Initializable
 			tb.setStyle("-fx-background-color: #fcba03;");
 			tb.setSelected(true);
 		}	
+	}
+	
+	
+	@FXML
+	private void switchToWeeklyView(ActionEvent event)
+	{
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/com/nkris/scheduling_app/FXML/helpers/WeeklyCalendar.fxml"));
+		
+		WeeklyCalendarController controller = new WeeklyCalendarController();
+		loader.setController(controller);
+		
+		Parent layout;
+		try
+		{	
+			AnchorPane ap = loader.load(getClass().getResource("/com/nkris/scheduling_app/FXML/helpers/WeeklyCalendar.fxml"));
+			calendarAnchorPane.getChildren().add(ap);
+		}
+		
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@FXML
+	private void switchToMonthlyView(ActionEvent event) throws SQLException
+	{
+		calendarAnchorPane.getChildren().clear();
+		calendarAnchorPane.getChildren().add(calendarGrid);
+		setDays(getMonth(), getYear(), false);
 	}
 	
 //***************************************EVENT POPUP METHODS********************************************//
