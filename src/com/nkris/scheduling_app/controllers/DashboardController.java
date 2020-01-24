@@ -66,6 +66,9 @@ public class DashboardController implements Initializable
 {
 	
 	@FXML
+	private AnchorPane calendarAnchorPane; //Wraps the calendar grid. Used when switching between month and week view
+	
+	@FXML
 	private GridPane calendarGrid; //The monthly calendar view on dashboard screen
 	
 	@FXML
@@ -139,11 +142,11 @@ public class DashboardController implements Initializable
 	@FXML
 	private TableColumn<Appointment, String> timeColumn;
 	
+	public static LocalDate clickedDate = null;
 
 	private Calendar calendar = new Calendar();
 	
-	private ObservableList<Appointment> eventHolder;
-	 
+	public static LocalDate currentEventStart = null;
 	
 	/*
 	 * Set the clock
@@ -159,10 +162,15 @@ public class DashboardController implements Initializable
 		setClock();
 		setHamburgerTransition();	
 		displayCurrentDate();
-		setDays(getMonth(), getYear(), false);
+		try {
+			setDays(getMonth(), getYear(), false);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		setAgendaFeedCellValues();
 		try {
-			populateAgendaFeed();
+			populateAgendaFeed(dashboardTable);
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
@@ -305,7 +313,7 @@ public class DashboardController implements Initializable
 	
 	
 	@FXML
-	private void goToToday(ActionEvent event)
+	private void goToToday(ActionEvent event) throws SQLException
 	{
 		int month = LocalDate.now().getMonthValue();
 		int year = LocalDate.now().getYear();
@@ -316,10 +324,7 @@ public class DashboardController implements Initializable
 	}
 	
 
-	private void enableEventAdding()
-	{
-		
-	}
+
 	
 	
 	private void setDayOfWeekLabels()
@@ -342,7 +347,7 @@ public class DashboardController implements Initializable
 	 * current month
 	 * TODO: Add labels to outlying months
 	 */
-	private void setDays(int month, int year, boolean disable)
+	private void setDays(int month, int year, boolean disable) throws SQLException
 	{
 		calendar.setMonth(month);
 		calendar.setYear(year);
@@ -380,7 +385,7 @@ public class DashboardController implements Initializable
 	
 	//Function of next arrow
 	@FXML
-	private void goToNextMonth(ActionEvent event)
+	private void goToNextMonth(ActionEvent event) throws SQLException
 	{
 		int month = calendar.getNextMonth();
 		int year = calendar.getYear();
@@ -392,7 +397,7 @@ public class DashboardController implements Initializable
 	
 	//Back arrow function
 	@FXML
-	private void goToPrevMonth(ActionEvent event)
+	private void goToPrevMonth(ActionEvent event) throws SQLException
 	{
 		int month = calendar.getPreviousMonth();
 		int year = calendar.getYear();
@@ -461,15 +466,20 @@ public class DashboardController implements Initializable
 	/*
 	 * Create labels for days and assign coordinates
 	 */
-	private void setDayButtons(int day, int j, int i, boolean disable)
+	private void setDayButtons(int day, int j, int i, boolean disable) throws SQLException
 	{
 		ToggleButton toggleDay = new ToggleButton();
 		setToggleSize(toggleDay);
-		toggleDay.setToggleGroup(calendarDay);
-		Label lbl = new Label(Integer.toString(day));
+		toggleDay.setToggleGroup(calendarDay); //prevents user from selecting more than one day at a time
+		Label lbl = new Label(Integer.toString(day)) {
+			public String getDay() {
+				return Integer.toString(day);
+			}
+		}; //Day label
 		lbl.setStyle("-fx-font-size: 18");
 		GridPane.setHalignment(lbl, HPos.LEFT);
 		GridPane.setValignment(lbl, VPos.TOP);
+		
 		if(disable == true)
 		{
 			toggleDay.setDisable(true);
@@ -483,13 +493,44 @@ public class DashboardController implements Initializable
 			}
 			calendarGrid.add(toggleDay, j, i);
 			calendarGrid.add(lbl, j, i);
-			toggleDay.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
-				handleEventPopup();
-				toggleDay.setSelected(false);
+			
+			int currDay = Integer.parseInt(lbl.getText());
+			int currMonth = calendar.getMonth();
+			int currYear = calendar.getYear();
+			if(SQL_Appointments.hasEvent(currDay, currMonth, currYear)) {
 				addEventToCalendar(j, i);
+			}
+			toggleDay.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
+				currentEventStart = calendar.getDate(Integer.toString(day));
+				try {
+					handleEventPopup();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+				if(EventPopUpController.currentEvent != null) {
+					addEventToCalendar(j, i);
+					EventPopUpController.currentEvent = null;
+				}
+				try {
+					populateAgendaFeed(dashboardTable);
+				} catch (ClassNotFoundException | SQLException ec) {
+					ec.printStackTrace();
+				}
+				toggleDay.setSelected(false);
 			});
+			
 		}
 	}
+	
+	private LocalDate getEventFlagDate(int day, int month, int year) 
+	{
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+		String date = day+"/"+month+"/"+year;
+		
+		LocalDate localDate = LocalDate.parse(date, formatter);
+		return localDate;
+	}
+	
 	
 	/*
 	 * Check if the displayed month & year is current
@@ -528,7 +569,7 @@ public class DashboardController implements Initializable
 //***************************************EVENT POPUP METHODS********************************************//
 	
 
-	private void handleEventPopup()
+	private void handleEventPopup() throws SQLException
 	{
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("/com/nkris/scheduling_app/FXML/Event.fxml"));
@@ -554,9 +595,10 @@ public class DashboardController implements Initializable
 			e.printStackTrace();
 		}
 		
-		if(EventPopUpController.currentEvent != null) {
-			addEventFlag(getEventDay(EventPopUpController.currentEventStart));
-		}
+		
+		calendarGrid.getChildren().clear();
+		setDays(getMonth(), getYear(), false);
+		EventPopUpController.currentEvent = null;
 		
 		
 	}
@@ -564,28 +606,34 @@ public class DashboardController implements Initializable
 	//Add a flag to the calendar monthly view if an event is created that day
 	private void addEventToCalendar(int j, int i) 
 	{
-		Label label = new Label();
+		Label label = new Label("Event");
 		label.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
-			handleEventPopup();
+			try {
+				handleEventPopup();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+			}
 		});
 		
 		label.setStyle("-fx-background-color: #fc0324;");
+		GridPane.setHalignment(label, HPos.CENTER);
+		GridPane.setValignment(label, VPos.CENTER);
 		calendarGrid.add(label, j, i);
-		label.toFront();
 		
-		EventPopUpController.currentEvent = null;
+
 	}	
 	
 	
 	
+	
 	//TODO
-	private void populateAgendaFeed() throws ClassNotFoundException, SQLException
+	private void populateAgendaFeed(TableView<Appointment> table) throws ClassNotFoundException, SQLException
 	{
 		LocalDate today = LocalDate.now();
 		ObservableList<Appointment> appointments = SQL_Appointments.getAppointments(today);
 		
-		//dashboardTable.getItems().clear();
-		dashboardTable.setItems(appointments);
+		table.getItems().clear();
+		table.setItems(appointments);
 		setAgendaFeedStyle();
 	}
 	
@@ -594,6 +642,14 @@ public class DashboardController implements Initializable
 		dashboardTable.setStyle("-fx-background-color: #aae6f2;");
 		appointmentsColumn.setStyle("-fx-font-color: #130f94;"+"-fx-font-weight: bold;"+"-fx-font-size: 17.5;");
 		timeColumn.setStyle("-fx-font-size: 17;");
+	}
+	
+	//TODO
+	private void greyOutAppointment(Appointment appt) 
+	{
+		if(appt.isOver()) {
+			
+		}
 	}
 	
 	

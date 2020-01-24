@@ -60,7 +60,7 @@ public class SQL_Appointments
          fkStatement.executeUpdate();
          statement.executeUpdate();
          fkStatement2.executeUpdate();
-		connection.close();
+		
 	}
 	
 	
@@ -69,11 +69,11 @@ public class SQL_Appointments
 		appointments = FXCollections.observableArrayList();
 		connection = DatabaseHandler.getDBconnection();
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss");
-		
+		System.out.println(date.toString());
 		Timestamp dateTimestamp = Timestamp.valueOf(date.toString()+" "+LocalDateTime.now().format(formatter));
 		Date truncDate = new Date(dateTimestamp.getTime());
 		String query = "SELECT * FROM appointment WHERE DATE(start) = "+"\""+truncDate.toString()+"\";";
-		
+		System.out.println(query);
 		PreparedStatement statement = connection.prepareStatement(query);
 				
 		ResultSet set = statement.executeQuery();
@@ -102,7 +102,7 @@ public class SQL_Appointments
 	}
 	
 	
-	private static Timestamp getTimestamp(Appointment appointment, LocalDate date, LocalTime time)
+	public static Timestamp getTimestamp(Appointment appointment, LocalDate date, LocalTime time)
 	{
 		LocalDateTime ldt = LocalDateTime.of(date, time);
 		Timestamp timestamp = Timestamp.valueOf(ldt);
@@ -110,6 +110,29 @@ public class SQL_Appointments
 		return timestamp;
 	}
 	
+	
+	public static boolean hasEvent(int day, int month, int year) throws SQLException {
+		connection = DatabaseHandler.getDBconnection();
+		String strDay = Integer.toString(day);
+		if(day/10 < 1) {
+			strDay = "0"+day;
+		}
+		
+		String strMonth = Integer.toString(month);
+		if(month/10 < 1) {
+			strMonth = "0"+month;
+		}
+		String date = year+"-"+strMonth+"-"+strDay;
+		String query = "SELECT * FROM appointment WHERE start LIKE '%"+date+"%';";
+		PreparedStatement statement = connection.prepareStatement(query);
+		ResultSet set = statement.executeQuery();
+		if(set.next()) {
+			return true;
+		}
+		
+		return false;
+		
+	}
 	
 	
 	

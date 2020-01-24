@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
+import com.nkris.scheduling_app.controllers.DashboardController;
 import com.nkris.scheduling_app.controllers.EventController;
 import com.nkris.scheduling_app.database.SQL_Appointments;
 import com.nkris.scheduling_app.models.Appointment;
@@ -97,19 +98,21 @@ public class EventPopUpController implements Initializable
 	private TextField typeTextField; //Textfield for appointment type (String)
 	
 	
-	public static Appointment currentEvent; //When this is non-null, it means an appointment has just been created.
+	public static Appointment currentEvent = null; //When this is non-null, it means an appointment has just been created.
 											//The DashboardController class will use this to add a flag to the
 											//calendar on the right day, then sets this back to null. 
 	
-	public static LocalDate currentEventStart; //This stores the start date of the appointment that was just created
+	public static LocalDate currentEventStart = null; //This stores the start date of the appointment that was just created
 											   //and saved so that the DashboardController class can access it and 
 											   //save an event flag to the appropriate cell on the calendar grid.
+	
 	
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1)
 	{
-		
+		System.out.print(DashboardController.currentEventStart);
+		startDatePicker.setValue(DashboardController.currentEventStart);
 	}
 	
 	
@@ -143,6 +146,7 @@ public class EventPopUpController implements Initializable
 		    ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
 		    currentEvent = newEvent;
 		    currentEventStart = newEvent.getStartDate();
+		    
 	    }
 	}
 	

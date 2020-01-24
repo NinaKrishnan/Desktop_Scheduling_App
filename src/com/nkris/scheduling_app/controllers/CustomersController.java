@@ -69,6 +69,7 @@ public class CustomersController implements Initializable
 	@Override
 	public void initialize(URL url, ResourceBundle rb) 
 	{
+		customersTable.getItems().clear();
 		try {
 			setCellValues();
 		} catch (ClassNotFoundException e) {

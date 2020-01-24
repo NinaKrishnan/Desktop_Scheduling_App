@@ -28,6 +28,7 @@ public class Appointment
 	private String url;
 	private int customerId;
 	private String timeRange;
+	private String sticker;
 	
 	public Appointment()
 	{
@@ -107,6 +108,7 @@ public class Appointment
 		String end = formatTime(endTime);
 		
 		timeRange = start + " - " + end;
+		setSticker();
 	}
 	
 	private String formatTime(LocalTime time)
@@ -203,7 +205,15 @@ public class Appointment
 		return url; 
 	}
 	
+	public void setSticker() 
+	{
+		 sticker = timeRange + "\n" + title;
+	}
 	
+	public String getSticker()
+	{
+		return sticker;
+	}
 	
 	
 	public StringProperty getStringDateTime(LocalTime time, LocalDate date)
@@ -220,6 +230,10 @@ public class Appointment
         return stringDateTime;
 	}
 	
+	
+	public boolean isOver() {
+		return endDate.isBefore(LocalDate.now()) && endTime.isBefore(LocalTime.now());
+	}
 	
 	
 	

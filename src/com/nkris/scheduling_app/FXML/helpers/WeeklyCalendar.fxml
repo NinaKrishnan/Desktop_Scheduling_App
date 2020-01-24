@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="643.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nkris.scheduling_app.controllers.helpers.WeeklyCalendarController">
+   <children>
+      <TableView fx:id="table1" prefHeight="525.0" prefWidth="93.0">
+        <columns>
+          <TableColumn fx:id="col1" prefWidth="92.0" text="Sunday" />
+        </columns>
+      </TableView>
+      <TableView fx:id="table3" layoutX="186.0" prefHeight="525.0" prefWidth="93.0">
+         <columns>
+            <TableColumn fx:id="col3" prefWidth="92.0" text="Tuesday" />
+         </columns>
+      </TableView>
+      <TableView fx:id="table4" layoutX="279.0" prefHeight="525.0" prefWidth="93.0">
+         <columns>
+            <TableColumn fx:id="col4" prefWidth="92.0" text="Wednesday" />
+         </columns>
+      </TableView>
+      <TableView fx:id="table5" layoutX="372.0" prefHeight="525.0" prefWidth="93.0">
+         <columns>
+            <TableColumn fx:id="col5" prefWidth="92.0" text="Thursday" />
+         </columns>
+      </TableView>
+      <TableView fx:id="table6" layoutX="465.0" prefHeight="525.0" prefWidth="93.0">
+         <columns>
+            <TableColumn fx:id="col6" prefWidth="92.0" text="Friday" />
+         </columns>
+      </TableView>
+      <TableView fx:id="table7" layoutX="558.0" prefHeight="525.0" prefWidth="93.0">
+         <columns>
+            <TableColumn fx:id="col7" prefWidth="92.0" text="Saturday" />
+         </columns>
+      </TableView>
+      <TableView fx:id="table2" layoutX="93.0" prefHeight="525.0" prefWidth="93.0">
+         <columns>
+            <TableColumn fx:id="col2" prefWidth="92.0" text="Monday" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

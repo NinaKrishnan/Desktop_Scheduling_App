@@ -256,6 +256,20 @@ public class Calendar
 		return 31;
 	}
 	
+	public LocalDate getDate(String day)
+	{
+		String month = Integer.toString(getMonth());
+		String year = Integer.toString(getYear());
+		String dateFormat = month+"/"+day+"/"+year;
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
+		LocalDate localDate = LocalDate.parse(dateFormat, formatter);
+		
+		return localDate;
+	}
+	
+	
+	
 	
 	
 	

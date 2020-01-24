@@ -23,121 +23,125 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="739.0" prefWidth="1068.0" style="-fx-background-color: #FFFFFF;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nkris.scheduling_app.controllers.DashboardController">
    <children>
-      <GridPane fx:id="calendarGrid" layoutX="418.0" layoutY="174.0" prefHeight="525.0" prefWidth="628.0" style="-fx-background-color: #24AEFE; -fx-border-color: #000000;" styleClass="calendarDay" stylesheets="@../../../../../../Desktop%20Scheduling%20Application/src/com/nkris/scheduling_app/controllers/application.css">
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints maxHeight="224.0" minHeight="0.0" prefHeight="41.5" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="285.0" minHeight="0.0" prefHeight="105.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="294.5" minHeight="10.0" prefHeight="108.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="292.0" minHeight="10.0" prefHeight="114.5" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="241.5" minHeight="10.0" prefHeight="114.5" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="241.5" minHeight="10.0" prefHeight="111.5" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="241.5" minHeight="10.0" prefHeight="106.5" vgrow="SOMETIMES" />
-         </rowConstraints>
+      <AnchorPane fx:id="calendarAnchorPane" layoutX="418.0" layoutY="170.5">
          <children>
-            <Label id="weekdayLabel" prefHeight="44.0" prefWidth="89.0" stylesheets="@../main/stylesheets/application.css" textAlignment="CENTER" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label id="weekdayLabel" layoutX="10.0" layoutY="19.0" prefHeight="49.0" prefWidth="89.0" stylesheets="@../main/stylesheets/application.css" textFill="WHITE" GridPane.columnIndex="1">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label id="weekdayLabel" layoutX="120.0" layoutY="19.0" prefHeight="45.0" prefWidth="139.0" stylesheets="@../main/stylesheets/application.css" textFill="WHITE" GridPane.columnIndex="2">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label id="weekdayLabel" layoutX="230.0" layoutY="19.0" prefHeight="44.0" prefWidth="90.0" stylesheets="@../main/stylesheets/application.css" textFill="WHITE" GridPane.columnIndex="3">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label id="weekdayLabel" layoutX="340.0" layoutY="19.0" prefHeight="45.0" prefWidth="140.0" stylesheets="@../main/stylesheets/application.css" textFill="WHITE" GridPane.columnIndex="4">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label id="weekdayLabel" layoutX="450.0" layoutY="19.0" prefHeight="45.0" prefWidth="137.0" stylesheets="@../main/stylesheets/application.css" textFill="WHITE" GridPane.columnIndex="5">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label id="weekdayLabel" layoutX="559.0" layoutY="19.0" prefHeight="54.0" prefWidth="93.0" stylesheets="@../main/stylesheets/application.css" textFill="WHITE" GridPane.columnIndex="6">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <ToggleButton fx:id="row1col0" mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" GridPane.rowIndex="2">
-               <toggleGroup>
-                  <ToggleGroup fx:id="calendarDay" />
-               </toggleGroup>
-            </ToggleButton>
-            <ToggleButton fx:id="row1col1" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </ToggleButton>
-            <ToggleButton fx:id="row1col2" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </ToggleButton>
-            <ToggleButton fx:id="row1col3" mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="6" GridPane.rowIndex="2" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="5" GridPane.rowIndex="2" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <ToggleButton fx:id="row1col0" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.rowIndex="1">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </ToggleButton>
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="5" GridPane.rowIndex="1" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="6" GridPane.rowIndex="1" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.rowIndex="6" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.rowIndex="5" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.rowIndex="4" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="6" GridPane.rowIndex="3" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="5" GridPane.rowIndex="3" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="136.0" toggleGroup="$calendarDay" GridPane.rowIndex="3" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="5" GridPane.rowIndex="4" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="4" GridPane.rowIndex="6" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="4" GridPane.rowIndex="5" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="3" GridPane.rowIndex="6" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="3" GridPane.rowIndex="4" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <ToggleButton mnemonicParsing="false" prefHeight="119.0" prefWidth="114.0" toggleGroup="$calendarDay" GridPane.columnIndex="6" GridPane.rowIndex="6" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="6" GridPane.rowIndex="5" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="6" GridPane.rowIndex="4" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="5" GridPane.rowIndex="6" />
-            <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+            <GridPane fx:id="calendarGrid" layoutY="3.5" prefHeight="525.0" prefWidth="628.0" style="-fx-background-color: #24AEFE; -fx-border-color: #000000;" styleClass="calendarDay" stylesheets="@../../../../../../Desktop%20Scheduling%20Application/src/com/nkris/scheduling_app/controllers/application.css">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="224.0" minHeight="0.0" prefHeight="41.5" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="285.0" minHeight="0.0" prefHeight="105.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="294.5" minHeight="10.0" prefHeight="108.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="292.0" minHeight="10.0" prefHeight="114.5" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="241.5" minHeight="10.0" prefHeight="114.5" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="241.5" minHeight="10.0" prefHeight="111.5" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="241.5" minHeight="10.0" prefHeight="106.5" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label id="weekdayLabel" prefHeight="44.0" prefWidth="89.0" stylesheets="@../main/stylesheets/application.css" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label id="weekdayLabel" layoutX="10.0" layoutY="19.0" prefHeight="49.0" prefWidth="89.0" stylesheets="@../main/stylesheets/application.css" textFill="WHITE" GridPane.columnIndex="1">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label id="weekdayLabel" layoutX="120.0" layoutY="19.0" prefHeight="45.0" prefWidth="139.0" stylesheets="@../main/stylesheets/application.css" textFill="WHITE" GridPane.columnIndex="2">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label id="weekdayLabel" layoutX="230.0" layoutY="19.0" prefHeight="44.0" prefWidth="90.0" stylesheets="@../main/stylesheets/application.css" textFill="WHITE" GridPane.columnIndex="3">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label id="weekdayLabel" layoutX="340.0" layoutY="19.0" prefHeight="45.0" prefWidth="140.0" stylesheets="@../main/stylesheets/application.css" textFill="WHITE" GridPane.columnIndex="4">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label id="weekdayLabel" layoutX="450.0" layoutY="19.0" prefHeight="45.0" prefWidth="137.0" stylesheets="@../main/stylesheets/application.css" textFill="WHITE" GridPane.columnIndex="5">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label id="weekdayLabel" layoutX="559.0" layoutY="19.0" prefHeight="54.0" prefWidth="93.0" stylesheets="@../main/stylesheets/application.css" textFill="WHITE" GridPane.columnIndex="6">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <ToggleButton fx:id="row1col0" mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" GridPane.rowIndex="2">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="calendarDay" />
+                     </toggleGroup>
+                  </ToggleButton>
+                  <ToggleButton fx:id="row1col1" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </ToggleButton>
+                  <ToggleButton fx:id="row1col2" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </ToggleButton>
+                  <ToggleButton fx:id="row1col3" mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="5" GridPane.rowIndex="2" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <ToggleButton fx:id="row1col0" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </ToggleButton>
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.rowIndex="6" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.rowIndex="5" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.rowIndex="4" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="6" GridPane.rowIndex="3" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="136.0" toggleGroup="$calendarDay" GridPane.rowIndex="3" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="5" GridPane.rowIndex="4" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="119.0" prefWidth="114.0" toggleGroup="$calendarDay" GridPane.columnIndex="6" GridPane.rowIndex="6" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="6" GridPane.rowIndex="5" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="5" GridPane.rowIndex="6" />
+                  <ToggleButton mnemonicParsing="false" prefHeight="126.0" prefWidth="140.0" toggleGroup="$calendarDay" GridPane.columnIndex="5" GridPane.rowIndex="5" />
+               </children>
+            </GridPane>
          </children>
-      </GridPane>
+      </AnchorPane>
       <AnchorPane layoutX="418.0" layoutY="69.0" prefHeight="99.0" prefWidth="628.0" style="-fx-background-color: #FFFFFF;">
          <children>
             <Label fx:id="monthAndYearLabel" layoutX="247.0" layoutY="15.0" text="August 2019">
