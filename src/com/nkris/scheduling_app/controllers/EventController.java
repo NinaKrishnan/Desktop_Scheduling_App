@@ -83,7 +83,7 @@ public class EventController implements Initializable
 
 	}
 	 
-	
+	 
 	@FXML
 	private void createEventPopup(ActionEvent event) throws IOException
 	{

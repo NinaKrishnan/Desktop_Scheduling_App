@@ -630,7 +630,7 @@ public class DashboardController implements Initializable
 		calendarGrid.getChildren().clear();
 		setDays(getMonth(), getYear(), false);
 		EventPopUpController.currentEvent = null;
-		
+		 
 		
 	}
 	 

@@ -144,6 +144,6 @@ public class WeeklyCalendarController implements Initializable
 	
 	public void setStage(Stage stage) 
 	{
-		this.stage = stage;
+		this.stage = stage; 
 	}
 }
