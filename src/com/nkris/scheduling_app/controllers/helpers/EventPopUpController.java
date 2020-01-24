@@ -123,33 +123,50 @@ public class EventPopUpController implements Initializable
 	@FXML
 	public void saveEvent(ActionEvent event)
 	{
+		
+		if(CustomerSelectionController.selectedCustomer == null || eventTitleTextField.getText() == null
+			||startDatePicker.getValue() == null || endDatePicker.getValue() == null || startTimePicker.getValue() == null
+			||endTimePicker.getValue() == null || typeTextField.getText() == null) {
+				displayAlert();
+			}
 	    
-	    Appointment newEvent = new Appointment();
-	    newEvent = new Appointment();
-	    newEvent.setCustomer(CustomerSelectionController.selectedCustomer);
-	    newEvent.setTitle(eventTitleTextField.getText());
-	    newEvent.setStartDate(startDatePicker.getValue());
-	    newEvent.setEndDate(endDatePicker.getValue());
-	    newEvent.setStartTime(startTimePicker.getValue());
-	    newEvent.setEndTime(endTimePicker.getValue());
-	    newEvent.setDescription(descriptionTextArea.getText());   
-	    newEvent.setType(typeTextField.getText());
-	    newEvent.setTimeRange();
-	    
-	    try {
-			SQL_Appointments.insertAppointment(newEvent);
-		} catch (SQLException | ClassNotFoundException e) {
-			e.printStackTrace();
+		else {
+			 Appointment newEvent = new Appointment();
+			    newEvent = new Appointment();
+			    newEvent.setCustomer(CustomerSelectionController.selectedCustomer);
+			    newEvent.setTitle(eventTitleTextField.getText());
+			    newEvent.setStartDate(startDatePicker.getValue());
+			    newEvent.setEndDate(endDatePicker.getValue());
+			    newEvent.setStartTime(startTimePicker.getValue());
+			    newEvent.setEndTime(endTimePicker.getValue());
+			    newEvent.setDescription(descriptionTextArea.getText());   
+			    newEvent.setType(typeTextField.getText());
+			    newEvent.setTimeRange();
+			    
+			    try {
+					SQL_Appointments.insertAppointment(newEvent);
+				} catch (SQLException | ClassNotFoundException e) {
+					e.printStackTrace();
+				}
+			    
+			    finally {
+				    ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
+				    currentEvent = newEvent;
+				    currentEventStart = newEvent.getStartDate();
+				    
+			    }
 		}
-	    
-	    finally {
-		    ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
-		    currentEvent = newEvent;
-		    currentEventStart = newEvent.getStartDate();
-		    
-	    }
 	}
 	
+	
+	//Display alert if form fields are not filled out properly
+	private void displayAlert()
+	{
+		Alert alert = new Alert(AlertType.WARNING, "Please fill out all fields before saving this event.", 
+				ButtonType.OK);
+		alert.showAndWait();
+				
+	}
 	
 
 	/*

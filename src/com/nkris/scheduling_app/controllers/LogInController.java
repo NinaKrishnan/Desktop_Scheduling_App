@@ -3,10 +3,10 @@ package com.nkris.scheduling_app.controllers;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.ResourceBundle;
 
 import com.nkris.scheduling_app.main.Main;
-import com.nkris.scheduling_app.models.User;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -116,6 +116,8 @@ public class LogInController implements Initializable
 	{
 		usernameTextField.setFocusTraversable(false);
 		passwordTextField.setFocusTraversable(false);	
+		
+		DashboardController.loginTime = null;
 	}
     
 	
@@ -212,6 +214,7 @@ public class LogInController implements Initializable
 	@FXML
 	void loginButtonClicked(ActionEvent event) throws IOException
 	{
+		DashboardController.loginTime = LocalTime.now();
 		setUserName(usernameTextField.getText());
 		Parent parent = FXMLLoader.load(getClass().getResource
 				("/com/nkris/scheduling_app/FXML/DashboardUI.fxml"));

@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.ResourceBundle;
@@ -36,7 +37,10 @@ import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -141,6 +145,8 @@ public class DashboardController implements Initializable
 	@FXML
 	private TableColumn<Appointment, String> timeColumn;
 	
+	public static LocalTime loginTime;
+	
 	public static LocalDate clickedDate = null;
 
 	private Calendar calendar = new Calendar();
@@ -173,6 +179,13 @@ public class DashboardController implements Initializable
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
+		try {
+			displayAppointmentAlert();
+		}
+		catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+
 	}
 	
 	
@@ -599,6 +612,28 @@ public class DashboardController implements Initializable
 	
 //***************************************EVENT POPUP METHODS********************************************//
 	
+	
+	
+	//Determine if the user has an appointment within 15 minutes of login; notify via alert box if so
+	private void displayAppointmentAlert() throws ClassNotFoundException, SQLException
+	{
+		ObservableList<Appointment> appointments = SQL_Appointments.getAppointments(LocalDate.now());
+		
+		for(Appointment appt : appointments) {
+			LocalTime time = appt.getStartTime();
+			if(loginTime.plusMinutes(16).isAfter(time)) {
+				createAppointmentAlert(appt);
+			}
+		}
+	}
+	
+	private void createAppointmentAlert(Appointment appointment)
+	{
+		Alert alert = new Alert(AlertType.WARNING, "You have an appointment at "+appointment.getStartTime().toString()
+				+".", ButtonType.OK);
+		
+		alert.showAndWait();
+	}
 
 	private void handleEventPopup() throws SQLException
 	{
