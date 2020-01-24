@@ -82,7 +82,7 @@ public class EventController implements Initializable
 		timeColumn.setCellValueFactory(new PropertyValueFactory<Appointment, String>("timeRange"));
 
 	}
-	
+	 
 	
 	@FXML
 	private void createEventPopup(ActionEvent event) throws IOException

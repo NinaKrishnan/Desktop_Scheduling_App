@@ -109,7 +109,7 @@ public class WeeklyCalendarController implements Initializable
 		setName(col6, day);
 		setName(col7, day);
 	}
-	
+	  
 	
 	private void populateCalendar() throws ClassNotFoundException, SQLException
 	{

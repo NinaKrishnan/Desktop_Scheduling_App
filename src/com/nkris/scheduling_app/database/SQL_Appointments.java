@@ -109,7 +109,7 @@ public class SQL_Appointments
 		
 		return timestamp;
 	}
-	
+	 
 	
 	public static boolean hasEvent(int day, int month, int year) throws SQLException {
 		connection = DatabaseHandler.getDBconnection();

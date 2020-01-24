@@ -99,7 +99,7 @@ public class Appointment
 	
 	public LocalTime getEndTime()
 	{
-		return endTime;
+		return endTime; 
 	}
 	
 	public void setTimeRange()

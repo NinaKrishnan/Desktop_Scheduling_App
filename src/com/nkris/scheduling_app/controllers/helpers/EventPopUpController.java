@@ -96,7 +96,7 @@ public class EventPopUpController implements Initializable
 	
 	@FXML
 	private TextField typeTextField; //Textfield for appointment type (String)
-	
+	 
 	
 	public static Appointment currentEvent = null; //When this is non-null, it means an appointment has just been created.
 											//The DashboardController class will use this to add a flag to the

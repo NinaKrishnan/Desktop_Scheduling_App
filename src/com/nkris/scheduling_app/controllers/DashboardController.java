@@ -642,7 +642,7 @@ public class DashboardController implements Initializable
 		dashboardTable.setStyle("-fx-background-color: #aae6f2;");
 		appointmentsColumn.setStyle("-fx-font-color: #130f94;"+"-fx-font-weight: bold;"+"-fx-font-size: 17.5;");
 		timeColumn.setStyle("-fx-font-size: 17;");
-	}
+	} 
 	
 	//TODO
 	private void greyOutAppointment(Appointment appt) 
