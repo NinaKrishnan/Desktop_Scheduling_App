@@ -56,7 +56,7 @@ public class EventController implements Initializable
 			e.printStackTrace();
 		}
 		
-	}
+	} 
 	
 	private void populateAgendaFeed(TableView<Appointment> table) throws ClassNotFoundException, SQLException
 	{

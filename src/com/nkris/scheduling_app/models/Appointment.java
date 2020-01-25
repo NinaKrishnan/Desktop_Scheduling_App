@@ -195,7 +195,7 @@ public class Appointment
 	
 	public void setType(Type type)
 	{
-		this.type = type;
+		this.type = type; 
 	}
 	
 	public Type getType()

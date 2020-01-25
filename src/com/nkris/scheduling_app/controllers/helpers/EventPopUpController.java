@@ -207,7 +207,7 @@ public class EventPopUpController implements Initializable
 		catch (Exception e)
 		{ 
 			e.printStackTrace();
-		}
+		} 
 		
 		CustomerSelectionController.setSelectedCustomerTextfield(customerTextField);
 	}

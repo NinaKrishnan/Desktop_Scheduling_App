@@ -618,7 +618,7 @@ public class DashboardController implements Initializable
 
 	
 	
-	
+	 
 	//Determine if the user has an appointment within 15 minutes of login; notify via alert box if so
 	private void displayAppointmentAlert() throws ClassNotFoundException, SQLException
 	{

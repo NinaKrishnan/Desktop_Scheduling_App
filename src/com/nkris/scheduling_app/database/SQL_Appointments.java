@@ -18,7 +18,7 @@ import javafx.collections.ObservableList;
 
 public class SQL_Appointments 
 {
-	private static Connection connection;
+	private static Connection connection; 
 	
 	public static ObservableList<Appointment> appointments;
 	
