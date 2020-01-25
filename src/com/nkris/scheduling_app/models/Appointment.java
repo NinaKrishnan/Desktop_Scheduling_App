@@ -7,6 +7,8 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
+import com.nkris.scheduling_app.controllers.helpers.Type;
+
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -24,7 +26,8 @@ public class Appointment
 	private User user;
 	private String location;
 	private String contact;
-	private String type;
+	//private String type;
+	private Type type;
 	private String url;
 	private int customerId;
 	private String timeRange;
@@ -36,7 +39,7 @@ public class Appointment
 		location = "";
 		contact = "";
 		customer = null;
-		type = "";
+		type = null;
 		url = "";
 			
 	}
@@ -187,10 +190,15 @@ public class Appointment
 	
 	public void setType(String type)
 	{
+		this.type = Type.valueOf(type.toUpperCase());
+	}
+	
+	public void setType(Type type)
+	{
 		this.type = type;
 	}
 	
-	public String getType()
+	public Type getType()
 	{
 		return type;
 	}

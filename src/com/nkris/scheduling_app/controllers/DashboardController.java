@@ -169,8 +169,8 @@ public class DashboardController implements Initializable
 		displayCurrentDate();
 		try {
 			setDays(getMonth(), getYear(), false);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
+		}
+		catch (SQLException e1) {
 			e1.printStackTrace();
 		}
 		setAgendaFeedCellValues();
@@ -179,13 +179,13 @@ public class DashboardController implements Initializable
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
+		
 		try {
 			displayAppointmentAlert();
-		}
-		catch (ClassNotFoundException | SQLException e) {
+		} 
+		catch (ClassNotFoundException | SQLException  e) {
 			e.printStackTrace();
 		}
-
 	}
 	
 	
@@ -610,7 +610,12 @@ public class DashboardController implements Initializable
 		setDays(getMonth(), getYear(), false);
 	}
 	
-//***************************************EVENT POPUP METHODS********************************************//
+//****************************************************************************************************************//
+	
+//**********************************************EVENT POPUP METHODS***********************************************//
+	
+//****************************************************************************************************************//
+
 	
 	
 	
@@ -621,14 +626,15 @@ public class DashboardController implements Initializable
 		
 		for(Appointment appt : appointments) {
 			LocalTime time = appt.getStartTime();
-			if(loginTime.plusMinutes(16).isAfter(time)) {
+			if(time.isAfter(loginTime) && loginTime.plusMinutes(16).isAfter(time)) {
 				createAppointmentAlert(appt);
 			}
 		}
 	}
 	
-	private void createAppointmentAlert(Appointment appointment)
+	private void createAppointmentAlert(Appointment appointment) 
 	{
+		
 		Alert alert = new Alert(AlertType.WARNING, "You have an appointment at "+appointment.getStartTime().toString()
 				+".", ButtonType.OK);
 		
@@ -709,14 +715,6 @@ public class DashboardController implements Initializable
 		appointmentsColumn.setStyle("-fx-font-color: #130f94;"+"-fx-font-weight: bold;"+"-fx-font-size: 17.5;");
 		timeColumn.setStyle("-fx-font-size: 17;");
 	} 
-	
-	//TODO
-	private void greyOutAppointment(Appointment appt) 
-	{
-		if(appt.isOver()) {
-			
-		}
-	}
 	
 	
 	private void setAgendaFeedCellValues()

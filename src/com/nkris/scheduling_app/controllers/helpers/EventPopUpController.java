@@ -4,8 +4,10 @@ package com.nkris.scheduling_app.controllers.helpers;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 import com.nkris.scheduling_app.controllers.DashboardController;
@@ -95,7 +97,7 @@ public class EventPopUpController implements Initializable
 	private TextField locationTextField; //Textfield for appointment location (String)
 	
 	@FXML
-	private TextField typeTextField; //Textfield for appointment type (String)
+	private JFXComboBox<Type> typeComboBox; //Drop down menu for selecting appointment type
 	 
 	
 	public static Appointment currentEvent = null; //When this is non-null, it means an appointment has just been created.
@@ -109,8 +111,12 @@ public class EventPopUpController implements Initializable
 	
 	
 	@Override
-	public void initialize(URL arg0, ResourceBundle arg1)
+	public void initialize(URL url, ResourceBundle rb)
 	{
+		for(Type type : Arrays.asList(Type.values())) {
+			typeComboBox.getItems().add(type);
+		}
+		
 		System.out.print(DashboardController.currentEventStart);
 		startDatePicker.setValue(DashboardController.currentEventStart);
 	}
@@ -126,7 +132,7 @@ public class EventPopUpController implements Initializable
 		
 		if(CustomerSelectionController.selectedCustomer == null || eventTitleTextField.getText() == null
 			||startDatePicker.getValue() == null || endDatePicker.getValue() == null || startTimePicker.getValue() == null
-			||endTimePicker.getValue() == null || typeTextField.getText() == null) {
+			||endTimePicker.getValue() == null || typeComboBox.getValue() == null) {
 				displayAlert();
 			}
 	    
@@ -140,7 +146,7 @@ public class EventPopUpController implements Initializable
 			    newEvent.setStartTime(startTimePicker.getValue());
 			    newEvent.setEndTime(endTimePicker.getValue());
 			    newEvent.setDescription(descriptionTextArea.getText());   
-			    newEvent.setType(typeTextField.getText());
+			    newEvent.setType(typeComboBox.getValue());
 			    newEvent.setTimeRange();
 			    
 			    try {
@@ -206,6 +212,10 @@ public class EventPopUpController implements Initializable
 		CustomerSelectionController.setSelectedCustomerTextfield(customerTextField);
 	}
 
+	
+		
+	
+	
 	
 	//Return the current event 
 	public static Appointment getEvent()

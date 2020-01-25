@@ -47,7 +47,7 @@ public class SQL_Appointments
          statement.setString(5, appointment.getDescription());
          statement.setString(6, appointment.getLocation());
          statement.setString(7, appointment.getContact());
-         statement.setString(8, appointment.getType());
+         statement.setString(8, appointment.getType().toString());
          statement.setString(9, appointment.getURL());
          statement.setTimestamp(10, start);
          statement.setTimestamp(11, end);

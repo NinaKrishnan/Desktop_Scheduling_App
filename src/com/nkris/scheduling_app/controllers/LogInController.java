@@ -214,13 +214,15 @@ public class LogInController implements Initializable
 	@FXML
 	void loginButtonClicked(ActionEvent event) throws IOException
 	{
-		DashboardController.loginTime = LocalTime.now();
 		setUserName(usernameTextField.getText());
 		Parent parent = FXMLLoader.load(getClass().getResource
 				("/com/nkris/scheduling_app/FXML/DashboardUI.fxml"));
 		Scene homeScreen = new Scene(parent);
 		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		stage.setScene(homeScreen);
+		
+		DashboardController.loginTime = LocalTime.now();
+		
+		stage.setScene(homeScreen);		
 		stage.show();
 	}
 
