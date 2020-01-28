@@ -91,24 +91,29 @@ public class WeeklyCalendarController implements Initializable
 	
 	private void setDayLabels()
 	{
-		int day = LocalDate.now().getDayOfWeek().getValue();
-		if(day == 7) {
-			day = 1;
-		}
+		int dayVal = LocalDate.now().getDayOfWeek().getValue();
 		
-		else {
-			day++;
-		}
+		int day = dayVal > 7 ? dayVal-7 : dayVal;
+		setName(col1, day++);
 		
-		day--;
-		
-		setName(col1, day);
-		setName(col2, day);
-		setName(col3, day);
-		setName(col4, day);
-		setName(col5, day);
-		setName(col6, day);
-		setName(col7, day);
+		day = day > 7 ? day-7 : day;
+		setName(col2, day++);
+
+		day = day > 7 ? day-7 : day;
+		setName(col3, day++);
+
+		day = day > 7 ? day-7 : day;
+		setName(col4, day++);
+
+		day = day > 7 ? day-7 : day;
+		setName(col5, day++);
+
+		day = day > 7 ? day-7 : day;
+		setName(col6, day++);
+
+		day = day > 7 ? day-7 : day;
+		setName(col7, day++);
+
 	}
 	  
 	
@@ -138,7 +143,7 @@ public class WeeklyCalendarController implements Initializable
 	
 	private void setName(TableColumn<Appointment, String>col, int day)
 	{
-		col.setText(Calendar.getDayName(day++));
+		col.setText(Calendar.getDayNameIndex1(day));
 	}
 	
 	

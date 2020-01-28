@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.nkris.scheduling_app.models.Appointment;
 
@@ -134,6 +136,58 @@ public class SQL_Appointments
 		
 	}
 	
+	
+	public static String getAppointmentTypes(String month) throws SQLException
+	{
+		if(Integer.parseInt(month) <10) {
+			month = "0"+month;
+		} 
+		
+		
+		List<Appointment> appts = new ArrayList<Appointment>();
+		
+		int meeting = 0;
+		int presentation = 0;
+		int breakfast = 0;
+		int lunch = 0;
+		int dinner = 0;
+		int misc = 0;
+		
+		
+		connection = DatabaseHandler.getDBconnection();
+		
+		
+		
+		String query = "SELECT * FROM appointment WHERE EXTRACT(MONTH FROM start) = "+month+";";
+		PreparedStatement statement = connection.prepareStatement(query);
+		ResultSet set = statement.executeQuery();
+		
+		while(set.next()) {
+			String type = set.getString("type");
+			
+			switch(type)
+			{
+			case "MEETING":
+				meeting++;
+			case "PRESENTATION":
+				presentation++;
+			case "BREAKFAST":
+				breakfast++;
+			case "LUNCH":
+				lunch++;
+			case "DINNER":
+				dinner++;
+			case "MISC":
+				misc++;
+			}
+		}
+		
+		String result = "Meeting: "+meeting + "\nPresentation: "+presentation +"\nBreakfast: "+breakfast
+				+ "\nLunch: "+lunch + "\nDinner: "+dinner + "\nMisc: "+misc;
+		
+		return result;
+				
+	}
 	
 	
 	

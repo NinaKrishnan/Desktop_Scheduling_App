@@ -4,6 +4,7 @@ package com.nkris.scheduling_app.controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalTime;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import com.nkris.scheduling_app.main.Main;
@@ -118,6 +119,8 @@ public class LogInController implements Initializable
 		passwordTextField.setFocusTraversable(false);	
 		
 		DashboardController.loginTime = null;
+		
+		translate();
 	}
     
 	
@@ -129,30 +132,17 @@ public class LogInController implements Initializable
     @FXML
     void englishSelected(ActionEvent event)
     {
-    	//change text on language selection menu
-    	languageMenuButton.setText("Enlgish");
+    	translate("en"); //Translate login screen to english
+    	
+    	
     	languageMenuButton.setAlignment(Pos.CENTER);
-    	
-    	//change welcome title to english
-    	welcomeBackLabel.setText("Welcome Back,");
+    	   	
     	welcomeBackLabel.setAlignment(Pos.CENTER);
-    	
-    	//change the login title to english
-    	signInLabel.setText("Log in to continue");
+    
     	signInLabel.setAlignment(Pos.CENTER);
-    	
-    	//change the username/password prompt text to english
-    	usernameTextField.setPromptText("Username");
-    	passwordTextField.setPromptText("Password");
-    	
-    	//chnage "forgot password" button to english
-    	forgotPasswordButton.setText("Forgot Password?");
-    	
-    	//change the login button to english
-    	loginButton.setText("Log In");
+    	 
     	loginButton.setAlignment(Pos.CENTER);
     }
-    
     
     
     /*
@@ -161,32 +151,69 @@ public class LogInController implements Initializable
     @FXML
     void spanishSelected(ActionEvent event) 
     {
-    	//change text on language selection menu to 
-    	languageMenuButton.setText("Spanish");
+    	
+    	translate("es");
+    	
     	languageMenuButton.setAlignment(Pos.CENTER);
     	
-    	//change welcome title to spanish
-    	welcomeBackLabel.setText("Bienvenido,");
     	welcomeBackLabel.setAlignment(Pos.CENTER);
-    	
-    	//change login title to spanish
-    	signInLabel.setText("Inicia sesión \npara continuar");
+
     	signInLabel.setAlignment(Pos.BOTTOM_CENTER);
-    	
-    	//change username/password prompt text to spanish
-    	usernameTextField.setPromptText("Nombre de usario");
-    	passwordTextField.setPromptText("Contraseña");
-    	
-    	//change "forgot password" button to spanish
-    	forgotPasswordButton.setText("¿Olvidó contraseña?");
-    	
-    	//change the login button to spanish
-    	loginButton.setText("Iniciar sesión");
+
     	loginButton.setAlignment(Pos.CENTER);
     }
 
     
     
+    
+    void translate(String language)
+    {
+    	switch(language)
+    	{
+    	case "en":
+        	//change text on language selection menu
+    		languageMenuButton.setText("English");
+        	
+    		//change welcome title to english
+    		welcomeBackLabel.setText("Welcome Back, ");
+    		
+        	//change the login title to english
+    		signInLabel.setText("Log in to continue");
+    		
+        	//change the username/password prompt text to english
+    		usernameTextField.setPromptText("Username");
+        	passwordTextField.setPromptText("Password");
+        	
+        	//change "forgot password" button to english
+        	forgotPasswordButton.setText("Forgot Password?");
+        	
+        	//change the login button to english
+        	loginButton.setText("Log In");
+        	
+    	case "es":
+    		//change text on language selection menu to 
+        	languageMenuButton.setText("Spanish");
+        	
+        	//change welcome title to spanish
+        	welcomeBackLabel.setText("Bienvenido,");
+        	
+        	//change login title to spanish
+        	signInLabel.setText("Inicia sesión \npara continuar");
+        	
+        	//change username/password prompt text to spanish
+        	usernameTextField.setPromptText("Nombre de usario");
+        	passwordTextField.setPromptText("Contraseña");
+        	
+        	//change "forgot password" button to spanish
+        	forgotPasswordButton.setText("¿Olvidó contraseña?");
+        	
+        	//change the login button to spanish
+        	loginButton.setText("Iniciar sesión");
+    	}
+    }
+    
+  
+      
     
     /*
      * Takes user to the "forgot password" screen when button is clicked
@@ -226,7 +253,18 @@ public class LogInController implements Initializable
 		stage.show();
 	}
 
+	//Determine user's location and translate login screen into language. 
+	//****Supported: English & Spanish
+	private void translate()
+	{
+		Locale locale = Locale.getDefault();
+		
+		String language = locale.getLanguage();
+		
+		translate(language);
+	}
 	
+	//TODO
 	private void setUserName(String userName)
 	{
 		Main.user.setUserName(userName);

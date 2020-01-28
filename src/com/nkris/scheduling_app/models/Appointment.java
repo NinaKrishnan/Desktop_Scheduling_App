@@ -224,6 +224,7 @@ public class Appointment
 	}
 	
 	
+	
 	public StringProperty getStringDateTime(LocalTime time, LocalDate date)
 	{
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.S"); 
