@@ -15,7 +15,7 @@
           <TableColumn fx:id="appointmentCol" prefWidth="267.5" text="Appointment Types" />
         </columns>
       </TableView>
-      <Label fx:id="monthLabel" layoutX="17.0" layoutY="14.0" prefHeight="45.0" prefWidth="253.0" text="Monthly Appointment Types" textFill="#1876d5">
+      <Label fx:id="titleLabel" layoutX="17.0" layoutY="14.0" prefHeight="45.0" prefWidth="324.0" text="Monthly Appointment Types 2020" textFill="#1876d5">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

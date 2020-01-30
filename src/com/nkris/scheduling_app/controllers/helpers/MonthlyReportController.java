@@ -22,7 +22,7 @@ import javafx.stage.Stage;
 public class MonthlyReportController implements Initializable
 {
 	@FXML
-	private Label monthLabel;
+	private Label titleLabel;
 	
 	@FXML
 	private TableView<Month> reportTable;
@@ -39,6 +39,8 @@ public class MonthlyReportController implements Initializable
 	@Override
 	public void initialize(URL url, ResourceBundle rb)
 	{
+		setTitleLabelText();
+		
 		try {
 			setAppointmentTypes();
 		} 
@@ -66,6 +68,16 @@ public class MonthlyReportController implements Initializable
 		reportTable.setItems(monthList);
 	}
 
+	private void setTitleLabelText()
+	{
+		titleLabel.setText("Monthly Appointment Types "+LocalDate.now().getYear());
+		setTitleLabelStyle();
+	}
+	
+	private void setTitleLabelStyle()
+	{
+		titleLabel.setStyle("-fx-font-color: #1876d5;"+"-fx-font-weight: bold;"+"-fx-font-size: 18;");
+	}
 	
 	public void setStage (Stage stage)
 	{

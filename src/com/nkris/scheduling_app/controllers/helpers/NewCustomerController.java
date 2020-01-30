@@ -132,6 +132,7 @@ public class NewCustomerController implements Initializable
 		//customer.setCustomerID();
 		Address address = createNewAddress();
 		customer.setAddress(address);
+		customer.getAddress().setPhoneNumber(phoneTextField.getText());
 		
 						
 		return customer;
@@ -158,8 +159,14 @@ public class NewCustomerController implements Initializable
 		City city = new City();
 		city.setCityName(cityTextField.getText());
 		city.setCountry(getCountry());
-		city.setCityID(SQL_City.getLastIndex(DatabaseHandler.getDBconnection()));
-		//city.setCityID();
+		
+		if(!SQL_City.containsCity(city.getCityName(), city.getCountry().getCountryId())) {
+			city.setCityID(SQL_City.getLastIndex(DatabaseHandler.getDBconnection()));
+		}
+		
+		else {
+			city.setCityID(SQL_City.getCityId(city.getCityName(), city.getCountry().getCountryId()));
+		}
 		return city;
 				
 	}
@@ -168,8 +175,7 @@ public class NewCustomerController implements Initializable
 	{
 		Country country = new Country();
 		country.setCountryName(countryTextField.getText());
-		country.setCountryID(SQL_Country.getLastIndex(DatabaseHandler.getDBconnection()));
-		//country.setCountryID();
+		country.setCountryID(SQL_Country.getLastIndex(DatabaseHandler.getDBconnection()));		
 		return country;
 	}
 	

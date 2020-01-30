@@ -15,24 +15,26 @@ public class SQL_City
 	
 	public static void insertCity(City city, Connection connection) throws SQLException, ClassNotFoundException
 	{		
-		 String addCityQuery = String.join(" ",
-		            "INSERT INTO city (cityId, city, countryId, createDate, "
-		            + "createdBy, lastUpdate, lastUpdateBy)",
-		            "VALUES (?, ?, ?, NOW(), ?, NOW(), ?)");
-		 String foreignKeyQuery = "SET FOREIGN_KEY_CHECKS=0";
-		 String foreignKeyQuery2 = "SET FOREIGN_KEY_CHECKS=1";
-		 
-		 PreparedStatement statement = connection.prepareStatement(addCityQuery);
-		 statement.setInt(1, city.getCityID());
-		 statement.setString(2, city.getCityName());
-		 statement.setInt(3, city.getCountry().getCountryId());
-		 statement.setString(4, Main.user.getUserName());
-		 statement.setString(5, Main.user.getUserName());
-		 PreparedStatement fkStatement = connection.prepareStatement(foreignKeyQuery);
-	     PreparedStatement fkStatement2 = connection.prepareStatement(foreignKeyQuery2);
-	     fkStatement.executeUpdate();
-		 statement.executeUpdate();
-		 fkStatement2.executeUpdate();
+		if(!containsCity(city.getCityName(), city.getCountry().getCountryId())) {
+			 String addCityQuery = String.join(" ",
+			            "INSERT INTO city (cityId, city, countryId, createDate, "
+			            + "createdBy, lastUpdate, lastUpdateBy)",
+			            "VALUES (?, ?, ?, NOW(), ?, NOW(), ?)");
+			 String foreignKeyQuery = "SET FOREIGN_KEY_CHECKS=0";
+			 String foreignKeyQuery2 = "SET FOREIGN_KEY_CHECKS=1";
+			 
+			 PreparedStatement statement = connection.prepareStatement(addCityQuery);
+			 statement.setInt(1, city.getCityID());
+			 statement.setString(2, city.getCityName());
+			 statement.setInt(3, city.getCountry().getCountryId());
+			 statement.setString(4, Main.user.getUserName());
+			 statement.setString(5, Main.user.getUserName());
+			 PreparedStatement fkStatement = connection.prepareStatement(foreignKeyQuery);
+		     PreparedStatement fkStatement2 = connection.prepareStatement(foreignKeyQuery2);
+		     fkStatement.executeUpdate();
+			 statement.executeUpdate();
+			 fkStatement2.executeUpdate();
+		}
 		 
 	}
 	
@@ -66,7 +68,7 @@ public class SQL_City
 	public static int getLastIndex(Connection connection) throws SQLException, ClassNotFoundException
 	{
 		int index = 0;
-		String query = "SELECT MAX(customerId)FROM customer";
+		String query = "SELECT MAX(cityId)FROM city";
 		PreparedStatement statement = connection.prepareStatement(query);
 		ResultSet set = statement.executeQuery();
 		if(set.next())
@@ -75,4 +77,41 @@ public class SQL_City
 		}
 		return index + 1;
 	}
+	
+	
+	public static boolean containsCity(String cityName, int countryID) throws SQLException
+	{
+		connection = DatabaseHandler.getDBconnection();
+		String query = "SELECT * FROM city WHERE city = ? AND countryId = ?";
+		
+		PreparedStatement statement = connection.prepareStatement(query);
+		statement.setString(1, cityName);
+		statement.setInt(2, countryID);
+		
+		ResultSet set = statement.executeQuery();
+		
+		if(set.next()) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static int getCityId(String cityName, int countryID) throws SQLException, ClassNotFoundException
+	{
+		connection = DatabaseHandler.getDBconnection();
+		
+		String query = "SELECT * FROM city WHERE city = ? AND countryId = ?";
+		
+		PreparedStatement statement = connection.prepareStatement(query);
+		statement.setString(1, cityName);
+		statement.setInt(2, countryID);
+		
+		ResultSet set = statement.executeQuery();
+		
+		if(set.next()) {
+			return set.getInt("cityId");
+		}
+		return getLastIndex(connection);
+	}
+	
 }

@@ -37,7 +37,7 @@ public class SQL_Country
 	public static int getLastIndex(Connection connection) throws SQLException, ClassNotFoundException
 	{
 		int index = 0;
-		String query = "SELECT MAX(customerId)FROM customer";
+		String query = "SELECT MAX(countryId)FROM country";
 		PreparedStatement statement = connection.prepareStatement(query);
 		ResultSet set = statement.executeQuery();
 		if(set.next())
@@ -69,6 +69,40 @@ public class SQL_Country
 	     return country;
 	}
 	
+	
+	public static boolean containsCountry(String countryName) throws SQLException
+	{
+		connection = DatabaseHandler.getDBconnection();
+		
+		String query = "SELECT * FROM country WHERE country = ?";
+		PreparedStatement statement = connection.prepareStatement(query);
+		statement.setString(1, countryName);
+
+		
+		ResultSet set = statement.executeQuery();
+		
+		if(set.next()) {
+			return true;
+		}
+		return false;
+	}
+	
+	public static int getCountryId(String countryName) throws SQLException, ClassNotFoundException
+	{
+	connection = DatabaseHandler.getDBconnection();
+		
+		String query = "SELECT * FROM country WHERE country = ?";
+		
+		PreparedStatement statement = connection.prepareStatement(query);
+		statement.setString(1, countryName);
+		ResultSet set = statement.executeQuery();
+		
+		if(set.next()) {
+			return set.getInt("countryId");
+		}
+		
+		return getLastIndex(connection);
+	}
 	
 	
 }

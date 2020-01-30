@@ -142,10 +142,8 @@ public class SQL_Appointments
 		if(Integer.parseInt(month) <10) {
 			month = "0"+month;
 		} 
-		
-		
-		List<Appointment> appts = new ArrayList<Appointment>();
-		
+		int year = LocalDate.now().getYear();
+				
 		int meeting = 0;
 		int presentation = 0;
 		int breakfast = 0;
@@ -158,7 +156,8 @@ public class SQL_Appointments
 		
 		
 		
-		String query = "SELECT * FROM appointment WHERE EXTRACT(MONTH FROM start) = "+month+";";
+		String query = "SELECT * FROM appointment WHERE EXTRACT(YEAR FROM start) = "+year+
+				"AND EXTRACT(MONTH FROM start) = "+month+";";
 		PreparedStatement statement = connection.prepareStatement(query);
 		ResultSet set = statement.executeQuery();
 		

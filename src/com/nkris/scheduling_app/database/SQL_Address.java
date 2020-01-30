@@ -7,6 +7,8 @@ import java.sql.SQLException;
 
 import com.nkris.scheduling_app.main.Main;
 import com.nkris.scheduling_app.models.Address;
+import com.nkris.scheduling_app.models.City;
+import com.nkris.scheduling_app.models.Country;
 
 public class SQL_Address
 {
@@ -132,5 +134,65 @@ public class SQL_Address
 		return number;
 	}
 	
+	public static Address getAddressFromId(int id) throws SQLException
+	{
+		connection = DatabaseHandler.getDBconnection();
+		Address address = new Address();
+		
+		String query = "SELECT * FROM address WHERE addressId = ?";
+		
+		PreparedStatement statement = connection.prepareStatement(query);
+		statement.setInt(1, id);
+		
+		ResultSet set = statement.executeQuery();
+		
+		if(set.next()) {
+			address.setStreetAddress(set.getString("address"));
+			String cityQuery = "SELECT * FROM city WHERE cityId = ?";
+    		PreparedStatement cityStatement = connection.prepareStatement(cityQuery);
+    		cityStatement.setInt(1, set.getInt("cityId"));
+    		ResultSet citySet = cityStatement.executeQuery();
+			
+    		if(citySet.next()) {
+    			City city = new City();
+    			city.setCityName(citySet.getString("city"));
+    			String countryQuery = "SELECT * FROM country WHERE countryId = ?";
+    			PreparedStatement countryStatement = connection.prepareStatement(countryQuery);
+    			countryStatement.setInt(1, citySet.getInt("countryId"));
+    			ResultSet countrySet = countryStatement.executeQuery();
+    			
+    			if(countrySet.next()) {
+    				Country country = new Country();
+    				country.setCountryName(countrySet.getString("country"));
+    				city.setCountry(country);
+    				address.setCity(city);
+    			}
+    		}
+		}
+	return address;	
+	}
+	
+	public static void updateAddress(int id, String streetName, String cityName, 
+			String countryName,String phoneNumber) throws SQLException, ClassNotFoundException
+	{
+		String query = "UPDATE address SET address = ?, cityId = ?, phone = ?";
+		
+		String foreignKeyQuery = "SET FOREIGN_KEY_CHECKS=0";
+		String foreignKeyQuery2 = "SET FOREIGN_KEY_CHECKS=1";
+		 
+		PreparedStatement statement = connection.prepareStatement(query);
+		int countryId = SQL_Country.getCountryId(countryName);
+		int cityId = SQL_City.getCityId(cityName, countryId);
+		
+		statement.setString(1, streetName);
+		statement.setInt(2, cityId);
+		statement.setString(3, phoneNumber);
+		PreparedStatement fkStatement = connection.prepareStatement(foreignKeyQuery);
+	    PreparedStatement fkStatement2 = connection.prepareStatement(foreignKeyQuery2);
+		
+	    fkStatement.executeUpdate();
+		statement.executeUpdate();
+		fkStatement2.executeUpdate();
+	}
 	
 }

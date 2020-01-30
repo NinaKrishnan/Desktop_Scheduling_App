@@ -116,6 +116,59 @@ public class SQL_Customer
 		return index + 1;
 	}
 	
+	public static Customer getCustomer(int id) throws SQLException, ClassNotFoundException
+	{
+		connection = DatabaseHandler.getDBconnection();
+		
+		String customerQuery =  "SELECT * FROM customer WHERE customerId = ?";
+	    String addressQuery = "SELECT * FROM address WHERE addressId = ?";
+
+		Customer customer = new Customer();
+
+		PreparedStatement statement = connection.prepareStatement(customerQuery);
+	    PreparedStatement addressStatement = connection.prepareStatement(addressQuery);
+
+		statement.setInt(1, id);
+		ResultSet set = statement.executeQuery();
+		
+		if(set.next()) {
+			customer.setName(set.getString("customerName"));
+	    	customer.setCustomerID(set.getInt("customerId"));
+	    	customer.setActive(set.getInt("active"));
+	    	addressStatement.setInt(1, set.getInt("addressId"));
+	    	ResultSet addressSet = addressStatement.executeQuery();
+	    	
+	    	if(addressSet.next()) {
+	    		Address address = new Address();
+	    		address.setStreetAddress(addressSet.getString("address"));
+	    		address.setPhoneNumber(addressSet.getString("phone"));
+	    		String cityQuery = "SELECT * FROM city WHERE cityId = ?";
+	    		PreparedStatement cityStatement = connection.prepareStatement(cityQuery);
+	    		cityStatement.setInt(1, addressSet.getInt("cityId"));
+	    		ResultSet citySet = cityStatement.executeQuery();
+	    		
+	    		if(citySet.next()) {
+	    			City city = new City();
+	    			city.setCityName(citySet.getString("city"));
+	    			String countryQuery = "SELECT * FROM country WHERE countryId = ?";
+	    			PreparedStatement countryStatement = connection.prepareStatement(countryQuery);
+	    			countryStatement.setInt(1, citySet.getInt("countryId"));
+	    			ResultSet countrySet = countryStatement.executeQuery();
+	    			
+	    			if(countrySet.next()) {
+	    				Country country = new Country();
+	    				country.setCountryName(countrySet.getString("country"));
+	    				city.setCountry(country);
+	    				address.setCity(city);
+	    				customer.setAddress(address);
+	    			}
+	    		}
+	    	}
+	    	
+		}
+		return customer;
+	}
+	
 	public static Customer getSelectedCustomer(int id) throws SQLException, ClassNotFoundException
 	{
 		connection = DatabaseHandler.getDBconnection();
@@ -167,6 +220,18 @@ public class SQL_Customer
 	 
 	}
 	
+	public static void updateCustomer(int id, String name) throws SQLException, ClassNotFoundException
+	{
+		connection = DatabaseHandler.getDBconnection();
+		
+		String query = "UPDATE customer SET customerName = ? WHERE customerId = ?";
+		
+		PreparedStatement statement = connection.prepareStatement(query);
+		statement.setString(1, name);
+		statement.setInt(2, id);
+		
+		statement.executeUpdate();
+	}
 	
 
 }

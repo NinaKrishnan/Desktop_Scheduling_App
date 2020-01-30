@@ -6,6 +6,10 @@ import java.util.ResourceBundle;
 
 import com.nkris.scheduling_app.controllers.CustomersController;
 import com.nkris.scheduling_app.database.SQL_Address;
+import com.nkris.scheduling_app.database.SQL_Customer;
+import com.nkris.scheduling_app.models.Address;
+import com.nkris.scheduling_app.models.City;
+import com.nkris.scheduling_app.models.Country;
 import com.nkris.scheduling_app.models.Customer;
 
 import javafx.event.ActionEvent;
@@ -59,8 +63,7 @@ public class ViewCustomerController implements Initializable
 		if(CustomersController.selectedCustomer!=null)
 		{
 			try {
-				fillCustomerFields(CustomersController.selectedCustomer);
-				phoneTextField.setText(getZipcode(CustomersController.selectedCustomer));
+				fillFields(CustomersController.selectedCustomer);
 			} catch (ClassNotFoundException | SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -84,7 +87,7 @@ public class ViewCustomerController implements Initializable
 	}
 	
 	@FXML
-	private void updateCustomer(ActionEvent event)
+	private void updateCustomer(ActionEvent event) throws ClassNotFoundException, SQLException
 	{
 		if(firstNameTextField.isDisabled())
 		{
@@ -101,7 +104,15 @@ public class ViewCustomerController implements Initializable
 		}
 		else
 		{
+			String name = firstNameTextField.getText() + " " + lastNameTextField.getText();
 			
+			Customer customer = SQL_Customer.getCustomer(CustomersController.selectedCustomer.getCustomerID());
+			Address address = SQL_Address.getAddressFromId(customer.getAddress().getId());
+			
+			SQL_Address.updateAddress(address.getId(), addressTextField.getText(), cityTextField.getText(),
+					countryTextField.getText(), phoneTextField.getText());
+			
+			SQL_Customer.updateCustomer(customer.getCustomerID(), name);
 		}
 	}
 	
@@ -116,7 +127,14 @@ public class ViewCustomerController implements Initializable
 		}
 	}
 
-
+	public void fillFields(Customer cust) throws ClassNotFoundException, SQLException
+	{
+		Customer customer = SQL_Customer.getCustomer(cust.getCustomerID());
+		
+		fillCustomerFields(customer);
+	}
+	
+	
 	public void fillCustomerFields(Customer customer) throws ClassNotFoundException, SQLException
 	{
 		firstNameTextField.setText(getFirstName(customer.getName()));
@@ -127,6 +145,8 @@ public class ViewCustomerController implements Initializable
 		countryTextField.setText(customer.getAddress().getCity().getCountry().getCountryName());
 		zipcodeTextField.setText(SQL_Address.getZipcode(customer.getAddress().getId()));
 		phoneTextField.setText(customer.getAddress().getPhoneNumber());
+		System.out.println("ADDRESS: "+customer.getAddress());
+		System.out.println("PHONE: "+customer.getAddress().getPhoneNumber());
 		zipcodeTextField.setText(getZipcode(customer));
 	}
 	
