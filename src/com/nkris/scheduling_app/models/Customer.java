@@ -41,6 +41,7 @@ public class Customer
 	public void setAddress(Address address)
 	{
 		this.address = address;
+		
 	}
 	
 	
@@ -48,6 +49,8 @@ public class Customer
 	{
 		return address;
 	}
+	
+	
 	
 	public Address getCustomerAddress()
 	{

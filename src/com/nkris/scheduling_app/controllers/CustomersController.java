@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import com.nkris.scheduling_app.controllers.helpers.NewCustomerController;
+import com.nkris.scheduling_app.database.SQL_Address;
 import com.nkris.scheduling_app.database.SQL_Customer;
 import com.nkris.scheduling_app.models.Address;
 import com.nkris.scheduling_app.models.Customer;
@@ -59,6 +60,9 @@ public class CustomersController implements Initializable
 	@FXML
 	private Button viewCustomerButton;
 	
+	@FXML
+	private Button deleteCustomerButton;
+	
 	public static Customer selectedCustomer;
 	
 	public static int selectedCustomerId;
@@ -106,7 +110,7 @@ public class CustomersController implements Initializable
 	
 	private void populateCustomers() throws SQLException, ClassNotFoundException
 	{
-		customersTable.getItems().clear();
+		//customersTable.getItems().clear();
 		customersTable.setItems(SQL_Customer.getCustomers());
 	}
 	
@@ -189,12 +193,44 @@ public class CustomersController implements Initializable
 				stage.setScene(scene);
 				
 				stage.showAndWait();
+				
+				updateCustomers();
 			} 
 			catch (Exception e)
 			{ 
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	@FXML
+	private void deleteCustomer(ActionEvent event) throws ClassNotFoundException, SQLException
+	{
+		if(deleteCustomerConfirmation()) {
+			int id = customersTable.getSelectionModel().getSelectedItem().getCustomerID();
+			
+			Customer customer = SQL_Customer.getCustomer(id);
+			
+			int addressId = customer.getAddress().getId();
+			
+			SQL_Customer.deleteCustomer(id);
+			SQL_Address.deleteAddress(addressId);
+			
+			updateCustomers();
+		}
+	}
+	
+	private boolean deleteCustomerConfirmation()
+	{
+		Alert alert = new Alert(AlertType.WARNING, "All data associated with this customer will be erased. "
+				+ "Are you sure you want to delete?", ButtonType.YES, ButtonType.NO);
+		alert.showAndWait();
+		
+		if(alert.getResult() == ButtonType.YES) {
+			return true;
+		}
+		
+		return false;
 	}
 	
 	private void noSelectionAlert()

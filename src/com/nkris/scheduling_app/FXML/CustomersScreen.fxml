@@ -40,7 +40,7 @@
             <Font size="14.0" />
          </font>
       </Button>
-      <Button layoutX="875.0" layoutY="715.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #cf0c0c;" text="Delete" textFill="WHITE">
+      <Button fx:id="deleteCustomerButton" layoutX="875.0" layoutY="715.0" mnemonicParsing="false" onAction="#deleteCustomer" prefHeight="30.0" prefWidth="130.0" style="-fx-background-color: #cf0c0c;" text="Delete" textFill="WHITE">
          <font>
             <Font name="SansSerif Regular" size="14.0" />
          </font>

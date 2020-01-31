@@ -15,7 +15,7 @@ public class SQL_City
 	
 	public static void insertCity(City city, Connection connection) throws SQLException, ClassNotFoundException
 	{		
-		if(!containsCity(city.getCityName(), city.getCountry().getCountryId())) {
+		//if(!containsCity(city.getCityName(), city.getCountry().getCountryId())) {
 			 String addCityQuery = String.join(" ",
 			            "INSERT INTO city (cityId, city, countryId, createDate, "
 			            + "createdBy, lastUpdate, lastUpdateBy)",
@@ -34,7 +34,7 @@ public class SQL_City
 		     fkStatement.executeUpdate();
 			 statement.executeUpdate();
 			 fkStatement2.executeUpdate();
-		}
+		//}
 		 
 	}
 	
@@ -112,6 +112,13 @@ public class SQL_City
 			return set.getInt("cityId");
 		}
 		return getLastIndex(connection);
+	}
+	
+	public static void updateCity(String cityName, int countryId) throws SQLException
+	{
+		connection = DatabaseHandler.getDBconnection();
+		
+		
 	}
 	
 }

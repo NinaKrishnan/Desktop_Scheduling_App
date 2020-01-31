@@ -18,7 +18,7 @@ public class SQL_Customer
 {
 	
 	
-	public static ObservableList<Customer> customers = FXCollections.observableArrayList();
+	//public static ObservableList<Customer> customers = FXCollections.observableArrayList();
 
 	private static Connection connection;
 	
@@ -52,7 +52,7 @@ public class SQL_Customer
 	public static ObservableList<Customer> getCustomers() throws SQLException, ClassNotFoundException
 	{
 		connection = DatabaseHandler.getDBconnection();
-		//ObservableList<Customer> customers = FXCollections.observableArrayList();
+		ObservableList<Customer> customers = FXCollections.observableArrayList();
 	    String customersQuery = "SELECT * FROM customer"; 
 	    String addressQuery = "SELECT * FROM address WHERE addressId = ?";
 	    
@@ -122,7 +122,7 @@ public class SQL_Customer
 		
 		String customerQuery =  "SELECT * FROM customer WHERE customerId = ?";
 	    String addressQuery = "SELECT * FROM address WHERE addressId = ?";
-
+	    System.out.println("ID: "+id);
 		Customer customer = new Customer();
 
 		PreparedStatement statement = connection.prepareStatement(customerQuery);
@@ -140,6 +140,7 @@ public class SQL_Customer
 	    	
 	    	if(addressSet.next()) {
 	    		Address address = new Address();
+	    		address.setId(addressSet.getInt("addressId"));
 	    		address.setStreetAddress(addressSet.getString("address"));
 	    		address.setPhoneNumber(addressSet.getString("phone"));
 	    		String cityQuery = "SELECT * FROM city WHERE cityId = ?";
@@ -168,6 +169,25 @@ public class SQL_Customer
 		}
 		return customer;
 	}
+	
+	public static int getAddressId(int customerId) throws SQLException
+	{
+		connection = DatabaseHandler.getDBconnection();
+		
+		String query = "SELECT * FROM customer WHERE customerId = ?";
+		PreparedStatement statement = connection.prepareStatement(query);
+		
+		statement.setInt(1, customerId);
+		
+		ResultSet set = statement.executeQuery();
+		int addressId = -1;
+		if(set.next()) {
+			return set.getInt("addressId");
+		}
+		
+		return addressId;
+	}
+	
 	
 	public static Customer getSelectedCustomer(int id) throws SQLException, ClassNotFoundException
 	{
@@ -208,7 +228,7 @@ public class SQL_Customer
 	    				city.setCountry(country);
 	    				address.setCity(city);
 	    				customer.setAddress(address);
-	    		    	customers.add(customer);
+	    		    	//scustomers.add(customer);
 
 	    			}
 	    			
@@ -218,6 +238,25 @@ public class SQL_Customer
 		}
 		return customer;
 	 
+	}
+	
+	public static void deleteCustomer(int id) throws SQLException
+	{
+		connection = DatabaseHandler.getDBconnection();
+		
+		 String foreignKeyQuery = "SET FOREIGN_KEY_CHECKS=0";
+		 String foreignKeyQuery2 = "SET FOREIGN_KEY_CHECKS=1";
+		 
+		 String customerQuery = "DELETE FROM customer WHERE customerId = ?";
+		 PreparedStatement statement = connection.prepareStatement(customerQuery);
+		 statement.setInt(1, id);
+		 
+		 PreparedStatement fkStatement1 = connection.prepareStatement(foreignKeyQuery);
+		 PreparedStatement fkStatement2 = connection.prepareStatement(foreignKeyQuery2);
+		 
+		 fkStatement1.executeUpdate();
+		 statement.executeUpdate();
+		 fkStatement2.executeUpdate();
 	}
 	
 	public static void updateCustomer(int id, String name) throws SQLException, ClassNotFoundException

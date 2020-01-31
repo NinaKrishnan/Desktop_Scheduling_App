@@ -172,10 +172,30 @@ public class SQL_Address
 	return address;	
 	}
 	
+	public static void deleteAddress(int id) throws SQLException
+	{
+		connection = DatabaseHandler.getDBconnection();
+		
+		 String foreignKeyQuery = "SET FOREIGN_KEY_CHECKS=0";
+		 String foreignKeyQuery2 = "SET FOREIGN_KEY_CHECKS=1";
+		 
+		 String addressQuery = "DELETE FROM address WHERE addressId = ?";
+		 PreparedStatement statement = connection.prepareStatement(addressQuery);
+		 statement.setInt(1, id);
+		 
+		 PreparedStatement fkStatement1 = connection.prepareStatement(foreignKeyQuery);
+		 PreparedStatement fkStatement2 = connection.prepareStatement(foreignKeyQuery2);
+		 
+		 fkStatement1.executeUpdate();
+		 statement.executeUpdate();
+		 fkStatement2.executeUpdate();
+	}
+	
 	public static void updateAddress(int id, String streetName, String cityName, 
 			String countryName,String phoneNumber) throws SQLException, ClassNotFoundException
 	{
-		String query = "UPDATE address SET address = ?, cityId = ?, phone = ?";
+		System.out.println("Address Id: "+id);
+		String query = "UPDATE address SET address = ?, cityId = ?, phone = ? WHERE addressId = ?";
 		
 		String foreignKeyQuery = "SET FOREIGN_KEY_CHECKS=0";
 		String foreignKeyQuery2 = "SET FOREIGN_KEY_CHECKS=1";
@@ -186,6 +206,7 @@ public class SQL_Address
 		
 		statement.setString(1, streetName);
 		statement.setInt(2, cityId);
+		statement.setInt(4, id);
 		statement.setString(3, phoneNumber);
 		PreparedStatement fkStatement = connection.prepareStatement(foreignKeyQuery);
 	    PreparedStatement fkStatement2 = connection.prepareStatement(foreignKeyQuery2);

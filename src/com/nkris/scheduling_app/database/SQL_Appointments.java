@@ -86,7 +86,7 @@ public class SQL_Appointments
 			Appointment appointment = new Appointment();
 			appointment.setTitle(set.getString("title"));
 			appointment.setID(set.getInt("appointmentId"));
-			appointment.setCustomer(SQL_Customer.getSelectedCustomer(set.getInt("customerId")));
+			appointment.setCustomer(SQL_Customer.getCustomer(set.getInt("customerId")));
 			appointment.setDescription(set.getString("description"));
 			appointment.setLocation(set.getString("location"));
 			appointment.setContact(set.getString("contact"));
