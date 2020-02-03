@@ -161,6 +161,8 @@ public class DashboardController implements Initializable
 	@Override
 	public void initialize(URL url, ResourceBundle rb)
 	{
+		loginTime = LocalTime.now();
+
 		setMonthAndYearHeader();
 		setMonth();
 		setYear();
@@ -186,6 +188,7 @@ public class DashboardController implements Initializable
 		catch (ClassNotFoundException | SQLException  e) {
 			e.printStackTrace();
 		}
+		
 	}
 	
 	
@@ -512,7 +515,7 @@ public class DashboardController implements Initializable
 			if(SQL_Appointments.hasEvent(currDay, currMonth, currYear)) {
 				addEventToCalendar(j, i);
 			}
-			toggleDay.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
+			toggleDay.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> { //Lambda to add an event handler to each day button and grab the date to appropriately create a new appointment without stepping through the calendar each time. 
 				currentEventStart = calendar.getDate(Integer.toString(day));
 				try {
 					handleEventPopup();

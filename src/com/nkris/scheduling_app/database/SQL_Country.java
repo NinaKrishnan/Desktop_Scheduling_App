@@ -15,22 +15,25 @@ public class SQL_Country
 	
 	public static void insertCountry(Country country, Connection connection) throws SQLException, ClassNotFoundException
 	{
-		String addCountryQuery = String.join(" ",
-	            "INSERT INTO country (countryId, country, createDate, "
-	            + "createdBy, lastUpdate, lastUpdateBy)",
-	            "VALUES (?, ?, NOW(), ?, NOW(), ?)");
-		String foreignKeyQuery = "SET FOREIGN_KEY_CHECKS=0";
-		String foreignKeyQuery2 = "SET FOREIGN_KEY_CHECKS=1";
-		PreparedStatement statement = connection.prepareStatement(addCountryQuery);
-		statement.setInt(1, country.getCountryId());
-		statement.setString(2, country.getCountryName());
-		statement.setString(3, Main.user.getUserName());
-		statement.setString(4, Main.user.getUserName());
-		PreparedStatement fkStatement = connection.prepareStatement(foreignKeyQuery);
-	    PreparedStatement fkStatement2 = connection.prepareStatement(foreignKeyQuery2);
-	    fkStatement.executeUpdate();
-		statement.executeUpdate();
-		fkStatement2.executeUpdate();
+		if(!containsCountry(country.getCountryName())) {
+			String addCountryQuery = String.join(" ",
+		            "INSERT INTO country (countryId, country, createDate, "
+		            + "createdBy, lastUpdate, lastUpdateBy)",
+		            "VALUES (?, ?, NOW(), ?, NOW(), ?)");
+			String foreignKeyQuery = "SET FOREIGN_KEY_CHECKS=0";
+			String foreignKeyQuery2 = "SET FOREIGN_KEY_CHECKS=1";
+			PreparedStatement statement = connection.prepareStatement(addCountryQuery);
+			statement.setInt(1, country.getCountryId());
+			statement.setString(2, country.getCountryName());
+			statement.setString(3, Main.user.getUserName());
+			statement.setString(4, Main.user.getUserName());
+			PreparedStatement fkStatement = connection.prepareStatement(foreignKeyQuery);
+		    PreparedStatement fkStatement2 = connection.prepareStatement(foreignKeyQuery2);
+		    fkStatement.executeUpdate();
+			statement.executeUpdate();
+			fkStatement2.executeUpdate();
+		}
+		
 	}
 	
 	
@@ -65,7 +68,6 @@ public class SQL_Country
 		     country.setCountryID(set.getInt("countryId"));
 		     
 	     }
-	     connection.close();
 	     return country;
 	}
 	
@@ -101,6 +103,10 @@ public class SQL_Country
 			return set.getInt("countryId");
 		}
 		
+		Country country = new Country();
+		country.setCountryID(getLastIndex(connection));
+		country.setCountryName(countryName);
+		insertCountry(country, connection);
 		return getLastIndex(connection);
 	}
 	

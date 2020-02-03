@@ -15,6 +15,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -29,6 +33,12 @@ public class EventController implements Initializable
 	private JFXButton newEventButton;
 	
 	@FXML
+	private Button viewEventButton;
+	
+	@FXML
+	private Button deleteEventButton;
+	
+	@FXML
 	private TableView<Appointment> agendaTable;
 	
 	@FXML
@@ -40,7 +50,7 @@ public class EventController implements Initializable
 	@FXML
 	private AnchorPane popupAnchorPane;
 	
-	
+	public static Appointment selectedAppointment;
 
 
 	public Stage stage = null;
@@ -49,6 +59,7 @@ public class EventController implements Initializable
 	@Override
 	public void initialize(URL url, ResourceBundle rb) 
 	{
+		selectedAppointment = null;
 		setAgendaFeedCellValues();
 		try {
 			populateAgendaFeed(agendaTable);
@@ -84,6 +95,46 @@ public class EventController implements Initializable
 	}
 	 
 	 
+	@FXML
+	private void viewEvent(ActionEvent event) throws SQLException, IOException, ClassNotFoundException
+	{
+		int appointmentId = agendaTable.getSelectionModel().getSelectedItem().getID();
+		//System.out.println(agendaTable.getSelectionModel().getSelectedItem().getID());
+		
+		selectedAppointment = SQL_Appointments.getAppointment(appointmentId);
+		
+		
+		AnchorPane ap = FXMLLoader.load(getClass().getResource
+				("/com/nkris/scheduling_app/FXML/helpers/viewEvent.fxml"));
+		popupAnchorPane.getChildren().add(ap);
+		
+	}
+	
+	@FXML
+	private void deleteEvent(ActionEvent event) throws SQLException, ClassNotFoundException
+	{
+		Appointment appointment = agendaTable.getSelectionModel().getSelectedItem();
+		
+		if(confirmDeleteEvent()) {
+			SQL_Appointments.deleteAppointment(appointment.getID());
+			populateAgendaFeed(agendaTable);
+		}
+	}
+	
+	private boolean confirmDeleteEvent()
+	{
+		Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you want to delete this event?", 
+				ButtonType.YES, ButtonType.NO);
+		alert.showAndWait();
+		
+		if(alert.getResult() == ButtonType.YES) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	
 	@FXML
 	private void createEventPopup(ActionEvent event) throws IOException
 	{

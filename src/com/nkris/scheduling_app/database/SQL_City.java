@@ -15,7 +15,7 @@ public class SQL_City
 	
 	public static void insertCity(City city, Connection connection) throws SQLException, ClassNotFoundException
 	{		
-		//if(!containsCity(city.getCityName(), city.getCountry().getCountryId())) {
+		if(!containsCity(city.getCityName())) {
 			 String addCityQuery = String.join(" ",
 			            "INSERT INTO city (cityId, city, countryId, createDate, "
 			            + "createdBy, lastUpdate, lastUpdateBy)",
@@ -34,7 +34,7 @@ public class SQL_City
 		     fkStatement.executeUpdate();
 			 statement.executeUpdate();
 			 fkStatement2.executeUpdate();
-		//}
+		}
 		 
 	}
 	
@@ -79,14 +79,13 @@ public class SQL_City
 	}
 	
 	
-	public static boolean containsCity(String cityName, int countryID) throws SQLException
+	public static boolean containsCity(String cityName) throws SQLException
 	{
 		connection = DatabaseHandler.getDBconnection();
-		String query = "SELECT * FROM city WHERE city = ? AND countryId = ?";
+		String query = "SELECT * FROM city WHERE city = ?";
 		
 		PreparedStatement statement = connection.prepareStatement(query);
 		statement.setString(1, cityName);
-		statement.setInt(2, countryID);
 		
 		ResultSet set = statement.executeQuery();
 		
@@ -100,17 +99,21 @@ public class SQL_City
 	{
 		connection = DatabaseHandler.getDBconnection();
 		
-		String query = "SELECT * FROM city WHERE city = ? AND countryId = ?";
+		String query = "SELECT * FROM city WHERE city = ?";
 		
 		PreparedStatement statement = connection.prepareStatement(query);
 		statement.setString(1, cityName);
-		statement.setInt(2, countryID);
 		
 		ResultSet set = statement.executeQuery();
 		
 		if(set.next()) {
 			return set.getInt("cityId");
 		}
+		City city = new City();
+		city.setCityName(cityName);
+		city.setCityID(getLastIndex(connection));
+		city.setCountry(SQL_Country.getCountry(countryID));
+		insertCity(city, DatabaseHandler.getDBconnection());
 		return getLastIndex(connection);
 	}
 	
@@ -120,5 +123,7 @@ public class SQL_City
 		
 		
 	}
+	
+	
 	
 }

@@ -5,20 +5,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="147.0" prefWidth="103.0" style="-fx-background-color: #0356fc;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nkris.scheduling_app.controllers.helpers.ReportsPopUpController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="99.0" prefWidth="103.0" style="-fx-background-color: #0356fc;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nkris.scheduling_app.controllers.helpers.ReportsPopUpController">
    <children>
-      <JFXButton id="cursor" fx:id="scheduleButton" layoutY="50.0" onAction="#generateScheduleReport" prefHeight="50.0" prefWidth="103.0" ripplerFill="#0ed6ed" style="-fx-border-color: #000000; -fx-border-radius: 3; -fx-background-color: #9ba4a8; -fx-border-width: 1.4;" stylesheets="@../../main/stylesheets/application.css" text="Schedule" textFill="WHITE">
-         <effect>
-            <InnerShadow choke="0.79" height="63.81" radius="44.7325" width="117.12">
-               <input>
-                  <InnerShadow />
-               </input>
-            </InnerShadow>
-         </effect>
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </JFXButton>
       <JFXButton id="cursor" fx:id="appointmentTypesButton" onAction="#generateAppointmentsReport" prefHeight="50.0" prefWidth="103.0" ripplerFill="#0ed6ed" style="-fx-border-color: #000000; -fx-border-radius: 3; -fx-background-color: #9ba4a8; -fx-border-width: 1.4;" stylesheets="@../../main/stylesheets/application.css" text="Appointment Types" textFill="WHITE" wrapText="true">
          <effect>
             <InnerShadow choke="0.79" height="63.81" radius="44.7325" width="117.12">
@@ -31,7 +19,7 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </JFXButton>
-      <JFXButton id="cursor" fx:id="loginsButton" layoutY="100.0" onAction="#generateLoginsReport" prefHeight="50.0" prefWidth="103.0" ripplerFill="#0ed6ed" style="-fx-border-color: #000000; -fx-border-radius: 3; -fx-background-color: #9ba4a8; -fx-border-width: 1.4;" stylesheets="@../../main/stylesheets/application.css" text="Log-Ins" textFill="WHITE">
+      <JFXButton id="cursor" fx:id="loginsButton" layoutY="49.0" onAction="#generateLoginsReport" prefHeight="50.0" prefWidth="103.0" ripplerFill="#0ed6ed" style="-fx-border-color: #000000; -fx-border-radius: 3; -fx-background-color: #9ba4a8; -fx-border-width: 1.4;" stylesheets="@../../main/stylesheets/application.css" text="Log-Ins" textFill="WHITE">
          <effect>
             <InnerShadow choke="0.79" height="63.81" radius="44.7325" width="117.12">
                <input>

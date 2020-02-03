@@ -122,7 +122,6 @@ public class SQL_Customer
 		
 		String customerQuery =  "SELECT * FROM customer WHERE customerId = ?";
 	    String addressQuery = "SELECT * FROM address WHERE addressId = ?";
-	    System.out.println("ID: "+id);
 		Customer customer = new Customer();
 
 		PreparedStatement statement = connection.prepareStatement(customerQuery);

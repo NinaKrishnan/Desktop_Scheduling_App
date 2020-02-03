@@ -1,5 +1,6 @@
 package com.nkris.scheduling_app.models;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -8,6 +9,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import com.nkris.scheduling_app.controllers.helpers.Type;
+import com.nkris.scheduling_app.database.SQL_Appointments;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -24,6 +26,7 @@ public class Appointment
 	private int id;
 	private Customer customer;
 	private User user;
+	private int userId;
 	private String location;
 	private String contact;
 	//private String type;
@@ -32,6 +35,7 @@ public class Appointment
 	private int customerId;
 	private String timeRange;
 	private String sticker;
+	public static int appointmentIndex;
 	
 	public Appointment()
 	{
@@ -63,6 +67,7 @@ public class Appointment
 	{
 		return title;
 	}
+
 	
 	public void setStartDate(LocalDate date)
 	{
@@ -168,6 +173,16 @@ public class Appointment
 		return user;
 	}
 	
+	public void setUserId(int id)
+	{
+		userId = id;
+	}
+	
+	public int getUserId()
+	{
+		return userId;
+	}
+	
 	public void setLocation(String location)
 	{
 		this.location = location;
@@ -244,6 +259,11 @@ public class Appointment
 		return endDate.isBefore(LocalDate.now()) && endTime.isBefore(LocalTime.now());
 	}
 	
+	public static void setIndex() throws SQLException
+	{
+		int index = SQL_Appointments.getLastIndex();
+		appointmentIndex = index;
+	}
 	
 	
 }

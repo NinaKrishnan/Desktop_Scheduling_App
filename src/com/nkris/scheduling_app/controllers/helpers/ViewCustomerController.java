@@ -108,7 +108,6 @@ public class ViewCustomerController implements Initializable
 			String name = firstNameTextField.getText() + " " + lastNameTextField.getText();
 			
 			Customer customer = SQL_Customer.getCustomer(CustomersController.selectedCustomer.getCustomerID());
-			Address address = SQL_Address.getAddressFromId(customer.getAddress().getId());
 			
 			SQL_Address.updateAddress(customer.getAddress().getId(), addressTextField.getText(), cityTextField.getText(),
 					countryTextField.getText(), phoneTextField.getText());
@@ -116,7 +115,8 @@ public class ViewCustomerController implements Initializable
 			SQL_Customer.updateCustomer(customer.getCustomerID(), name);
 			
 		    ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
-
+		    
+		    
 		}
 		
 	}

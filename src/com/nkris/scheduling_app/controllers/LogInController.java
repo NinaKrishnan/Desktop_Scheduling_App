@@ -1,23 +1,33 @@
 package com.nkris.scheduling_app.controllers;
 
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import com.nkris.scheduling_app.database.DatabaseHandler;
 import com.nkris.scheduling_app.main.Main;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
@@ -116,12 +126,13 @@ public class LogInController implements Initializable
 	public void initialize(URL url, ResourceBundle rb) 
 	{
 		
+		translatePage();
+		
 		usernameTextField.setFocusTraversable(false);
 		passwordTextField.setFocusTraversable(false);	
 		
 		DashboardController.loginTime = null;
 		
-		translate();
 	}
     
 	
@@ -133,16 +144,7 @@ public class LogInController implements Initializable
     @FXML
     void englishSelected(ActionEvent event)
     {
-    	translate("en"); //Translate login screen to english
     	
-    	
-    	languageMenuButton.setAlignment(Pos.CENTER);
-    	   	
-    	welcomeBackLabel.setAlignment(Pos.CENTER);
-    
-    	signInLabel.setAlignment(Pos.CENTER);
-    	 
-    	loginButton.setAlignment(Pos.CENTER);
     }
     
     
@@ -153,15 +155,7 @@ public class LogInController implements Initializable
     void spanishSelected(ActionEvent event) 
     {
     	
-    	translate("es");
     	
-    	languageMenuButton.setAlignment(Pos.CENTER);
-    	
-    	welcomeBackLabel.setAlignment(Pos.CENTER);
-
-    	signInLabel.setAlignment(Pos.BOTTOM_CENTER);
-
-    	loginButton.setAlignment(Pos.CENTER);
     }
 
     
@@ -213,6 +207,30 @@ public class LogInController implements Initializable
     	}
     }
     
+    private void translatePage()
+    {
+    	if(Locale.getDefault().getLanguage().equals("es")) {
+    		//change text on language selection menu to 
+        	languageMenuButton.setText("Spanish");
+        	
+        	//change welcome title to spanish
+        	welcomeBackLabel.setText("Bienvenido,");
+        	
+        	//change login title to spanish
+        	signInLabel.setText("Inicia sesión \npara continuar");
+        	
+        	//change username/password prompt text to spanish
+        	usernameTextField.setPromptText("Nombre de usario");
+        	passwordTextField.setPromptText("Contraseña");
+        	
+        	//change "forgot password" button to spanish
+        	forgotPasswordButton.setText("¿Olvidó contraseña?");
+        	
+        	//change the login button to spanish
+        	loginButton.setText("Iniciar sesión");
+    	}
+    	
+    }
   
       
     
@@ -240,20 +258,39 @@ public class LogInController implements Initializable
 	 * instructed to reset their password before the system will log them in.
 	 */
 	@FXML
-	void loginButtonClicked(ActionEvent event) throws IOException
+	void loginButtonClicked(ActionEvent event) throws IOException, SQLException
 	{
-		setUserName(usernameTextField.getText());
-		Parent parent = FXMLLoader.load(getClass().getResource
-				("/com/nkris/scheduling_app/FXML/DashboardUI.fxml"));
-		Scene homeScreen = new Scene(parent);
-		Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-		
-		DashboardController.loginTime = LocalTime.now();
-		
-		stage.setScene(homeScreen);		
-		stage.show();
+		if(isValidUsernameAndPassword(usernameTextField.getText(), passwordTextField.getText())) {
+			
+			BufferedWriter writer = new BufferedWriter(new FileWriter("LoginTracker.txt", true));
+			writer.write("User: "+usernameTextField.getText()+", ");
+			writer.write("Timestamp: "+LocalDateTime.now().toString());
+			writer.newLine();
+			writer.close();
+			
+			setUserName(usernameTextField.getText());
+			Parent parent = FXMLLoader.load(getClass().getResource
+					("/com/nkris/scheduling_app/FXML/DashboardUI.fxml"));
+			Scene homeScreen = new Scene(parent);
+			Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			
+			DashboardController.loginTime = LocalTime.now();
+			
+			stage.setScene(homeScreen);		
+			stage.show();
+		}
+		else {
+			displayAlert();
+		}
 	}
 
+	private void displayAlert()
+	{
+		Alert alert = new Alert(AlertType.WARNING, "Invalid username and/or password. Please try again."
+				, ButtonType.OK);
+		alert.showAndWait();
+	}
+	
 	//Determine user's location and translate login screen into language. 
 	//****Supported: English & Spanish
 	private void translate()
@@ -277,19 +314,28 @@ public class LogInController implements Initializable
 	/*
 	 * Queries the database to validate the username
 	 */
-	boolean isValidUsername(String username) {
+	boolean isValidUsernameAndPassword(String username, String password) throws SQLException
+	{
+		Connection connection = DatabaseHandler.getDBconnection();
+		
+		String query = "SELECT * FROM user WHERE userName = ? AND password = ?";
+		PreparedStatement statement = connection.prepareStatement(query);
+		
+		statement.setString(1, username);
+		statement.setString(2, password);
+		ResultSet set = statement.executeQuery();
+		
+		if(set.next()) {
+			return true;
+		}
+		
 		return false;
 	}
 
 	
 	
 	
-	/*
-	 * Queries the database to validate the password against the pre-validated username
-	 */
-	boolean isCorrectPassword(String username, String password) {
-		return false;
-	}
+	
 	
 	
 	

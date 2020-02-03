@@ -4,6 +4,7 @@ package com.nkris.scheduling_app.controllers.helpers;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
@@ -129,6 +130,8 @@ public class EventPopUpController implements Initializable
 	@FXML
 	public void saveEvent(ActionEvent event)
 	{
+		LocalTime businessHourStart = LocalTime.parse("09:00:00.00");
+		LocalTime businessHourEnd = LocalTime.parse("17:00:00.00");
 		
 		if(CustomerSelectionController.selectedCustomer == null || eventTitleTextField.getText() == null
 			||startDatePicker.getValue() == null || endDatePicker.getValue() == null || startTimePicker.getValue() == null
@@ -136,7 +139,14 @@ public class EventPopUpController implements Initializable
 				displayAlert();
 			}
 	    
+		else if(startTimePicker.getValue().isAfter(businessHourEnd) || 
+				startTimePicker.getValue().isBefore(businessHourStart)) {
+			displayInvalidTimeAlert();
+		}
+		
 		else {
+			
+			
 			 Appointment newEvent = new Appointment();
 			    newEvent = new Appointment();
 			    newEvent.setCustomer(CustomerSelectionController.selectedCustomer);
@@ -164,6 +174,13 @@ public class EventPopUpController implements Initializable
 		}
 	}
 	
+	
+	private void displayInvalidTimeAlert()
+	{
+		Alert alert = new Alert(AlertType.WARNING, "The appointment cannot be scheduled outside of business hours.", 
+				ButtonType.OK);
+		alert.showAndWait();
+	}
 	
 	//Display alert if form fields are not filled out properly
 	private void displayAlert()

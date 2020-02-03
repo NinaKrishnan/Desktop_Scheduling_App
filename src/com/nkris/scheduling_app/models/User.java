@@ -5,13 +5,17 @@ public class User
 
 	private String name;
 	private String userName;
-	private int password;
+	private String password;
 	private int id;
 
 	
 	
 	
-	
+	public User(String userName, String password)
+	{
+		this.userName = userName;
+		this.password = password;
+	}
 	
 	
 	public void setUserID(int id)

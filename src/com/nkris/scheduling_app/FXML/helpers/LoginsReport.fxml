@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="599.0" prefWidth="517.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nkris.scheduling_app.controllers.helpers.LoginsReportController">
+   <children>
+      <TableView fx:id="loginsTable" layoutX="3.0" layoutY="-1.0" prefHeight="599.0" prefWidth="511.0">
+        <columns>
+          <TableColumn fx:id="loginsColumn" prefWidth="510.0" text="Logins Report" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

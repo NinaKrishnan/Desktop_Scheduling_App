@@ -16,9 +16,7 @@ public class ReportsPopUpController
 {
 	@FXML
 	private JFXButton appointmentTypesButon;
-	
-	@FXML
-	private JFXButton scheduleButton;
+
 	
 	@FXML 
 	private JFXButton loginsButton;
@@ -56,17 +54,33 @@ public class ReportsPopUpController
 		
 	}
 	
-	@FXML
-	private void generateScheduleReport(ActionEvent event)
-	{
-		
-
-	}
 	
 	@FXML
 	private void generateLoginsReport(ActionEvent event)
 	{
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/com/nkris/scheduling_app/FXML/helpers/LoginsReport.FXML"));
 		
+		MonthlyReportController reportController = new MonthlyReportController();
+		loader.setController(reportController);
+		
+		
+		Parent layout;
+		try 
+		{
+			layout = loader.load(getClass().getResource("/com/nkris/scheduling_app/FXML/helpers/LoginsReport.FXML"));
+			Scene scene = new Scene(layout);
+			Stage eventStage = new Stage();
+			reportController.setStage(eventStage);
+			
+			eventStage.initModality(Modality.WINDOW_MODAL); //Create popup window
+			eventStage.setScene(scene);
+			eventStage.showAndWait();
+		} 
+		catch (Exception e)
+		{ 
+			e.printStackTrace();
+		}
 	}
 	
 }

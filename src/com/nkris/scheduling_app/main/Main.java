@@ -5,6 +5,7 @@ import java.util.ResourceBundle;
 
 import com.nkris.scheduling_app.database.DatabaseHandler;
 import com.nkris.scheduling_app.models.Address;
+import com.nkris.scheduling_app.models.Appointment;
 import com.nkris.scheduling_app.models.City;
 import com.nkris.scheduling_app.models.Country;
 import com.nkris.scheduling_app.models.Customer;
@@ -38,7 +39,8 @@ import javafx.stage.Stage;
 
 public class Main extends Application implements Initializable{
 	
-	public static User user = new User();
+	public static User user = new User("test", "test");
+	
 	
 	
 	
@@ -84,6 +86,7 @@ public class Main extends Application implements Initializable{
 			Address.setIndex();
 			City.setIndex();
 			Country.setIndex();
+			Appointment.setIndex();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}

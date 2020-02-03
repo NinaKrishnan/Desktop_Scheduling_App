@@ -9,6 +9,8 @@ public class City
 {
 	private Country country;
 	
+	private int countryId;
+	
 	private String cityName;
 	
 	private int cityID;
@@ -73,7 +75,6 @@ public class City
 	}
 	
 
-	
 	
 	
 }

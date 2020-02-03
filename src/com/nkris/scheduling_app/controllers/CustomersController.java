@@ -73,10 +73,11 @@ public class CustomersController implements Initializable
 	@Override
 	public void initialize(URL url, ResourceBundle rb) 
 	{
-		customersTable.getItems().clear();
+		//customersTable.getItems().clear();
 		try {
 			setCellValues();
 		} catch (ClassNotFoundException e) {
+			System.out.println("ERROR");
 			e.printStackTrace();
 		}
 		getCellValues();
@@ -110,7 +111,7 @@ public class CustomersController implements Initializable
 	
 	private void populateCustomers() throws SQLException, ClassNotFoundException
 	{
-		//customersTable.getItems().clear();
+		customersTable.getItems().clear();
 		customersTable.setItems(SQL_Customer.getCustomers());
 	}
 	

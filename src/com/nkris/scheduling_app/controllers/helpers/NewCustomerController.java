@@ -82,9 +82,6 @@ public class NewCustomerController implements Initializable
 			Connection connection = DatabaseHandler.getDBconnection();
 			Customer customer = createCustomer();
 			SQL_Customer.insertCustomer(customer, connection);
-			//SQL_Address.insertAddress(customer.getAddress(), connection);
-			//SQL_City.insertCity(customer.getAddress().getCity(), connection);
-			//SQL_Country.insertCountry(customer.getAddress().getCity().getCountry(), connection);
 		} 
 		catch (SQLException e) {
 			e.printStackTrace();
@@ -160,8 +157,9 @@ public class NewCustomerController implements Initializable
 		city.setCityName(cityTextField.getText());
 		city.setCountry(getCountry());
 		
-		if(!SQL_City.containsCity(city.getCityName(), city.getCountry().getCountryId())) {
+		if(!SQL_City.containsCity(city.getCityName())) {
 			city.setCityID(SQL_City.getLastIndex(DatabaseHandler.getDBconnection()));
+			SQL_City.insertCity(city, DatabaseHandler.getDBconnection());
 		}
 		
 		else {
@@ -175,7 +173,15 @@ public class NewCustomerController implements Initializable
 	{
 		Country country = new Country();
 		country.setCountryName(countryTextField.getText());
-		country.setCountryID(SQL_Country.getLastIndex(DatabaseHandler.getDBconnection()));		
+		
+		if(!SQL_Country.containsCountry(countryTextField.getText())) {
+			country.setCountryID(SQL_Country.getLastIndex(DatabaseHandler.getDBconnection()));
+			SQL_Country.insertCountry(country, DatabaseHandler.getDBconnection());
+		}
+		else {
+			country.setCountryID(SQL_Country.getCountryId(countryTextField.getText()));
+		}
+		
 		return country;
 	}
 	
