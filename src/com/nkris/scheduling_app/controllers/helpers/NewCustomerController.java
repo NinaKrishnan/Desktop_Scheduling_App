@@ -78,19 +78,27 @@ public class NewCustomerController implements Initializable
 	@FXML
 	private void saveNewCustomer(ActionEvent event)
 	{
-		try {
-			Connection connection = DatabaseHandler.getDBconnection();
-			Customer customer = createCustomer();
-			SQL_Customer.insertCustomer(customer, connection);
-		} 
-		catch (SQLException e) {
-			e.printStackTrace();
-		} 
-		catch (ClassNotFoundException e) {
-			e.printStackTrace();
+		if(firstNameTextField.getText().equals("") || lastNameTextField.getText().equals("") 
+				|| addressTextField.getText().equals("") || cityTextField.getText().equals("")
+				|| countryTextField.getText().equals("") || zipcodeTextField.getText().equals("")
+				|| phoneTextField.getText().equals("") || stateTextField.getText().equals("")) {
+			displayAlert();
 		}
-	    ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
-	  
+		
+		else {
+			try {
+				Connection connection = DatabaseHandler.getDBconnection();
+				Customer customer = createCustomer();
+				SQL_Customer.insertCustomer(customer, connection);
+			} 
+			catch (SQLException e) {
+				e.printStackTrace();
+			} 
+			catch (ClassNotFoundException e) {
+				e.printStackTrace();
+			}
+		    ((Stage)(((Button)event.getSource()).getScene().getWindow())).close();
+		}
 	}
 	
 	
@@ -110,7 +118,7 @@ public class NewCustomerController implements Initializable
 	
 	private boolean cancelNewCustomerAlert()
 	{
-		Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you want to cancel? customer entry?"
+		Alert alert = new Alert(AlertType.CONFIRMATION, "Are you sure you want to cancel customer entry?"
 				, ButtonType.YES, ButtonType.NO);
 		alert.showAndWait();
 		if(alert.getResult() == ButtonType.YES)
@@ -193,7 +201,12 @@ public class NewCustomerController implements Initializable
 	
 	
 
-
+	private void displayAlert()
+	{
+		Alert alert = new Alert(AlertType.WARNING, "Please fill out all fields before saving.", ButtonType.OK);
+		
+		alert.showAndWait();
+	}
 
 
 	

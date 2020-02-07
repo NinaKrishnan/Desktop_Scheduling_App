@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="623.0" prefWidth="600.0" style="-fx-background-color: #3E86FE;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nkris.scheduling_app.controllers.helpers.ScheduleReportController">
+   <children>
+      <TableView fx:id="agendaTable" layoutX="11.0" layoutY="49.0" prefHeight="564.0" prefWidth="578.0">
+        <columns>
+          <TableColumn fx:id="appointmentCol" prefWidth="275.5" text="Appointment" />
+          <TableColumn fx:id="timeCol" prefWidth="300.5" text="Time" />
+        </columns>
+      </TableView>
+      <Label fx:id="dateLabel" layoutX="14.0" layoutY="4.0" prefHeight="42.0" prefWidth="199.0" style="-fx-background-color: #3E86FE;" text="Today's Schedule" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

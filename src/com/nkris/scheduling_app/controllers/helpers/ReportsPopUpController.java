@@ -22,6 +22,9 @@ public class ReportsPopUpController
 	private JFXButton loginsButton;
 	
 	
+	@FXML
+	private JFXButton scheduleButton;
+	
 	
 	
 	
@@ -69,6 +72,35 @@ public class ReportsPopUpController
 		try 
 		{
 			layout = loader.load(getClass().getResource("/com/nkris/scheduling_app/FXML/helpers/LoginsReport.FXML"));
+			Scene scene = new Scene(layout);
+			Stage eventStage = new Stage();
+			reportController.setStage(eventStage);
+			
+			eventStage.initModality(Modality.WINDOW_MODAL); //Create popup window
+			eventStage.setScene(scene);
+			eventStage.showAndWait();
+		} 
+		catch (Exception e)
+		{ 
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@FXML
+	private void generateScheduleReport(ActionEvent event)
+	{
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("/com/nkris/scheduling_app/FXML/helpers/ScheduleReport.fxml"));
+		
+		MonthlyReportController reportController = new MonthlyReportController();
+		loader.setController(reportController);
+		
+		
+		Parent layout;
+		try 
+		{
+			layout = loader.load(getClass().getResource("/com/nkris/scheduling_app/FXML/helpers/ScheduleReport.fxml"));
 			Scene scene = new Scene(layout);
 			Stage eventStage = new Stage();
 			reportController.setStage(eventStage);

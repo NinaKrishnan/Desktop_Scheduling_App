@@ -294,6 +294,15 @@ public class SQL_Appointments
 	}
 	
 	
+	public static boolean isOverlapping(LocalDate date, LocalTime time)
+	{
+		connection = DatabaseHandler.getDBconnection();
+		
+		String query = "SELECT * FROM appointment WHERE ";
+		
+		
+		return false;
+	}
 	
 
 	

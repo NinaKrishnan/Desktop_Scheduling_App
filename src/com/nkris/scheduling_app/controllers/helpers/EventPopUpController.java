@@ -16,6 +16,7 @@ import com.nkris.scheduling_app.controllers.EventController;
 import com.nkris.scheduling_app.database.SQL_Appointments;
 import com.nkris.scheduling_app.models.Appointment;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -128,7 +129,7 @@ public class EventPopUpController implements Initializable
   * is then added to the database.
   */
 	@FXML
-	public void saveEvent(ActionEvent event)
+	public void saveEvent(ActionEvent event) throws ClassNotFoundException, SQLException
 	{
 		LocalTime businessHourStart = LocalTime.parse("09:00:00.00");
 		LocalTime businessHourEnd = LocalTime.parse("17:00:00.00");
@@ -142,6 +143,11 @@ public class EventPopUpController implements Initializable
 		else if(startTimePicker.getValue().isAfter(businessHourEnd) || 
 				startTimePicker.getValue().isBefore(businessHourStart)) {
 			displayInvalidTimeAlert();
+		}
+		
+		else if(isOverlappingAppointment(startDatePicker.getValue(), startTimePicker.getValue(), 
+				endTimePicker.getValue())) {
+			displayOverlapAlert();
 		}
 		
 		else {
@@ -263,9 +269,28 @@ public class EventPopUpController implements Initializable
 	}
 	
 	
-
+	private boolean isOverlappingAppointment(LocalDate date, LocalTime startTime, LocalTime endTime) throws ClassNotFoundException, SQLException
+	{
+		ObservableList<Appointment> appointments = SQL_Appointments.getAppointments(date);
+		
+		for(Appointment appt : appointments) {
+			if(startTime.isAfter(appt.getStartTime()) && startTime.isBefore(appt.getEndTime())) {
+				return true;
+			}
+			
+			if(endTime.isAfter(appt.getStartTime()) && endTime.isBefore(appt.getEndTime())) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 	
-	
+	private void displayOverlapAlert()
+	{
+		Alert alert = new Alert(AlertType.WARNING, "This event overlaps with another event.", ButtonType.OK);
+		alert.showAndWait();
+	}
 	
 	
 	
